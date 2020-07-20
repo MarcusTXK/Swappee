@@ -1,0 +1,35 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <!-- Default table names -->
+    <property name="table.likes" value="likes"/>
+
+    <changeSet id="likes_create_table" author="MarcusTXK">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="${table.likes}"/>
+            </not>
+        </preConditions>
+        <createTable tableName="${table.likes}">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="item_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_likes_item_id"
+                             referencedTableName="${table.items}" referencedColumnNames="id"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_likes_user_id"
+                             referencedTableName="${table.users}" referencedColumnNames="id"/>
+            </column>
+            <column name="created_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

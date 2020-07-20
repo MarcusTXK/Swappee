@@ -1,0 +1,43 @@
+
+spring:
+  application:
+    name: SwappeeApplication
+  servlet:
+    multipart:
+      max-file-size: 5MB
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mariadb://localhost:3306/swappee
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: root
+  jpa:
+    open-in-view: false
+    show-sql: false
+    hibernate.ddl-auto: none
+  jackson:
+    date-format: com.fasterxml.jackson.databind.util.StdDateFormat
+    default-property-inclusion: non-null
+
+server:
+  servlet:
+    context-path: /clsmartessenceadmin
+  error:
+    include-stacktrace: never
+  port: 9980
+
+elasticsearch:
+  baseurl: http://localhost:9200
+
+logging:
+  file: logs/SmartEssenceAdminApplication.log
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.cloud.openfeign: INFO
+    org.hibernate: INFO
+    com.cl.smart: DEBUG
+    com.cl.smart.essence: DEBUG
