@@ -13,9 +13,6 @@
             </not>
         </preConditions>
         <createTable tableName="${table.preferred_items}">
-            <column name="id" type="bigint">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
             <column name="item_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_preferred_items_item_id"
                              referencedTableName="${table.items}" referencedColumnNames="id"/>
@@ -30,18 +27,6 @@
                 <constraints nullable="false"/>
             </column>
             <column name="new" type="boolean" defaultValueBoolean="false">
-                <constraints nullable="false"/>
-            </column>
-            <column name="version" type="bigint" defaultValue="0">
-                <constraints nullable="false"/>
-            </column>
-            <column name="created_date" type="timestamp">
-                <constraints nullable="false"/>
-            </column>
-            <column name="last_modified_date" type="timestamp">
-                <constraints nullable="true"/>
-            </column>
-            <column name="deleted" type="boolean" defaultValueBoolean="false">
                 <constraints nullable="false"/>
             </column>
         </createTable>
