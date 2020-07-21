@@ -1,0 +1,26 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <!-- Default table names -->
+    <property name="table.preferred_cat" value="preferred_cat"/>
+
+    <changeSet id="preferred_cat_create_table" author="MarcusTXK">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="${table.preferred_cat}"/>
+            </not>
+        </preConditions>
+        <createTable tableName="${table.preferred_cat}">
+            <column name="item_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_preferred_cat_item_id"
+                             referencedTableName="${table.item}" referencedColumnNames="id"/>
+            </column>
+            <column name="category" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

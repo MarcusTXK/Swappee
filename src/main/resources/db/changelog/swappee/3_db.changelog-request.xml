@@ -1,0 +1,55 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <!-- Default table names -->
+    <property name="table.request" value="request"/>
+
+    <changeSet id="request_create_table" author="MarcusTXK">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="${table.request}"/>
+            </not>
+        </preConditions>
+        <createTable tableName="${table.request}">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="item_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_request_item_id"
+                             referencedTableName="${table.item}" referencedColumnNames="id"/>
+            </column>
+            <column name="owner_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_request_owner_user_id"
+                             referencedTableName="${table.user}" referencedColumnNames="id"/>
+            </column>
+            <column name="trader_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_request_trader_user_id"
+                             referencedTableName="${table.user}" referencedColumnNames="id"/>
+            </column>
+            <column name="status" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="remarks" type="clob">
+                <constraints nullable="true"/>
+            </column>
+            <column name="hidden" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="bigint" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_date" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
+            <column name="deleted" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

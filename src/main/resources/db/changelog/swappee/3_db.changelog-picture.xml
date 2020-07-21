@@ -1,0 +1,44 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <!-- Default table names -->
+    <property name="table.picture" value="picture"/>
+
+    <changeSet id="picture_create_table" author="MarcusTXK">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="${table.picture}"/>
+            </not>
+        </preConditions>
+        <createTable tableName="${table.picture}">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="item_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_picture_item_id"
+                             referencedTableName="${table.item}" referencedColumnNames="id"/>
+            </column>
+            <column name="order" type="int" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_data" type="longblob">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_name" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content_type" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content_length" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

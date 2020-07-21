@@ -1,0 +1,46 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <!-- Default table names -->
+    <property name="table.review" value="review"/>
+
+    <changeSet id="review_create_table" author="MarcusTXK">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="${table.review}"/>
+            </not>
+        </preConditions>
+        <createTable tableName="${table.review}">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="request_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_review_item_id"
+                             referencedTableName="${table.item}" referencedColumnNames="id"/>
+            </column>
+            <column name="owner_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_review_owner_user_id"
+                             referencedTableName="${table.user}" referencedColumnNames="id"/>
+            </column>
+            <column name="trader_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_review_trader_user_id"
+                             referencedTableName="${table.user}" referencedColumnNames="id"/>
+            </column>
+            <column name="score" type="int" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="remarks" type="clob">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
