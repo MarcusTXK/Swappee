@@ -72,7 +72,7 @@ public class RequestDaoImpl implements RequestDao{
     @Transactional
     @Lock(LockModeType.OPTIMISTIC)
     public Request create(Request toCreate) throws BaseDaoException {
-        logger.info("Start create - toCreate : {}", toCreate);
+        logger.info("Start create - toCreate: {}", toCreate);
         try {
             Preconditions.checkArgument(toCreate != null);
             return this.requestRepository.save(toCreate);

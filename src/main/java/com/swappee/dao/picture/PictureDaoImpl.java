@@ -72,7 +72,7 @@ public class PictureDaoImpl implements PictureDao{
     @Transactional
     @Lock(LockModeType.OPTIMISTIC)
     public List<Picture> create(List<Picture> toCreates) throws BaseDaoException {
-        logger.info("Start create list - toCreates : {}", toCreates);
+        logger.info("Start create list - toCreates: {}", toCreates);
         try {
             Preconditions.checkArgument(toCreates != null);
             if (toCreates.isEmpty()) {
@@ -92,7 +92,7 @@ public class PictureDaoImpl implements PictureDao{
     @Transactional
     @Lock(LockModeType.OPTIMISTIC)
     public List<Picture> update(List<Picture> toUpdates) throws BaseDaoException {
-        logger.info("Start update list - toUpdates : {}", toUpdates);
+        logger.info("Start update list - toUpdates: {}", toUpdates);
         try {
             Preconditions.checkArgument(toUpdates != null);
             if (toUpdates.isEmpty()) {

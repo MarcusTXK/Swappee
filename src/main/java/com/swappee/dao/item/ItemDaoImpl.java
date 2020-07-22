@@ -61,7 +61,7 @@ public class ItemDaoImpl implements ItemDao{
 
     @Override
     public Page<Item> getAll(Pageable pageable) throws BaseDaoException {
-        logger.info("Start getAll page - pageable : {}", pageable);
+        logger.info("Start getAll page - pageable: {}", pageable);
         try {
             Preconditions.checkArgument(pageable != null);
             return itemRepository.findAll(pageable);
@@ -78,7 +78,7 @@ public class ItemDaoImpl implements ItemDao{
     @Transactional
     @Lock(LockModeType.OPTIMISTIC)
     public Item create(Item toCreate) throws BaseDaoException {
-        logger.info("Start create - toCreate : {}", toCreate);
+        logger.info("Start create - toCreate: {}", toCreate);
         try {
             Preconditions.checkArgument(toCreate != null);
             return this.itemRepository.save(toCreate);

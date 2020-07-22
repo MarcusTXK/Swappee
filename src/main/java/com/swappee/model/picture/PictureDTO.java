@@ -1,40 +1,35 @@
-package com.swappee.domain.picture;
+package com.swappee.model.picture;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+
 import java.util.Arrays;
 
-/**
- * A Picture entity
- */
-@Entity
-@Table(name = "picture")
-public class Picture implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PictureDTO {
+    @JsonProperty("Id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
-    @Column(name = "item_id", nullable = false)
+    @JsonProperty("ItemId")
     private Long itemId;
 
-    @Column(name = "order", nullable = false)
+    @JsonProperty("Order")
     private Long order;
 
-    @Lob
-    @Column(name = "file_data", nullable = false)
+    @JsonProperty("FileData")
     private byte[] fileData;
 
-    @Column(name = "file_name", length = 200, nullable = false)
+    @JsonProperty("FileName")
     private String fileName;
 
-    @Column(name = "content_type", length = 200, nullable = false)
+    @JsonProperty("ContentType")
     private String contentType;
 
-    @Column(name = "content_length", nullable = false)
+    @JsonProperty("ContentLength")
     private Long contentLength;
 
-    @Lob
-    @Column(name = "description")
+    @JsonProperty("Description")
     private String description;
 
     public Long getId() {
@@ -103,7 +98,7 @@ public class Picture implements Serializable {
 
     @Override
     public String toString() {
-        return "Picture{" +
+        return "PictureDTO{" +
                 "id=" + id +
                 ", itemId=" + itemId +
                 ", order=" + order +

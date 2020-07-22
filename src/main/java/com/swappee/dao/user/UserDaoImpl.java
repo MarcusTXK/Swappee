@@ -61,7 +61,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Page<User> getAll(Pageable pageable) throws BaseDaoException {
-        logger.info("Start getAll page - pageable : {}", pageable);
+        logger.info("Start getAll page - pageable: {}", pageable);
         try {
             Preconditions.checkArgument(pageable != null);
             return userRepository.findAll(pageable);
@@ -78,7 +78,7 @@ public class UserDaoImpl implements UserDao {
     @Transactional
     @Lock(LockModeType.OPTIMISTIC)
     public User create(User toCreate) throws BaseDaoException {
-        logger.info("Start create - toCreate : {}", toCreate);
+        logger.info("Start create - toCreate: {}", toCreate);
         try {
             Preconditions.checkArgument(toCreate != null);
             return this.userRepository.save(toCreate);

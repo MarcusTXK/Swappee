@@ -1,22 +1,21 @@
-package com.swappee.domain.item;
+package com.swappee.model.items;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * An PreferredItems embeddable
+ * Preferred Item DTO
  */
-@Embeddable
-public class PreferredItems {
-    @Column(name = "name", length = 200, nullable = false)
+public class PreferredItemDTO {
+    @JsonProperty("Name")
     private String name;
 
-    @Column(name = "category", length = 200, nullable = false)
+    @JsonProperty("Category")
     private String category;
 
-    @Column(name = "brand", length = 200, nullable = false)
+    @JsonProperty("Brand")
     private String brand;
 
-    @Column(name = "new", nullable = false)
+    @JsonProperty("IsNew")
     private boolean isNew;
 
     public String getName() {
@@ -53,8 +52,8 @@ public class PreferredItems {
 
     @Override
     public String toString() {
-        return "PreferredItems{" +
-                ", name='" + name + '\'' +
+        return "PreferredItemDTO{" +
+                "name='" + name + '\'' +
                 ", category='" + category + '\'' +
                 ", brand='" + brand + '\'' +
                 ", isNew=" + isNew +

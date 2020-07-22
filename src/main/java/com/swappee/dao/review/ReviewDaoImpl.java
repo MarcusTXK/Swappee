@@ -41,7 +41,7 @@ public class ReviewDaoImpl implements ReviewDao{
 
     @Override
     public Page<Review> getAll(Pageable pageable) throws BaseDaoException {
-        logger.info("Start getAll page - pageable : {}", pageable);
+        logger.info("Start getAll page - pageable: {}", pageable);
         try {
             Preconditions.checkArgument(pageable != null);
             return reviewRepository.findAll(pageable);
@@ -58,7 +58,7 @@ public class ReviewDaoImpl implements ReviewDao{
     @Transactional
     @Lock(LockModeType.OPTIMISTIC)
     public Review create(Review toCreate) throws BaseDaoException {
-        logger.info("Start create - toCreate : {}", toCreate);
+        logger.info("Start create - toCreate: {}", toCreate);
         try {
             Preconditions.checkArgument(toCreate != null);
             return this.reviewRepository.save(toCreate);
