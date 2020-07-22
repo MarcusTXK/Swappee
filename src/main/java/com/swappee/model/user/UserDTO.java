@@ -8,8 +8,6 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
-import javax.persistence.Column;
-import javax.persistence.Lob;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
@@ -18,35 +16,34 @@ public class UserDTO {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
-    @Column(name = "first_name", length = 200, nullable = false)
+    @JsonProperty("FirstName")
     private String firstName;
 
-    @Column(name = "last_name", length = 200, nullable = false)
+    @JsonProperty("LastName")
     private String lastName;
 
-    @Column(name = "user_name", length = 200, nullable = false)
+    @JsonProperty("UserName")
     private String userName;
 
-    @Column(name = "password", length = 200, nullable = false)
+    @JsonProperty("Password")
     private String password;
 
-    @Column(name = "email", length = 200, nullable = false)
+    @JsonProperty("Email")
     private String email;
 
-    @Lob
-    @Column(name = "avatar", nullable = false)
+    @JsonProperty("Avatar")
     private byte[] avatar;
 
-    @Column(name = "phone", nullable = false)
+    @JsonProperty("Phone")
     private Long phone;
 
-    @Column(name = "email_only", nullable = false)
+    @JsonProperty("EmailOnly")
     private boolean emailOnly;
 
-    @Column(name = "score", nullable = false)
+    @JsonProperty("Score")
     private Long score;
 
-    @Column(name = "total_traded", nullable = false)
+    @JsonProperty("TotalTraded")
     private Long totalTraded;
 
     @JsonProperty("CreatedDate")

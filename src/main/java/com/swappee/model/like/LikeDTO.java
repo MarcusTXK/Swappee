@@ -1,4 +1,4 @@
-package com.swappee.model.review;
+package com.swappee.model.like;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,25 +10,16 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import java.time.LocalDateTime;
 
-public class ReviewDTO {
+public class LikeDTO {
     @JsonProperty("Id")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
-    @JsonProperty("RequestId")
-    private Long requestId;
+    @JsonProperty("ItemId")
+    private Long itemId;
 
-    @JsonProperty("OwnerId")
-    private Long ownerId;
-
-    @JsonProperty("TraderId")
-    private Long traderId;
-
-    @JsonProperty("Score")
-    private Long score;
-
-    @JsonProperty("Remarks")
-    private String remarks;
+    @JsonProperty("UserId")
+    private Long userId;
 
     @JsonProperty("CreatedDate")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
@@ -44,44 +35,20 @@ public class ReviewDTO {
         this.id = id;
     }
 
-    public Long getRequestId() {
-        return requestId;
+    public Long getItemId() {
+        return itemId;
     }
 
-    public void setRequestId(Long requestId) {
-        this.requestId = requestId;
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
     }
 
-    public Long getOwnerId() {
-        return ownerId;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
-    }
-
-    public Long getTraderId() {
-        return traderId;
-    }
-
-    public void setTraderId(Long traderId) {
-        this.traderId = traderId;
-    }
-
-    public Long getScore() {
-        return score;
-    }
-
-    public void setScore(Long score) {
-        this.score = score;
-    }
-
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -94,13 +61,10 @@ public class ReviewDTO {
 
     @Override
     public String toString() {
-        return "ReviewDTO{" +
+        return "LikeDTO{" +
                 "id=" + id +
-                ", requestId=" + requestId +
-                ", ownerId=" + ownerId +
-                ", traderId=" + traderId +
-                ", score=" + score +
-                ", remarks='" + remarks + '\'' +
+                ", itemId=" + itemId +
+                ", userId=" + userId +
                 ", createdDate=" + createdDate +
                 '}';
     }

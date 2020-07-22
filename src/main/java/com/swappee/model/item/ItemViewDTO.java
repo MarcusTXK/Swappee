@@ -1,4 +1,4 @@
-package com.swappee.model.items;
+package com.swappee.model.item;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
