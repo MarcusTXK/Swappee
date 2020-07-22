@@ -27,7 +27,7 @@
             <column name="created_date" type="timestamp">
                 <constraints nullable="false"/>
             </column>
-            <column name="deleted" type="boolean" defaultValueBoolean="false">
+            <column name="item_deleted" type="boolean" defaultValueBoolean="false">
                 <constraints nullable="false"/>
             </column>
         </createTable>

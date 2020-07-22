@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  */
 @Entity
 @Table(name = "like")
-@Where(clause = "deleted = false")
+@Where(clause = "item_deleted = false")
 public class Like implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +28,8 @@ public class Like implements Serializable {
     @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate = LocalDateTime.now();
 
-    @Column(name = "deleted", nullable = false)
-    private boolean deleted;
+    @Column(name = "item_deleted", nullable = false)
+    private boolean itemDeleted;
 
     public Long getId() {
         return id;
@@ -63,22 +63,22 @@ public class Like implements Serializable {
         this.createdDate = createdDate;
     }
 
-    public boolean isDeleted() {
-        return deleted;
+    public boolean isItemDeleted() {
+        return itemDeleted;
     }
 
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
+    public void setItemDeleted(boolean itemDeleted) {
+        this.itemDeleted = itemDeleted;
     }
 
     @Override
     public String toString() {
-        return "Likes{" +
+        return "Like{" +
                 "id=" + id +
                 ", itemId=" + itemId +
                 ", userId=" + userId +
                 ", createdDate=" + createdDate +
-                ", deleted=" + deleted +
+                ", itemDeleted=" + itemDeleted +
                 '}';
     }
 }
