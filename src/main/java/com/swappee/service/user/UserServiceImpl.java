@@ -2,8 +2,10 @@ package com.swappee.service.user;
 
 import com.google.common.base.Preconditions;
 import com.swappee.dao.user.UserDao;
+import com.swappee.domain.user.User;
 import com.swappee.mapper.user.UserDTOMapper;
 import com.swappee.model.user.UserDTO;
+import com.swappee.model.user.UserViewDTO;
 import com.swappee.utils.exception.BaseDaoException;
 import com.swappee.utils.exception.BaseServiceException;
 import com.swappee.utils.exception.ErrorMessage;
@@ -13,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,10 +33,18 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserDTOMapper userDTOMapper;
 
+    /**
+     * Find user by id
+     * For users when trying to get information on their own profile
+     *
+     * @param id
+     * @return UserDTO
+     * @throws BaseServiceException
+     */
     @Override
-    public UserDTO findById(Long id) throws BaseServiceException {
+    public UserDTO findUserById(Long id) throws BaseServiceException {
         try {
-            logger.info("Start findById - id: {}", id);
+            logger.info("Start findUserById - id: {}", id);
             Preconditions.checkNotNull(id);
             UserDTO userDTO = userDTOMapper.mapEntity(userDao.findById(id));
             Preconditions.checkNotNull(userDTO);
@@ -42,10 +54,40 @@ public class UserServiceImpl implements UserService {
         } catch (Exception ex) {
             throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
         } finally {
-            logger.info("End findById");
+            logger.info("End findUserById");
         }
     }
 
+    /**
+     * Find user view by id
+     * For users trying to get information on other users
+     *
+     * @param id
+     * @return UserViewDTO
+     * @throws BaseServiceException
+     */
+    @Override
+    public UserViewDTO findUserViewById(Long id) throws BaseServiceException {
+        try {
+            logger.info("Start findUserById - id: {}", id);
+            Preconditions.checkNotNull(id);
+            return userViewDTOMapper(userDao.findById(id));
+        } catch (BaseDaoException bde) {
+            throw new BaseServiceException(ErrorMessage.USER_ERROR_GET_ONE_FAILED, bde);
+        } catch (Exception ex) {
+            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End findUserById");
+        }
+    }
+
+    /**
+     * Find user by username
+     *
+     * @param username
+     * @return userDTO
+     * @throws BaseServiceException
+     */
     @Override
     public UserDTO findByUsername(String username) throws BaseServiceException {
         try {
@@ -63,28 +105,135 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Find user views by id list
+     *
+     * @param ids
+     * @return List<UserViewDTO>
+     * @throws BaseServiceException
+     */
     @Override
-    public List<UserDTO> getAll(List<Long> ids) {
-        return null;
+    public List<UserViewDTO> getAll(List<Long> ids) throws BaseServiceException {
+        try {
+            logger.info("Start getAll - ids: {}", ids);
+            Preconditions.checkNotNull(ids);
+            List<User> userList = userDao.getAll(ids);
+            List<UserViewDTO> userViewDTOList = new ArrayList<>();
+            for (User user : userList) {
+                userViewDTOList.add(userViewDTOMapper(user));
+            }
+            return userViewDTOList;
+        } catch (BaseDaoException bde) {
+            throw new BaseServiceException(ErrorMessage.USER_ERROR_GET_LIST_FAILED, bde);
+        } catch (Exception ex) {
+            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End getAll");
+        }
+    }
+
+    /**
+     * Find user views by page
+     *
+     * @param pageable
+     * @return Page<UserViewDTO>
+     * @throws BaseServiceException
+     */
+    @Override
+    public Page<UserViewDTO> getAll(Pageable pageable) throws BaseServiceException {
+        try {
+            logger.info("Start getAll - pageable: {}", pageable);
+            Preconditions.checkNotNull(pageable);
+            return userDao.getAll(pageable).map(this::userViewDTOMapper);
+        } catch (BaseDaoException bde) {
+            throw new BaseServiceException(ErrorMessage.USER_ERROR_GET_PAGE_FAILED, bde);
+        } catch (Exception ex) {
+            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End getAll");
+        }
+    }
+
+    /**
+     * Create user
+     *
+     * @param toCreate
+     * @return created UserDTO
+     * @throws BaseServiceException
+     */
+    @Override
+    @Transactional(rollbackFor = {BaseServiceException.class})
+    public UserDTO create(UserDTO toCreate) throws BaseServiceException {
+        try {
+            logger.info("Start create - toCreate: {}", toCreate);
+            Preconditions.checkNotNull(toCreate);
+            UserDTO userDTO = userDTOMapper.mapEntity(userDao.create(userDTOMapper.mapDto(toCreate)));
+            Preconditions.checkNotNull(userDTO);
+            return userDTO;
+        } catch (BaseDaoException bde) {
+            throw new BaseServiceException(ErrorMessage.USER_ERROR_UPDATE_FAILED, bde);
+        } catch (Exception ex) {
+            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End create");
+        }
+    }
+
+    /**
+     * Update User
+     * @param toUpdate
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = {BaseServiceException.class})
+    public UserDTO update(UserDTO toUpdate) throws BaseServiceException {
+        try {
+            logger.info("Start update - toUpdate: {}", toUpdate);
+            Preconditions.checkNotNull(toUpdate);
+            UserDTO userDTO = userDTOMapper.mapEntity(userDao.update(userDTOMapper.mapDto(toUpdate)));
+            Preconditions.checkNotNull(userDTO);
+            return userDTO;
+        } catch (BaseDaoException bde) {
+            throw new BaseServiceException(ErrorMessage.USER_ERROR_UPDATE_FAILED, bde);
+        } catch (Exception ex) {
+            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End update");
+        }
     }
 
     @Override
-    public Page<UserDTO> getAll(Pageable pageable) {
-        return null;
+    @Transactional(rollbackFor = {BaseServiceException.class})
+    public UserDTO delete(UserDTO toDelete) throws BaseServiceException {
+        try {
+            logger.info("Start delete - toDelete: {}", toDelete);
+            Preconditions.checkNotNull(toDelete);
+            UserDTO userDTO = userDTOMapper.mapEntity(userDao.delete(userDTOMapper.mapDto(toDelete)));
+            Preconditions.checkNotNull(userDTO);
+            return userDTO;
+        } catch (BaseDaoException bde) {
+            throw new BaseServiceException(ErrorMessage.USER_ERROR_UPDATE_FAILED, bde);
+        } catch (Exception ex) {
+            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End delete");
+        }
     }
 
-    @Override
-    public UserDTO create(UserDTO toCreate) {
-        return null;
-    }
+    //mapper to map User to UserViewDTO
+    private UserViewDTO userViewDTOMapper(User user) {
+        Preconditions.checkNotNull(user);
 
-    @Override
-    public UserDTO update(UserDTO toUpdate) {
-        return null;
-    }
+        UserViewDTO userViewDTO = new UserViewDTO();
+        userViewDTO.setId(user.getId());
+        userViewDTO.setUsername(user.getUsername());
+        userViewDTO.setAvatarPath(user.getId().toString());
+        userViewDTO.setEmailOnly(user.isEmailOnly());
+        userViewDTO.setScore(user.getScore());
+        userViewDTO.setTotalTraded(user.getTotalTraded());
+        userViewDTO.setCreatedDate(user.getCreatedDate());
+        userViewDTO.setLastModifiedDate(user.getLastModifiedDate());
 
-    @Override
-    public UserDTO delete(UserDTO toDelete) {
-        return null;
+        return userViewDTO;
     }
 }
