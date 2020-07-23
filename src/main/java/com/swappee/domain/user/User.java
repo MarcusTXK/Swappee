@@ -7,7 +7,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 
 /**
  * An User entity
@@ -26,8 +25,8 @@ public class User implements Serializable {
     @Column(name = "last_name", length = 200, nullable = false)
     private String lastName;
 
-    @Column(name = "user_name", length = 200, nullable = false)
-    private String userName;
+    @Column(name = "username", length = 200, nullable = false)
+    private String username;
 
     @Column(name = "password", length = 200, nullable = false)
     private String password;
@@ -44,6 +43,9 @@ public class User implements Serializable {
 
     @Column(name = "email_only", nullable = false)
     private boolean emailOnly;
+
+    @Column(name = "role", nullable = false)
+    private String role;
 
     @Column(name = "score", nullable = false)
     private Long score;
@@ -90,12 +92,12 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -136,6 +138,14 @@ public class User implements Serializable {
 
     public void setEmailOnly(boolean emailOnly) {
         this.emailOnly = emailOnly;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Long getScore() {
@@ -188,16 +198,17 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "Users{" +
+        return "User{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", userName='" + userName + '\'' +
+                ", userName='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", avatar=" + Arrays.toString(avatar) +
+                ", avatar=" + avatar.length +
                 ", phone=" + phone +
                 ", emailOnly=" + emailOnly +
+                ", role='" + role + '\'' +
                 ", score=" + score +
                 ", totalTraded=" + totalTraded +
                 ", createdDate=" + createdDate +

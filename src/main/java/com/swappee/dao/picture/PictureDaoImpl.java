@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Lock;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.LockModeType;
@@ -19,7 +20,8 @@ import java.util.List;
 /**
  * An Data Access Object implementation for managing pictures.
  */
-public class PictureDaoImpl implements PictureDao{
+@Component
+public class PictureDaoImpl implements PictureDao {
     private static final Logger logger = LoggerFactory.getLogger(PictureDaoImpl.class);
 
     @Autowired
@@ -29,6 +31,7 @@ public class PictureDaoImpl implements PictureDao{
     public Picture findById(Long id) throws BaseDaoException {
         logger.info("Start findById - id: {}", id);
         try {
+            Preconditions.checkNotNull(id);
             return pictureRepository.findById(id).orElse(null);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GET_ONE_FAILED, dae);
@@ -40,10 +43,12 @@ public class PictureDaoImpl implements PictureDao{
     }
 
     @Override
-    public Picture findByItemIdAndOrderIs0(Long itemId) throws BaseDaoException {
-        logger.info("Start findByItemIdAndOrderIs0 - itemId: {}", itemId);
+    public Picture findByItemIdAndOrderIs(Long itemId, Long order) throws BaseDaoException {
+        logger.info("Start findByItemIdAndOrderIs0 - itemId: {}, order: {}", itemId, order);
         try {
-            return pictureRepository.findByItemIdAndOrderIs0(itemId).orElse(null);
+            Preconditions.checkNotNull(itemId);
+            Preconditions.checkNotNull(order);
+            return pictureRepository.findByItemIdAndOrderIs(itemId, order).orElse(null);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GET_ONE_FAILED, dae);
         } catch (Exception ex) {
@@ -57,7 +62,7 @@ public class PictureDaoImpl implements PictureDao{
     public List<Picture> findByItemId(Long itemId) throws BaseDaoException {
         logger.info("Start findByItemId - itemId: {}", itemId);
         try {
-            Preconditions.checkArgument(itemId != null);
+            Preconditions.checkNotNull(itemId);
             return this.pictureRepository.findByItemId(itemId);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GET_LIST_FAILED, dae);
@@ -74,7 +79,7 @@ public class PictureDaoImpl implements PictureDao{
     public List<Picture> create(List<Picture> toCreates) throws BaseDaoException {
         logger.info("Start create list - toCreates: {}", toCreates);
         try {
-            Preconditions.checkArgument(toCreates != null);
+            Preconditions.checkNotNull(toCreates);
             if (toCreates.isEmpty()) {
                 return Lists.newArrayList();
             }
@@ -94,7 +99,7 @@ public class PictureDaoImpl implements PictureDao{
     public List<Picture> update(List<Picture> toUpdates) throws BaseDaoException {
         logger.info("Start update list - toUpdates: {}", toUpdates);
         try {
-            Preconditions.checkArgument(toUpdates != null);
+            Preconditions.checkNotNull(toUpdates);
             if (toUpdates.isEmpty()) {
                 return Lists.newArrayList();
             }

@@ -11,9 +11,14 @@ import java.util.List;
  */
 public interface LikeDao {
     Like findById(Long id) throws BaseDaoException;
+
     Like findByUserIdAndItemId(Long userId, Long itemId) throws BaseDaoException;
+
     List<Like> findByUserId(Long userId, Pageable pageable) throws BaseDaoException;
+
     Like create(Like toCreate) throws BaseDaoException;
+
     Like update(Like toUpdate) throws BaseDaoException;
+
     void delete(Like toDelete) throws BaseDaoException;
 }

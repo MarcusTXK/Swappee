@@ -1,58 +1,53 @@
 package com.swappee.model.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
-public class UserDTO {
-    @JsonProperty("Id")
+@XmlRootElement
+public class UserDTO implements UserDetails {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
-    @JsonProperty("FirstName")
     private String firstName;
 
-    @JsonProperty("LastName")
     private String lastName;
 
-    @JsonProperty("UserName")
-    private String userName;
+    private String username;
 
-    @JsonProperty("Password")
     private String password;
 
-    @JsonProperty("Email")
     private String email;
 
-    @JsonProperty("Avatar")
     private byte[] avatar;
 
-    @JsonProperty("Phone")
     private Long phone;
 
-    @JsonProperty("EmailOnly")
     private boolean emailOnly;
 
-    @JsonProperty("Score")
+    private String role;
+
     private Long score;
 
-    @JsonProperty("TotalTraded")
     private Long totalTraded;
 
-    @JsonProperty("CreatedDate")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy HH:mm:ss")
     private LocalDateTime createdDate;
 
-    @JsonProperty("LastUpdatedDate")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy HH:mm:ss")
@@ -82,14 +77,16 @@ public class UserDTO {
         this.lastName = lastName;
     }
 
-    public String getUserName() {
-        return userName;
+    @Override
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String userName) {
+        this.username = userName;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -130,6 +127,14 @@ public class UserDTO {
         this.emailOnly = emailOnly;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public Long getScore() {
         return score;
     }
@@ -163,17 +168,43 @@ public class UserDTO {
     }
 
     @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return new ArrayList<>(Arrays.asList(new SimpleGrantedAuthority(role)));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "UserDTO{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", userName='" + userName + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", avatar=" + Arrays.toString(avatar) +
+                ", avatar=" + avatar.length +
                 ", phone=" + phone +
                 ", emailOnly=" + emailOnly +
+                ", role='" + role + '\'' +
                 ", score=" + score +
                 ", totalTraded=" + totalTraded +
                 ", createdDate=" + createdDate +

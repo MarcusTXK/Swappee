@@ -54,14 +54,6 @@ public class Request implements Serializable {
     @Column(name = "deleted", nullable = false)
     private boolean deleted;
 
-    public enum Status {
-        PENDING,
-        ACCEPTED,
-        REJECTED,
-        TRADED,
-        REMOVED
-    }
-
     public Long getId() {
         return id;
     }
@@ -165,5 +157,13 @@ public class Request implements Serializable {
                 ", version=" + version +
                 ", deleted=" + deleted +
                 '}';
+    }
+
+    public enum Status {
+        PENDING,
+        ACCEPTED,
+        REJECTED,
+        TRADED,
+        REMOVED
     }
 }

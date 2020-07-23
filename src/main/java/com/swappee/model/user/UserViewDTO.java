@@ -1,36 +1,30 @@
 package com.swappee.model.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDateTime;
 
+@XmlRootElement
 public class UserViewDTO {
-    @JsonProperty("Id")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
-    @JsonProperty("UserName")
-    private String userName;
+    private String username;
 
-    @JsonProperty("AvatarPath")
     private String avatarPath;
 
-    @JsonProperty("EmailOnly")
     private boolean emailOnly;
 
-    @JsonProperty("Score")
     private Long score;
 
-    @JsonProperty("TotalTraded")
     private Long totalTraded;
 
-    @JsonProperty("CreatedDate")
     @JsonFormat(pattern = "dd-MMM-yyyy")
     private LocalDateTime createdDate;
 
-    @JsonProperty("LastModifiedDate")
     @JsonFormat(pattern = "dd-MMM-yyyy")
     private LocalDateTime lastModifiedDate;
 
@@ -42,12 +36,12 @@ public class UserViewDTO {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getAvatarPath() {
@@ -102,7 +96,7 @@ public class UserViewDTO {
     public String toString() {
         return "UserViewDTO{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
+                ", username='" + username + '\'' +
                 ", avatarPath='" + avatarPath + '\'' +
                 ", emailOnly=" + emailOnly +
                 ", score=" + score +

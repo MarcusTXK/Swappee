@@ -1,7 +1,6 @@
 package com.swappee.model.item;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -9,54 +8,42 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.swappee.domain.item.PreferredItems;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@XmlRootElement
 public class ItemDTO {
-    @JsonProperty("Id")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
-    @JsonProperty("UserId")
     private Long userId;
 
-    @JsonProperty("Status")
     private String status;
 
-    @JsonProperty("Name")
     private String name;
 
-    @JsonProperty("Description")
     private String description;
 
-    @JsonProperty("Brand")
     private String brand;
 
-    @JsonProperty("IsNew")
     private boolean isNew;
 
-    @JsonProperty("Category")
     private String category;
 
-    @JsonProperty("Strict")
     private boolean strict;
 
-    @JsonProperty("Likes")
     private Long likes;
 
-    @JsonProperty("PreferredCats")
     private List<String> preferredCats;
 
-    @JsonProperty("PreferredItems")
     private List<PreferredItems> preferredItems;
 
-    @JsonProperty("CreatedDate")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy HH:mm:ss")
     private LocalDateTime createdDate;
 
-    @JsonProperty("LastUpdatedDate")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy HH:mm:ss")

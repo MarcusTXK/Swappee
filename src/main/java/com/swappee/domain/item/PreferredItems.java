@@ -1,6 +1,7 @@
 package com.swappee.domain.item;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
 /**
  * An PreferredItems embeddable

@@ -12,6 +12,7 @@ import java.util.List;
  */
 @Repository
 public interface LikeRepository extends JpaRepository<Like, Long> {
-        Like findByUserIdAndItemId(Long userId, Long itemId);
-        List<Like> findByUserId(Long userId, Pageable pageable);
+    Like findByUserIdAndItemId(Long userId, Long itemId);
+
+    List<Like> findByUserId(Long userId, Pageable pageable);
 }

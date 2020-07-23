@@ -10,8 +10,12 @@ import org.springframework.data.domain.Pageable;
  */
 public interface ReviewDao {
     Review findById(Long id) throws BaseDaoException;
+
     Page<Review> getAll(Pageable pageable) throws BaseDaoException;
+
     Review create(Review toCreate) throws BaseDaoException;
+
     Review update(Review toUpdate) throws BaseDaoException;
+
     Review delete(Review toDelete) throws BaseDaoException;
 }

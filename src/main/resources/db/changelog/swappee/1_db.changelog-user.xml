@@ -22,8 +22,8 @@
             <column name="last_name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_name" type="varchar(50)">
-                <constraints nullable="false" unique="true" uniqueConstraintName="uk_user_name"/>
+            <column name="username" type="varchar(50)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uk_username"/>
             </column>
             <column name="password" type="varchar(200)">
                 <constraints nullable="false"/>
@@ -38,6 +38,9 @@
                 <constraints nullable="false" unique="true" uniqueConstraintName="uk_phone"/>
             </column>
             <column name="email_only" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="score" type="int" defaultValue="0">

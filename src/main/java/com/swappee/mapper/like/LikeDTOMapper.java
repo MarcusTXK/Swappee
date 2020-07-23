@@ -2,7 +2,9 @@ package com.swappee.mapper.like;
 
 import com.swappee.domain.like.Like;
 import com.swappee.model.like.LikeDTO;
+import org.springframework.stereotype.Component;
 
+@Component
 public class LikeDTOMapper {
     public LikeDTO mapEntity(Like entity) {
         if (entity == null) {

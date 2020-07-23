@@ -2,7 +2,6 @@ package com.swappee.domain.picture;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Arrays;
 
 /**
  * A Picture entity
@@ -107,7 +106,7 @@ public class Picture implements Serializable {
                 "id=" + id +
                 ", itemId=" + itemId +
                 ", order=" + order +
-                ", fileData=" + Arrays.toString(fileData) +
+                ", fileData=" + fileData.length +
                 ", fileName='" + fileName + '\'' +
                 ", contentType='" + contentType + '\'' +
                 ", contentLength=" + contentLength +

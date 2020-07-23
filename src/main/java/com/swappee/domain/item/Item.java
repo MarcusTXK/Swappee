@@ -78,12 +78,6 @@ public class Item implements Serializable {
     @Column(name = "deleted", nullable = false)
     private boolean deleted;
 
-    public enum Status {
-        OPEN,
-        RESERVED,
-        TRADED
-    }
-
     public Long getId() {
         return id;
     }
@@ -232,5 +226,11 @@ public class Item implements Serializable {
                 ", version=" + version +
                 ", deleted=" + deleted +
                 '}';
+    }
+
+    public enum Status {
+        OPEN,
+        RESERVED,
+        TRADED
     }
 }

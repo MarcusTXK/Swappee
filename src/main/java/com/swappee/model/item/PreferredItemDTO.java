@@ -1,21 +1,19 @@
 package com.swappee.model.item;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Preferred Item DTO
  */
+
+@XmlRootElement
 public class PreferredItemDTO {
-    @JsonProperty("Name")
     private String name;
 
-    @JsonProperty("Category")
     private String category;
 
-    @JsonProperty("Brand")
     private String brand;
 
-    @JsonProperty("IsNew")
     private boolean isNew;
 
     public String getName() {

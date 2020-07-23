@@ -1,7 +1,6 @@
 package com.swappee.model.item;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
@@ -14,41 +13,29 @@ import java.time.LocalDateTime;
  */
 @XmlRootElement
 public class ItemCardDTO {
-    @JsonProperty("Id")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
-    @JsonProperty("ImagePath")
     private String imagePath;
 
-    @JsonProperty("Name")
     private String name;
 
-    @JsonProperty("Status")
     private String status;
 
-    @JsonProperty("Brand")
     private String brand;
 
-    @JsonProperty("Description")
     private String description;
 
-    @JsonProperty("IsNew")
     private boolean isNew;
 
-    @JsonProperty("Likes")
     private Long likes;
 
-    @JsonProperty("Liked")
     private boolean liked;
 
-    @JsonProperty("UserName")
     private String userName;
 
-    @JsonProperty("AvatarPath")
     private String avatarPath;
 
-    @JsonProperty("CreatedDate")
     @JsonFormat(pattern = "dd-MMM-yyyy")
     private LocalDateTime createdDate;
 

@@ -12,9 +12,16 @@ import java.util.List;
  */
 public interface UserDao {
     User findById(Long id) throws BaseDaoException;
+
+    User findByUsername(String username) throws BaseDaoException;
+
     List<User> getAll(List<Long> ids) throws BaseDaoException;
+
     Page<User> getAll(Pageable pageable) throws BaseDaoException;
+
     User create(User toCreate) throws BaseDaoException;
+
     User update(User toUpdate) throws BaseDaoException;
+
     User delete(User toDelete) throws BaseDaoException;
 }

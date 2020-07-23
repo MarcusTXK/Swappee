@@ -2,7 +2,9 @@ package com.swappee.mapper.request;
 
 import com.swappee.domain.request.Request;
 import com.swappee.model.request.RequestDTO;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RequestDTOMapper {
     public RequestDTO mapEntity(Request entity) {
         if (entity == null) {

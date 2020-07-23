@@ -21,16 +21,23 @@ spring:
 
 server:
   servlet:
-    context-path: /clsmartessenceadmin
+    context-path: /swappee
   error:
     include-stacktrace: never
-  port: 9980
+  port: 8022
+
+jwt:
+  signing-key-secret: mySecret
+  token-expiration-in-seconds: 604800
+
+frontend:
+  baseurl: http://localhost:3000
 
 elasticsearch:
   baseurl: http://localhost:9200
 
 logging:
-  file: logs/SmartEssenceAdminApplication.log
+  file: logs/SwappeeApplication.log
   pattern:
     console: "%d %-5level %logger : %msg%n"
     file: "%d %-5level [%thread] %logger : %msg%n"
@@ -39,5 +46,4 @@ logging:
     org.springframework.security: INFO
     org.springframework.cloud.openfeign: INFO
     org.hibernate: INFO
-    com.cl.smart: DEBUG
-    com.cl.smart.essence: DEBUG
+    com.swappee: DEBUG

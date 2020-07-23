@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Lock;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.LockModeType;
@@ -18,7 +19,8 @@ import java.util.List;
 /**
  * An Data Access Object implementation for managing requests.
  */
-public class RequestDaoImpl implements RequestDao{
+@Component
+public class RequestDaoImpl implements RequestDao {
     private static final Logger logger = LoggerFactory.getLogger(RequestDaoImpl.class);
 
     @Autowired
@@ -28,6 +30,7 @@ public class RequestDaoImpl implements RequestDao{
     public Request findById(Long id) throws BaseDaoException {
         logger.info("Start findById - id: {}", id);
         try {
+            Preconditions.checkNotNull(id);
             return requestRepository.findById(id).orElse(null);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GET_ONE_FAILED, dae);
@@ -42,7 +45,7 @@ public class RequestDaoImpl implements RequestDao{
     public List<Request> findByOwnerIdAndHiddenFalse(Long ownerId) throws BaseDaoException {
         logger.info("Start findByOwnerIdAndHiddenFalse - ownerId: {}", ownerId);
         try {
-            Preconditions.checkArgument(ownerId != null);
+            Preconditions.checkNotNull(ownerId);
             return this.requestRepository.findByOwnerIdAndHiddenFalseOrderByLastModifiedDateDesc(ownerId);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GET_LIST_FAILED, dae);
@@ -57,7 +60,7 @@ public class RequestDaoImpl implements RequestDao{
     public List<Request> findByTraderIdAndHiddenFalse(Long traderId) throws BaseDaoException {
         logger.info("Start findByTraderIdAndHiddenFalse - traderId: {}", traderId);
         try {
-            Preconditions.checkArgument(traderId != null);
+            Preconditions.checkNotNull(traderId);
             return this.requestRepository.findByTraderIdAndHiddenFalseOrderByLastModifiedDateDesc(traderId);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GET_LIST_FAILED, dae);
@@ -74,7 +77,7 @@ public class RequestDaoImpl implements RequestDao{
     public Request create(Request toCreate) throws BaseDaoException {
         logger.info("Start create - toCreate: {}", toCreate);
         try {
-            Preconditions.checkArgument(toCreate != null);
+            Preconditions.checkNotNull(toCreate);
             return this.requestRepository.save(toCreate);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_CREATE_FAILED, dae);
@@ -91,7 +94,7 @@ public class RequestDaoImpl implements RequestDao{
     public Request update(Request toUpdate) throws BaseDaoException {
         logger.info("Start update - toUpdate: {}", toUpdate);
         try {
-            Preconditions.checkArgument(toUpdate != null);
+            Preconditions.checkNotNull(toUpdate);
             return this.requestRepository.save(toUpdate);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_UPDATE_FAILED, dae);
@@ -108,7 +111,7 @@ public class RequestDaoImpl implements RequestDao{
     public Request delete(Request toDelete) throws BaseDaoException {
         logger.info("Start delete - toDelete: {}", toDelete);
         try {
-            Preconditions.checkArgument(toDelete != null);
+            Preconditions.checkNotNull(toDelete);
             toDelete.setDeleted(true);
             return this.requestRepository.save(toDelete);
         } catch (DataAccessException dae) {

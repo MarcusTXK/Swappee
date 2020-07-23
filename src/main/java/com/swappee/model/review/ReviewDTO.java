@@ -1,40 +1,37 @@
 package com.swappee.model.review;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDateTime;
 
+@XmlRootElement
 public class ReviewDTO {
-    @JsonProperty("Id")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
-    @JsonProperty("RequestId")
     private Long requestId;
 
-    @JsonProperty("OwnerId")
     private Long ownerId;
 
-    @JsonProperty("TraderId")
     private Long traderId;
 
-    @JsonProperty("Score")
     private Long score;
 
-    @JsonProperty("Remarks")
     private String remarks;
 
-    @JsonProperty("CreatedDate")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy HH:mm:ss")
     private LocalDateTime createdDate;
+
+    public ReviewDTO() {
+    }
 
     public Long getId() {
         return id;

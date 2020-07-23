@@ -12,6 +12,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Lock;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.LockModeType;
@@ -19,7 +20,8 @@ import javax.persistence.LockModeType;
 /**
  * An Data Access Object implementation for managing reviews.
  */
-public class ReviewDaoImpl implements ReviewDao{
+@Component
+public class ReviewDaoImpl implements ReviewDao {
     private static final Logger logger = LoggerFactory.getLogger(ReviewDaoImpl.class);
 
     @Autowired
@@ -29,6 +31,7 @@ public class ReviewDaoImpl implements ReviewDao{
     public Review findById(Long id) throws BaseDaoException {
         logger.info("Start findById - id: {}", id);
         try {
+            Preconditions.checkNotNull(id);
             return reviewRepository.findById(id).orElse(null);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GET_ONE_FAILED, dae);
@@ -43,7 +46,7 @@ public class ReviewDaoImpl implements ReviewDao{
     public Page<Review> getAll(Pageable pageable) throws BaseDaoException {
         logger.info("Start getAll page - pageable: {}", pageable);
         try {
-            Preconditions.checkArgument(pageable != null);
+            Preconditions.checkNotNull(pageable);
             return reviewRepository.findAll(pageable);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GET_ALL_PAGE_FAILED, dae);
@@ -60,7 +63,7 @@ public class ReviewDaoImpl implements ReviewDao{
     public Review create(Review toCreate) throws BaseDaoException {
         logger.info("Start create - toCreate: {}", toCreate);
         try {
-            Preconditions.checkArgument(toCreate != null);
+            Preconditions.checkNotNull(toCreate);
             return this.reviewRepository.save(toCreate);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_CREATE_FAILED, dae);
@@ -77,7 +80,7 @@ public class ReviewDaoImpl implements ReviewDao{
     public Review update(Review toUpdate) throws BaseDaoException {
         logger.info("Start update - toUpdate: {}", toUpdate);
         try {
-            Preconditions.checkArgument(toUpdate != null);
+            Preconditions.checkNotNull(toUpdate);
             return this.reviewRepository.save(toUpdate);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_UPDATE_FAILED, dae);
@@ -94,7 +97,7 @@ public class ReviewDaoImpl implements ReviewDao{
     public Review delete(Review toDelete) throws BaseDaoException {
         logger.info("Start delete - toDelete: {}", toDelete);
         try {
-            Preconditions.checkArgument(toDelete != null);
+            Preconditions.checkNotNull(toDelete);
             toDelete.setDeleted(true);
             return this.reviewRepository.save(toDelete);
         } catch (DataAccessException dae) {

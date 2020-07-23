@@ -1,35 +1,27 @@
 package com.swappee.model.picture;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
-import java.util.Arrays;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class PictureDTO {
-    @JsonProperty("Id")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
-    @JsonProperty("ItemId")
     private Long itemId;
 
-    @JsonProperty("Order")
     private Long order;
 
-    @JsonProperty("FileData")
     private byte[] fileData;
 
-    @JsonProperty("FileName")
     private String fileName;
 
-    @JsonProperty("ContentType")
     private String contentType;
 
-    @JsonProperty("ContentLength")
     private Long contentLength;
 
-    @JsonProperty("Description")
     private String description;
 
     public Long getId() {
@@ -102,7 +94,7 @@ public class PictureDTO {
                 "id=" + id +
                 ", itemId=" + itemId +
                 ", order=" + order +
-                ", fileData=" + Arrays.toString(fileData) +
+                ", fileData=" + fileData.length +
                 ", fileName='" + fileName + '\'' +
                 ", contentType='" + contentType + '\'' +
                 ", contentLength=" + contentLength +

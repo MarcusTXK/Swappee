@@ -10,9 +10,14 @@ import java.util.List;
  */
 public interface RequestDao {
     Request findById(Long id) throws BaseDaoException;
+
     List<Request> findByOwnerIdAndHiddenFalse(Long ownerId) throws BaseDaoException;
+
     List<Request> findByTraderIdAndHiddenFalse(Long traderId) throws BaseDaoException;
+
     Request create(Request toCreate) throws BaseDaoException;
+
     Request update(Request toUpdate) throws BaseDaoException;
+
     Request delete(Request toDelete) throws BaseDaoException;
 }

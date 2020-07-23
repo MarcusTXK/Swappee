@@ -2,7 +2,9 @@ package com.swappee.mapper.review;
 
 import com.swappee.domain.review.Review;
 import com.swappee.model.review.ReviewDTO;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ReviewDTOMapper {
     public ReviewDTO mapEntity(Review entity) {
         if (entity == null) {

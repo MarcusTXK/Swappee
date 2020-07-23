@@ -2,7 +2,9 @@ package com.swappee.mapper.picture;
 
 import com.swappee.domain.picture.Picture;
 import com.swappee.model.picture.PictureDTO;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PictureDTOMapper {
     public PictureDTO mapEntity(Picture entity) {
         if (entity == null) {

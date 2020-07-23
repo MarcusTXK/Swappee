@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Lock;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.LockModeType;
@@ -19,7 +20,8 @@ import java.util.List;
 /**
  * An Data Access Object implementation for managing likes.
  */
-public class LikeDaoImpl implements LikeDao{
+@Component
+public class LikeDaoImpl implements LikeDao {
     private static final Logger logger = LoggerFactory.getLogger(LikeDaoImpl.class);
 
     @Autowired
@@ -29,6 +31,7 @@ public class LikeDaoImpl implements LikeDao{
     public Like findById(Long id) throws BaseDaoException {
         logger.info("Start findById - id: {}", id);
         try {
+            Preconditions.checkNotNull(id);
             return likeRepository.findById(id).orElse(null);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GET_ONE_FAILED, dae);
@@ -43,6 +46,8 @@ public class LikeDaoImpl implements LikeDao{
     public Like findByUserIdAndItemId(Long userId, Long itemId) throws BaseDaoException {
         logger.info("Start findByUserIdAndItemId - userId: {}, itemId: {}", userId, itemId);
         try {
+            Preconditions.checkNotNull(userId);
+            Preconditions.checkNotNull(itemId);
             return likeRepository.findByUserIdAndItemId(userId, itemId);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GET_ONE_FAILED, dae);
@@ -57,7 +62,7 @@ public class LikeDaoImpl implements LikeDao{
     public List<Like> findByUserId(Long userId, Pageable pageable) throws BaseDaoException {
         logger.info("Start findByUserId - userId: {}.  pageable: {}", userId, pageable);
         try {
-            Preconditions.checkArgument(pageable != null);
+            Preconditions.checkNotNull(pageable);
             return likeRepository.findByUserId(userId, pageable);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GET_ALL_PAGE_FAILED, dae);
@@ -74,7 +79,7 @@ public class LikeDaoImpl implements LikeDao{
     public Like create(Like toCreate) throws BaseDaoException {
         logger.info("Start create - toCreate: {}", toCreate);
         try {
-            Preconditions.checkArgument(toCreate != null);
+            Preconditions.checkNotNull(toCreate);
             return this.likeRepository.save(toCreate);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_CREATE_FAILED, dae);
@@ -91,7 +96,7 @@ public class LikeDaoImpl implements LikeDao{
     public Like update(Like toUpdate) throws BaseDaoException {
         logger.info("Start update - toUpdate: {}", toUpdate);
         try {
-            Preconditions.checkArgument(toUpdate != null);
+            Preconditions.checkNotNull(toUpdate);
             return this.likeRepository.save(toUpdate);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_UPDATE_FAILED, dae);
@@ -108,8 +113,8 @@ public class LikeDaoImpl implements LikeDao{
     public void delete(Like toDelete) throws BaseDaoException {
         logger.info("Start delete - toDelete: {}", toDelete);
         try {
-            Preconditions.checkArgument(toDelete != null);
-            Preconditions.checkArgument(toDelete.getId() != null);
+            Preconditions.checkNotNull(toDelete);
+            Preconditions.checkNotNull(toDelete.getId());
             this.likeRepository.deleteById(toDelete.getId());
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_DELETE_FAILED, dae);

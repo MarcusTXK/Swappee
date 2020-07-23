@@ -12,7 +12,9 @@ import java.util.Optional;
  */
 @Repository
 public interface PictureRepository extends JpaRepository<Picture, Long> {
-        long deleteByItemId(Long itemId);
-        Optional<Picture> findByItemIdAndOrderIs0(Long itemId);
-        List<Picture> findByItemId(Long itemId);
+    long deleteByItemId(Long itemId);
+
+    Optional<Picture> findByItemIdAndOrderIs(Long itemId, Long order);
+
+    List<Picture> findByItemId(Long itemId);
 }

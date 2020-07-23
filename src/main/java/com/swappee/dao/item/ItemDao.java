@@ -12,9 +12,14 @@ import java.util.List;
  */
 public interface ItemDao {
     Item findById(Long id) throws BaseDaoException;
+
     List<Item> getAll(List<Long> ids) throws BaseDaoException;
+
     Page<Item> getAll(Pageable pageable) throws BaseDaoException;
+
     Item create(Item toCreate) throws BaseDaoException;
+
     Item update(Item toUpdate) throws BaseDaoException;
+
     Item delete(Item toDelete) throws BaseDaoException;
 }

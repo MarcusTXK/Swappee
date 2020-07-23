@@ -2,7 +2,9 @@ package com.swappee.mapper.item;
 
 import com.swappee.domain.item.Item;
 import com.swappee.model.item.ItemDTO;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ItemDTOMapper {
     public ItemDTO mapEntity(Item entity) {
         if (entity == null) {

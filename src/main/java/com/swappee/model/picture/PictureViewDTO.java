@@ -1,21 +1,22 @@
 package com.swappee.model.picture;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class PictureViewDTO {
-    @JsonProperty("Id")
+
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
-    @JsonProperty("Order")
+
     private Long order;
 
-    @JsonProperty("ImagePath")
-    private String ImagePath;
 
-    @JsonProperty("Description")
+    private String imagePath;
+
     private String description;
 
     public Long getId() {
@@ -35,11 +36,11 @@ public class PictureViewDTO {
     }
 
     public String getImagePath() {
-        return ImagePath;
+        return imagePath;
     }
 
     public void setImagePath(String imagePath) {
-        ImagePath = imagePath;
+        this.imagePath = imagePath;
     }
 
     public String getDescription() {
@@ -55,7 +56,7 @@ public class PictureViewDTO {
         return "PictureViewDTO{" +
                 "id=" + id +
                 ", order=" + order +
-                ", ImagePath='" + ImagePath + '\'' +
+                ", imagePath='" + imagePath + '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }

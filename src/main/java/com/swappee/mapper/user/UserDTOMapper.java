@@ -2,7 +2,9 @@ package com.swappee.mapper.user;
 
 import com.swappee.domain.user.User;
 import com.swappee.model.user.UserDTO;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserDTOMapper {
     public UserDTO mapEntity(User entity) {
         if (entity == null) {
@@ -16,12 +18,13 @@ public class UserDTOMapper {
 
         dto.setFirstName(entity.getFirstName());
         dto.setLastName(entity.getLastName());
-        dto.setUserName(entity.getUserName());
+        dto.setUsername(entity.getUsername());
         dto.setPassword(entity.getPassword());
         dto.setEmail(entity.getEmail());
         dto.setAvatar(entity.getAvatar());
         dto.setPhone(entity.getPhone());
         dto.setEmailOnly(entity.isEmailOnly());
+        dto.setRole(entity.getRole());
         dto.setScore(entity.getScore());
         dto.setTotalTraded(entity.getTotalTraded());
 
@@ -40,12 +43,13 @@ public class UserDTOMapper {
 
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
-        entity.setUserName(dto.getUserName());
+        entity.setUsername(dto.getUsername());
         entity.setPassword(dto.getPassword());
         entity.setEmail(dto.getEmail());
         entity.setAvatar(dto.getAvatar());
         entity.setPhone(dto.getPhone());
         entity.setEmailOnly(dto.isEmailOnly());
+        entity.setRole(dto.getRole());
         entity.setScore(dto.getScore());
         entity.setTotalTraded(dto.getTotalTraded());
 

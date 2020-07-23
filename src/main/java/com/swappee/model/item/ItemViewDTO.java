@@ -1,11 +1,11 @@
 package com.swappee.model.item;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.swappee.model.picture.PictureViewDTO;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,55 +14,41 @@ import java.util.List;
  * Used for the front end, when displaying it alone
  * User's info will be fetched separately
  */
+
+@XmlRootElement
 public class ItemViewDTO {
-    @JsonProperty("Id")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
-    @JsonProperty("ImagePath")
     private String imagePath;
 
-    @JsonProperty("UserId")
     private Long userId;
 
-    @JsonProperty("Status")
     private String status;
 
-    @JsonProperty("Name")
     private String name;
 
-    @JsonProperty("Description")
     private String description;
 
-    @JsonProperty("Brand")
     private String brand;
 
-    @JsonProperty("IsNew")
     private boolean isNew;
 
-    @JsonProperty("Category")
     private String category;
 
-    @JsonProperty("Strict")
     private boolean strict;
 
-    @JsonProperty("Likes")
     private Long likes;
 
-    @JsonProperty("PictureViews")
     private List<PictureViewDTO> pictureViews;
 
-    @JsonProperty("PreferredCats")
     private List<String> preferredCats;
 
-    @JsonProperty("PreferredItems")
     private List<PreferredItemDTO> preferredItems;
 
-    @JsonProperty("CreatedDate")
     @JsonFormat(pattern = "dd-MMM-yyyy")
     private LocalDateTime createdDate;
 
-    @JsonProperty("LastModifiedDate")
     @JsonFormat(pattern = "dd-MMM-yyyy")
     private LocalDateTime lastModifiedDate;
 

@@ -13,6 +13,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Lock;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.LockModeType;
@@ -21,7 +22,8 @@ import java.util.List;
 /**
  * An Data Access Object implementation for managing items.
  */
-public class ItemDaoImpl implements ItemDao{
+@Component
+public class ItemDaoImpl implements ItemDao {
     private static final Logger logger = LoggerFactory.getLogger(ItemDaoImpl.class);
 
     @Autowired
@@ -31,6 +33,7 @@ public class ItemDaoImpl implements ItemDao{
     public Item findById(Long id) throws BaseDaoException {
         logger.info("Start findById - id: {}", id);
         try {
+            Preconditions.checkNotNull(id);
             return itemRepository.findById(id).orElse(null);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GET_ONE_FAILED, dae);
@@ -45,7 +48,7 @@ public class ItemDaoImpl implements ItemDao{
     public List<Item> getAll(List<Long> ids) throws BaseDaoException {
         logger.info("Start getAll list - ids: {}", ids);
         try {
-            Preconditions.checkArgument(ids != null);
+            Preconditions.checkNotNull(ids);
             if (ids.isEmpty()) {
                 return Lists.newArrayList();
             }
@@ -63,7 +66,7 @@ public class ItemDaoImpl implements ItemDao{
     public Page<Item> getAll(Pageable pageable) throws BaseDaoException {
         logger.info("Start getAll page - pageable: {}", pageable);
         try {
-            Preconditions.checkArgument(pageable != null);
+            Preconditions.checkNotNull(pageable);
             return itemRepository.findAll(pageable);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GET_ALL_PAGE_FAILED, dae);
@@ -80,7 +83,7 @@ public class ItemDaoImpl implements ItemDao{
     public Item create(Item toCreate) throws BaseDaoException {
         logger.info("Start create - toCreate: {}", toCreate);
         try {
-            Preconditions.checkArgument(toCreate != null);
+            Preconditions.checkNotNull(toCreate);
             return this.itemRepository.save(toCreate);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_CREATE_FAILED, dae);
@@ -97,7 +100,7 @@ public class ItemDaoImpl implements ItemDao{
     public Item update(Item toUpdate) throws BaseDaoException {
         logger.info("Start update - toUpdate: {}", toUpdate);
         try {
-            Preconditions.checkArgument(toUpdate != null);
+            Preconditions.checkNotNull(toUpdate);
             return this.itemRepository.save(toUpdate);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_UPDATE_FAILED, dae);
@@ -114,7 +117,7 @@ public class ItemDaoImpl implements ItemDao{
     public Item delete(Item toDelete) throws BaseDaoException {
         logger.info("Start delete - toDelete: {}", toDelete);
         try {
-            Preconditions.checkArgument(toDelete != null);
+            Preconditions.checkNotNull(toDelete);
             toDelete.setDeleted(true);
             return this.itemRepository.save(toDelete);
         } catch (DataAccessException dae) {
