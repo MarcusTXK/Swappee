@@ -48,7 +48,7 @@ public class ItemDaoImpl implements ItemDao {
     public List<Item> getAll(List<Long> ids) throws BaseDaoException {
         logger.info("Start getAll list - ids: {}", ids);
         try {
-            Preconditions.checkNotNull(ids);
+            Preconditions.checkArgument(!ids.isEmpty());
             if (ids.isEmpty()) {
                 return Lists.newArrayList();
             }

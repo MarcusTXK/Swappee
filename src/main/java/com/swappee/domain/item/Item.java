@@ -7,6 +7,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,11 +21,13 @@ import java.util.List;
 @Entity
 @Table(name = "item")
 @Where(clause = "deleted = false")
+@EntityListeners({AuditingEntityListener.class})
 public class Item implements Serializable {
     private static final long serialVersionUID = -3646365871519364430L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "user_id", nullable = false)
@@ -94,6 +97,7 @@ public class Item implements Serializable {
 
     @Column(name = "deleted", nullable = false)
     private boolean deleted;
+
 
     public Long getId() {
         return id;
@@ -277,4 +281,5 @@ public class Item implements Serializable {
         RESERVED,
         TRADED
     }
+
 }

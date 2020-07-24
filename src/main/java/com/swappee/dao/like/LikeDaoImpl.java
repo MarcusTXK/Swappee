@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.LockModeType;
+import java.util.List;
 
 /**
  * An Data Access Object implementation for managing likes.
@@ -60,7 +61,7 @@ public class LikeDaoImpl implements LikeDao {
 
     @Override
     public Page<Like> findByUserId(Long userId, Pageable pageable) throws BaseDaoException {
-        logger.info("Start findByUserId - userId: {}.  pageable: {}", userId, pageable);
+        logger.info("Start findByUserId page - userId: {},  pageable: {}", userId, pageable);
         try {
             Preconditions.checkNotNull(pageable);
             return likeRepository.findByUserId(userId, pageable);
@@ -69,7 +70,22 @@ public class LikeDaoImpl implements LikeDao {
         } catch (Exception ex) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GENERIC, ex);
         } finally {
-            logger.info("End findByUserId");
+            logger.info("End findByUserId page");
+        }
+    }
+
+    @Override
+    public List<Like> findByUserId(Long userId) throws BaseDaoException {
+        logger.info("Start findByUserId list - userId: {}", userId);
+        try {
+            Preconditions.checkNotNull(userId);
+            return likeRepository.findByUserId(userId);
+        } catch (DataAccessException dae) {
+            throw new BaseDaoException(ErrorCode.DB_ERROR_GET_PAGE_FAILED, dae);
+        } catch (Exception ex) {
+            throw new BaseDaoException(ErrorCode.DB_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End findByUserId list");
         }
     }
 

@@ -35,12 +35,17 @@ public class ItemCardDTO implements Serializable {
 
     private boolean liked;
 
+    private Long userId;
+
     private String userName;
 
     private String avatarPath;
 
     @JsonFormat(pattern = "dd-MMM-yyyy")
     private LocalDateTime createdDate;
+
+    @JsonFormat(pattern = "dd-MMM-yyyy")
+    private LocalDateTime lastModifiedDate;
 
     public Long getId() {
         return id;
@@ -64,6 +69,14 @@ public class ItemCardDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getBrand() {
@@ -106,6 +119,30 @@ public class ItemCardDTO implements Serializable {
         this.liked = liked;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getAvatarPath() {
+        return avatarPath;
+    }
+
+    public void setAvatarPath(String avatarPath) {
+        this.avatarPath = avatarPath;
+    }
+
     public LocalDateTime getCreatedDate() {
         return createdDate;
     }
@@ -114,18 +151,31 @@ public class ItemCardDTO implements Serializable {
         this.createdDate = createdDate;
     }
 
+    public LocalDateTime getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
     @Override
     public String toString() {
         return "ItemCardDTO{" +
                 "id=" + id +
                 ", imagePath='" + imagePath + '\'' +
                 ", name='" + name + '\'' +
+                ", status='" + status + '\'' +
                 ", brand='" + brand + '\'' +
                 ", description='" + description + '\'' +
                 ", isNew=" + isNew +
                 ", likes=" + likes +
                 ", liked=" + liked +
+                ", userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", avatarPath='" + avatarPath + '\'' +
                 ", createdDate=" + createdDate +
+                ", lastModifiedDate=" + lastModifiedDate +
                 '}';
     }
 }

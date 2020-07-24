@@ -14,7 +14,7 @@ spring:
   jpa:
     open-in-view: false
     show-sql: false
-    hibernate.ddl-auto: none
+    hibernate.ddl-auto: update
   jackson:
     date-format: com.fasterxml.jackson.databind.util.StdDateFormat
     default-property-inclusion: non-null

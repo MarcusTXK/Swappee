@@ -176,7 +176,7 @@ public class UserServiceImpl implements UserService {
             Preconditions.checkNotNull(userDTO);
             return userDTO;
         } catch (BaseDaoException bde) {
-            throw new BaseServiceException(ErrorMessage.USER_ERROR_UPDATE_FAILED, bde);
+            throw new BaseServiceException(ErrorMessage.USER_ERROR_CREATE_FAILED, bde);
         } catch (Exception ex) {
             throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
         } finally {
@@ -233,7 +233,7 @@ public class UserServiceImpl implements UserService {
             }
             return userDTO;
         } catch (BaseDaoException bde) {
-            throw new BaseServiceException(ErrorMessage.USER_ERROR_UPDATE_FAILED, bde);
+            throw new BaseServiceException(ErrorMessage.USER_ERROR_DELETE_FAILED, bde);
         } catch (Exception ex) {
             throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
         } finally {

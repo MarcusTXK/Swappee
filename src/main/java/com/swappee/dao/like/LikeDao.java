@@ -17,6 +17,8 @@ public interface LikeDao {
 
     Page<Like> findByUserId(Long userId, Pageable pageable) throws BaseDaoException;
 
+    List<Like> findByUserId(Long userId) throws BaseDaoException;
+
     Like create(Like toCreate) throws BaseDaoException;
 
     Like update(Like toUpdate) throws BaseDaoException;

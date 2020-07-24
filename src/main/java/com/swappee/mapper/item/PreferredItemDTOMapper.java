@@ -15,7 +15,7 @@ public class PreferredItemDTOMapper {
         dto.setName(entity.getName());
         dto.setBrand(entity.getBrand());
         dto.setNew(entity.isNew());
-        dto.setCategory(dto.getCategory());
+        dto.setCategory(entity.getCategory());
 
         return dto;
     }
@@ -29,7 +29,7 @@ public class PreferredItemDTOMapper {
         entity.setName(dto.getName());
         entity.setBrand(dto.getBrand());
         entity.setNew(dto.isNew());
-        entity.setCategory(entity.getCategory());
+        entity.setCategory(dto.getCategory());
 
         return entity;
     }

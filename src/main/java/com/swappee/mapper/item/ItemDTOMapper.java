@@ -40,8 +40,9 @@ public class ItemDTOMapper {
         dto.setDescription(entity.getDescription());
         dto.setBrand(entity.getBrand());
         dto.setNew(entity.isNew());
-        dto.setCategory(dto.getCategory());
+        dto.setCategory(entity.getCategory());
         dto.setStrict(entity.isStrict());
+        dto.setLikes(entity.getLikes());
         dto.setPreferredCats(entity.getPreferredCats());
 
         List<PreferredItemDTO> preferredItemDTOList = new ArrayList<>();
@@ -79,8 +80,9 @@ public class ItemDTOMapper {
         entity.setDescription(dto.getDescription());
         entity.setBrand(dto.getBrand());
         entity.setNew(dto.isNew());
-        entity.setCategory(entity.getCategory());
+        entity.setCategory(dto.getCategory());
         entity.setStrict(dto.isStrict());
+        entity.setLikes(dto.getLikes());
         entity.setPreferredCats(dto.getPreferredCats());
 
         List<PreferredItem> preferredItemList = new ArrayList<>();

@@ -13,7 +13,7 @@
             </not>
         </preConditions>
         <createTable tableName="${table.picture}">
-            <column name="id" type="bigint">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="item_id" type="bigint">
