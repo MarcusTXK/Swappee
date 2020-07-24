@@ -4,8 +4,10 @@ import com.google.common.base.Preconditions;
 import com.swappee.dao.user.UserDao;
 import com.swappee.domain.user.User;
 import com.swappee.mapper.user.UserDTOMapper;
+import com.swappee.model.item.ItemDTO;
 import com.swappee.model.user.UserDTO;
 import com.swappee.model.user.UserViewDTO;
+import com.swappee.service.item.ItemService;
 import com.swappee.utils.exception.BaseDaoException;
 import com.swappee.utils.exception.BaseServiceException;
 import com.swappee.utils.exception.ErrorMessage;
@@ -25,10 +27,13 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UserService {
-    private final static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    ItemService itemService;
 
     @Autowired
     UserDTOMapper userDTOMapper;
@@ -181,8 +186,10 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Update User
+     *
      * @param toUpdate
-     * @return
+     * @return updated User
+     * @throws BaseServiceException
      */
     @Override
     @Transactional(rollbackFor = {BaseServiceException.class})
@@ -202,6 +209,15 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Delete User
+     * Deletes Items under user as well
+     * Note: soft deletes user and items
+     *
+     * @param toDelete
+     * @return deleted user
+     * @throws BaseServiceException
+     */
     @Override
     @Transactional(rollbackFor = {BaseServiceException.class})
     public UserDTO delete(UserDTO toDelete) throws BaseServiceException {
@@ -210,6 +226,11 @@ public class UserServiceImpl implements UserService {
             Preconditions.checkNotNull(toDelete);
             UserDTO userDTO = userDTOMapper.mapEntity(userDao.delete(userDTOMapper.mapDto(toDelete)));
             Preconditions.checkNotNull(userDTO);
+            //getAll items under user and delete each one
+            List<ItemDTO> itemDTOList = itemService.findByUserId(userDTO.getId());
+            for (ItemDTO itemDTO : itemDTOList) {
+                itemService.delete(itemDTO);
+            }
             return userDTO;
         } catch (BaseDaoException bde) {
             throw new BaseServiceException(ErrorMessage.USER_ERROR_UPDATE_FAILED, bde);

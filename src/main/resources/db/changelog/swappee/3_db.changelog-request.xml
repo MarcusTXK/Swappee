@@ -16,10 +16,6 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="item_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_request_item_id"
-                             referencedTableName="${table.item}" referencedColumnNames="id"/>
-            </column>
             <column name="owner_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_request_owner_user_id"
                              referencedTableName="${table.user}" referencedColumnNames="id"/>
@@ -28,13 +24,30 @@
                 <constraints nullable="false" foreignKeyName="fk_request_trader_user_id"
                              referencedTableName="${table.user}" referencedColumnNames="id"/>
             </column>
+            <column name="owner_item_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_request_owner_item_id"
+                             referencedTableName="${table.item}" referencedColumnNames="id"/>
+            </column>
+            <column name="trader_item_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_request_trader_item_id"
+                             referencedTableName="${table.item}" referencedColumnNames="id"/>
+            </column>
             <column name="status" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="remarks" type="clob">
                 <constraints nullable="true"/>
             </column>
-            <column name="hidden" type="boolean" defaultValueBoolean="false">
+            <column name="owner_reviewed" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="trader_reviewed" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="owner_hidden" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="trader_hidden" type="boolean" defaultValueBoolean="false">
                 <constraints nullable="false"/>
             </column>
             <column name="version" type="bigint" defaultValue="0">

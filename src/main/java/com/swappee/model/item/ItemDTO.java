@@ -6,14 +6,16 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import com.swappee.domain.item.PreferredItems;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @XmlRootElement
-public class ItemDTO {
+public class ItemDTO implements Serializable {
+    private static final long serialVersionUID = -8513445411735388549L;
+
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
@@ -37,12 +39,18 @@ public class ItemDTO {
 
     private List<String> preferredCats;
 
-    private List<PreferredItems> preferredItems;
+    private List<PreferredItemDTO> preferredItems;
+
+    private List<ItemHistoryDTO> itemHistory;
+
+    private String createdBy;
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy HH:mm:ss")
     private LocalDateTime createdDate;
+
+    private String lastModifiedBy;
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
@@ -137,12 +145,28 @@ public class ItemDTO {
         this.preferredCats = preferredCats;
     }
 
-    public List<PreferredItems> getPreferredItems() {
+    public List<PreferredItemDTO> getPreferredItems() {
         return preferredItems;
     }
 
-    public void setPreferredItems(List<PreferredItems> preferredItems) {
+    public void setPreferredItems(List<PreferredItemDTO> preferredItems) {
         this.preferredItems = preferredItems;
+    }
+
+    public List<ItemHistoryDTO> getItemHistory() {
+        return itemHistory;
+    }
+
+    public void setItemHistory(List<ItemHistoryDTO> itemHistory) {
+        this.itemHistory = itemHistory;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -151,6 +175,14 @@ public class ItemDTO {
 
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
     }
 
     public LocalDateTime getLastModifiedDate() {
@@ -176,7 +208,10 @@ public class ItemDTO {
                 ", likes=" + likes +
                 ", preferredCats=" + preferredCats +
                 ", preferredItems=" + preferredItems +
+                ", itemHistory=" + itemHistory +
+                ", createdBy='" + createdBy + '\'' +
                 ", createdDate=" + createdDate +
+                ", lastModifiedBy='" + lastModifiedBy + '\'' +
                 ", lastModifiedDate=" + lastModifiedDate +
                 '}';
     }

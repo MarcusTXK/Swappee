@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 @Table(name = "request")
 @Where(clause = "deleted = false")
 public class Request implements Serializable {
+    private static final long serialVersionUID = -5488686472614498358L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,8 +27,11 @@ public class Request implements Serializable {
     @Column(name = "trader_id", nullable = false)
     private Long traderId;
 
-    @Column(name = "item_id", nullable = false)
-    private Long itemId;
+    @Column(name = "owner_item_id", nullable = false)
+    private Long ownerItemId;
+
+    @Column(name = "trader_item_id", nullable = false)
+    private Long traderItemId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 50, nullable = false)
@@ -36,8 +41,17 @@ public class Request implements Serializable {
     @Column(name = "remarks")
     private String remarks;
 
-    @Column(name = "hidden", nullable = false)
-    private boolean hidden;
+    @Column(name = "owner_reviewed", nullable = false)
+    private boolean ownerReviewed;
+
+    @Column(name = "trader_reviewed", nullable = false)
+    private boolean traderReviewed;
+
+    @Column(name = "owner_hidden", nullable = false)
+    private boolean ownerHidden;
+
+    @Column(name = "trader_hidden", nullable = false)
+    private boolean traderHidden;
 
     @CreatedDate
     @Column(name = "created_date", nullable = false)
@@ -78,12 +92,20 @@ public class Request implements Serializable {
         this.traderId = traderId;
     }
 
-    public Long getItemId() {
-        return itemId;
+    public Long getOwnerItemId() {
+        return ownerItemId;
     }
 
-    public void setItemId(Long itemId) {
-        this.itemId = itemId;
+    public void setOwnerItemId(Long ownerItemId) {
+        this.ownerItemId = ownerItemId;
+    }
+
+    public Long getTraderItemId() {
+        return traderItemId;
+    }
+
+    public void setTraderItemId(Long traderItemId) {
+        this.traderItemId = traderItemId;
     }
 
     public Status getStatus() {
@@ -102,12 +124,36 @@ public class Request implements Serializable {
         this.remarks = remarks;
     }
 
-    public boolean isHidden() {
-        return hidden;
+    public boolean isOwnerReviewed() {
+        return ownerReviewed;
     }
 
-    public void setHidden(boolean hidden) {
-        this.hidden = hidden;
+    public void setOwnerReviewed(boolean ownerReviewed) {
+        this.ownerReviewed = ownerReviewed;
+    }
+
+    public boolean isTraderReviewed() {
+        return traderReviewed;
+    }
+
+    public void setTraderReviewed(boolean traderReviewed) {
+        this.traderReviewed = traderReviewed;
+    }
+
+    public boolean isOwnerHidden() {
+        return ownerHidden;
+    }
+
+    public void setOwnerHidden(boolean ownerHidden) {
+        this.ownerHidden = ownerHidden;
+    }
+
+    public boolean isTraderHidden() {
+        return traderHidden;
+    }
+
+    public void setTraderHidden(boolean traderHidden) {
+        this.traderHidden = traderHidden;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -144,14 +190,18 @@ public class Request implements Serializable {
 
     @Override
     public String toString() {
-        return "Requests{" +
+        return "Request{" +
                 "id=" + id +
                 ", ownerId=" + ownerId +
                 ", traderId=" + traderId +
-                ", itemId=" + itemId +
+                ", ownerItemId=" + ownerItemId +
+                ", traderItemId=" + traderItemId +
                 ", status=" + status +
                 ", remarks='" + remarks + '\'' +
-                ", hidden=" + hidden +
+                ", ownerReviewed=" + ownerReviewed +
+                ", traderReviewed=" + traderReviewed +
+                ", ownerHidden=" + ownerHidden +
+                ", traderHidden=" + traderHidden +
                 ", createdDate=" + createdDate +
                 ", lastModifiedDate=" + lastModifiedDate +
                 ", version=" + version +
@@ -164,6 +214,7 @@ public class Request implements Serializable {
         ACCEPTED,
         REJECTED,
         TRADED,
+        CANCELLED,
         REMOVED
     }
 }

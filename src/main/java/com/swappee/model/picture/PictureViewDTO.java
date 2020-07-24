@@ -4,16 +4,16 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 @XmlRootElement
-public class PictureViewDTO {
+public class PictureViewDTO implements Serializable {
+    private static final long serialVersionUID = 3003106983087939771L;
 
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
-
     private Long order;
-
 
     private String imagePath;
 

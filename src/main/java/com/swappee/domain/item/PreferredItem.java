@@ -2,12 +2,15 @@ package com.swappee.domain.item;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 /**
- * An PreferredItems embeddable
+ * A PreferredItem embeddable
  */
 @Embeddable
-public class PreferredItems {
+public class PreferredItem implements Serializable {
+    private static final long serialVersionUID = -4918246115319232066L;
+
     @Column(name = "name", length = 200, nullable = false)
     private String name;
 
@@ -54,7 +57,7 @@ public class PreferredItems {
 
     @Override
     public String toString() {
-        return "PreferredItems{" +
+        return "PreferredItem{" +
                 ", name='" + name + '\'' +
                 ", category='" + category + '\'' +
                 ", brand='" + brand + '\'' +

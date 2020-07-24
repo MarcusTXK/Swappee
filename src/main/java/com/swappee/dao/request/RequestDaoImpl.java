@@ -42,11 +42,11 @@ public class RequestDaoImpl implements RequestDao {
     }
 
     @Override
-    public List<Request> findByOwnerIdAndHiddenFalse(Long ownerId) throws BaseDaoException {
+    public List<Request> findByOwnerId(Long ownerId) throws BaseDaoException {
         logger.info("Start findByOwnerIdAndHiddenFalse - ownerId: {}", ownerId);
         try {
             Preconditions.checkNotNull(ownerId);
-            return this.requestRepository.findByOwnerIdAndHiddenFalseOrderByLastModifiedDateDesc(ownerId);
+            return this.requestRepository.findByOwnerIdOrderByLastModifiedDateDesc(ownerId);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GET_LIST_FAILED, dae);
         } catch (Exception ex) {
@@ -57,11 +57,11 @@ public class RequestDaoImpl implements RequestDao {
     }
 
     @Override
-    public List<Request> findByTraderIdAndHiddenFalse(Long traderId) throws BaseDaoException {
+    public List<Request> findByTraderId(Long traderId) throws BaseDaoException {
         logger.info("Start findByTraderIdAndHiddenFalse - traderId: {}", traderId);
         try {
             Preconditions.checkNotNull(traderId);
-            return this.requestRepository.findByTraderIdAndHiddenFalseOrderByLastModifiedDateDesc(traderId);
+            return this.requestRepository.findByTraderIdOrderByLastModifiedDateDesc(traderId);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GET_LIST_FAILED, dae);
         } catch (Exception ex) {

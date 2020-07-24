@@ -18,6 +18,8 @@ import java.util.Collection;
 
 @XmlRootElement
 public class UserDTO implements UserDetails {
+    private static final long serialVersionUID = 7791257718367428775L;
+
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 

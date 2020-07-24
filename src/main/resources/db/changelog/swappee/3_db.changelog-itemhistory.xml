@@ -1,0 +1,34 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <!-- Default table names -->
+    <property name="table.item_history" value="item_history"/>
+
+    <changeSet id="item_history_create_table" author="MarcusTXK">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="${table.item_history}"/>
+            </not>
+        </preConditions>
+        <createTable tableName="${table.item_history}">
+            <column name="item_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_item_history_item_id"
+                             referencedTableName="${table.item}" referencedColumnNames="id"/>
+            </column>
+            <column name="prev_owner_username" type="varchar(50)">
+                <constraints nullable="false" foreignKeyName="fk_item_history_username"
+                             referencedTableName="${table.user}" referencedColumnNames="username"/>
+            </column>
+            <column name="traded_item_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_item_history_traded_item_id"
+                             referencedTableName="${table.item}" referencedColumnNames="id"/>
+            </column>
+            <column name="traded_item_name" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

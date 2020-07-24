@@ -18,10 +18,14 @@ public class RequestDTOMapper {
 
         dto.setOwnerId(entity.getOwnerId());
         dto.setTraderId(entity.getTraderId());
-        dto.setItemId(entity.getItemId());
+        dto.setOwnerItemId(entity.getOwnerItemId());
+        dto.setTraderItemId(entity.getTraderItemId());
         dto.setStatus(entity.getStatus().toString());
         dto.setRemarks(entity.getRemarks());
-        dto.setHidden(entity.isHidden());
+        dto.setOwnerReviewed(entity.isOwnerReviewed());
+        dto.setTraderReviewed(entity.isTraderReviewed());
+        dto.setOwnerHidden(entity.isOwnerHidden());
+        dto.setTraderHidden(entity.isTraderHidden());
 
         return dto;
     }
@@ -38,10 +42,14 @@ public class RequestDTOMapper {
 
         entity.setOwnerId(dto.getOwnerId());
         entity.setTraderId(dto.getTraderId());
-        entity.setItemId(dto.getItemId());
+        entity.setOwnerItemId(dto.getOwnerItemId());
+        entity.setTraderItemId(dto.getTraderItemId());
         entity.setStatus(Request.Status.valueOf(dto.getStatus()));
         entity.setRemarks(dto.getRemarks());
-        entity.setHidden(dto.isHidden());
+        entity.setOwnerReviewed(dto.isOwnerReviewed());
+        entity.setTraderReviewed(dto.isTraderReviewed());
+        entity.setOwnerHidden(dto.isOwnerHidden());
+        entity.setTraderHidden(dto.isTraderHidden());
 
         return entity;
     }

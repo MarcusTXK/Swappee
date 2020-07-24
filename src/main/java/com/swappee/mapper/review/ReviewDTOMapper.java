@@ -16,8 +16,8 @@ public class ReviewDTOMapper {
         dto.setCreatedDate(entity.getCreatedDate());
 
         dto.setRequestId(entity.getRequestId());
-        dto.setOwnerId(entity.getOwnerId());
-        dto.setTraderId(entity.getTraderId());
+        dto.setReviewerId(entity.getReviewerId());
+        dto.setReviewedId(entity.getReviewedId());
         dto.setScore(entity.getScore());
         dto.setRemarks(entity.getRemarks());
 
@@ -34,8 +34,8 @@ public class ReviewDTOMapper {
         entity.setCreatedDate(dto.getCreatedDate());
 
         entity.setRequestId(dto.getRequestId());
-        entity.setOwnerId(dto.getOwnerId());
-        entity.setTraderId(dto.getTraderId());
+        entity.setReviewerId(dto.getReviewerId());
+        entity.setReviewedId(dto.getReviewedId());
         entity.setScore(dto.getScore());
         entity.setRemarks(dto.getRemarks());
 

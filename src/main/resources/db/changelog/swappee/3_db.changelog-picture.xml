@@ -20,7 +20,7 @@
                 <constraints nullable="false" foreignKeyName="fk_picture_item_id"
                              referencedTableName="${table.item}" referencedColumnNames="id"/>
             </column>
-            <column name="order" type="int" defaultValue="0">
+            <column name="pic_order" type="int" defaultValue="0">
                 <constraints nullable="false"/>
             </column>
             <column name="file_data" type="longblob">

@@ -8,10 +8,13 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @XmlRootElement
-public class RequestDTO {
+public class RequestDTO implements Serializable {
+    private static final long serialVersionUID = -8469389039930792658L;
+
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
@@ -19,13 +22,21 @@ public class RequestDTO {
 
     private Long traderId;
 
-    private Long itemId;
+    private Long ownerItemId;
+
+    private Long traderItemId;
 
     private String status;
 
     private String remarks;
 
-    private boolean hidden;
+    private boolean ownerReviewed;
+
+    private boolean traderReviewed;
+
+    private boolean ownerHidden;
+
+    private boolean traderHidden;
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
@@ -61,12 +72,20 @@ public class RequestDTO {
         this.traderId = traderId;
     }
 
-    public Long getItemId() {
-        return itemId;
+    public Long getOwnerItemId() {
+        return ownerItemId;
     }
 
-    public void setItemId(Long itemId) {
-        this.itemId = itemId;
+    public void setOwnerItemId(Long ownerItemId) {
+        this.ownerItemId = ownerItemId;
+    }
+
+    public Long getTraderItemId() {
+        return traderItemId;
+    }
+
+    public void setTraderItemId(Long traderItemId) {
+        this.traderItemId = traderItemId;
     }
 
     public String getStatus() {
@@ -85,12 +104,36 @@ public class RequestDTO {
         this.remarks = remarks;
     }
 
-    public boolean isHidden() {
-        return hidden;
+    public boolean isOwnerReviewed() {
+        return ownerReviewed;
     }
 
-    public void setHidden(boolean hidden) {
-        this.hidden = hidden;
+    public void setOwnerReviewed(boolean ownerReviewed) {
+        this.ownerReviewed = ownerReviewed;
+    }
+
+    public boolean isTraderReviewed() {
+        return traderReviewed;
+    }
+
+    public void setTraderReviewed(boolean traderReviewed) {
+        this.traderReviewed = traderReviewed;
+    }
+
+    public boolean isOwnerHidden() {
+        return ownerHidden;
+    }
+
+    public void setOwnerHidden(boolean ownerHidden) {
+        this.ownerHidden = ownerHidden;
+    }
+
+    public boolean isTraderHidden() {
+        return traderHidden;
+    }
+
+    public void setTraderHidden(boolean traderHidden) {
+        this.traderHidden = traderHidden;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -115,10 +158,14 @@ public class RequestDTO {
                 "id=" + id +
                 ", ownerId=" + ownerId +
                 ", traderId=" + traderId +
-                ", itemId=" + itemId +
+                ", ownerItemId=" + ownerItemId +
+                ", traderItemId=" + traderItemId +
                 ", status='" + status + '\'' +
                 ", remarks='" + remarks + '\'' +
-                ", hidden=" + hidden +
+                ", ownerReviewed=" + ownerReviewed +
+                ", traderReviewed=" + traderReviewed +
+                ", ownerHidden=" + ownerHidden +
+                ", traderHidden=" + traderHidden +
                 ", createdDate=" + createdDate +
                 ", lastModifiedDate=" + lastModifiedDate +
                 '}';

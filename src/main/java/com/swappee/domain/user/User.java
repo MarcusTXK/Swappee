@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 @Table(name = "user")
 @Where(clause = "deleted = false")
 public class User implements Serializable {
+    private static final long serialVersionUID = 7699855507124712353L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,7 +37,7 @@ public class User implements Serializable {
     private String email;
 
     @Lob
-    @Column(name = "avatar", nullable = false)
+    @Column(name = "avatar", nullable = true)
     private byte[] avatar;
 
     @Column(name = "phone", nullable = false)

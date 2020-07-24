@@ -14,4 +14,7 @@ public class ErrorMessage {
 
     //Generic Error Message
     public static final String SVC_ERROR_GENERIC = "Error in generic service";
+
+    private ErrorMessage() {
+    }
 }

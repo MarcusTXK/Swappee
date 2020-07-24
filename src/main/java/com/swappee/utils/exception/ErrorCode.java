@@ -10,7 +10,7 @@ public class ErrorCode {
     public static final String DB_ERROR_DELETE_FAILED = "DB_SWAPPEE_03";
     public static final String DB_ERROR_GENERIC = "DB_SWAPPEE_04";
     public static final String DB_ERROR_GET_LIST_FAILED = "DB_SWAPPEE_05";
-    public static final String DB_ERROR_GET_ALL_PAGE_FAILED = "DB_SWAPPEE_06";
+    public static final String DB_ERROR_GET_PAGE_FAILED = "DB_SWAPPEE_06";
     public static final String DB_ERROR_CREATE_LIST_FAILED = "DB_SWAPPEE_07";
     public static final String DB_ERROR_DELETE_LIST_FAILED = "DB_SWAPPEE_08";
 

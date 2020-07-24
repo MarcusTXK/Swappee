@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -12,7 +13,9 @@ import java.time.LocalDateTime;
  * Used for the front end, when displaying in a grid
  */
 @XmlRootElement
-public class ItemCardDTO {
+public class ItemCardDTO implements Serializable {
+    private static final long serialVersionUID = 2118041315110643573L;
+
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 

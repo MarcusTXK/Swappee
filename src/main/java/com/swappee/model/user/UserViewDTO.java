@@ -5,10 +5,13 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @XmlRootElement
-public class UserViewDTO {
+public class UserViewDTO implements Serializable {
+    private static final long serialVersionUID = 2544618774514296L;
+
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.swappee.model.picture.PictureViewDTO;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,11 +17,11 @@ import java.util.List;
  */
 
 @XmlRootElement
-public class ItemViewDTO {
+public class ItemViewDTO implements Serializable {
+    private static final long serialVersionUID = -3640020963982537926L;
+
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
-
-    private String imagePath;
 
     private Long userId;
 
@@ -40,14 +41,22 @@ public class ItemViewDTO {
 
     private Long likes;
 
+    private boolean liked;
+
     private List<PictureViewDTO> pictureViews;
 
     private List<String> preferredCats;
 
     private List<PreferredItemDTO> preferredItems;
 
+    private List<ItemHistoryDTO> itemHistory;
+
+    private String createdBy;
+
     @JsonFormat(pattern = "dd-MMM-yyyy")
     private LocalDateTime createdDate;
+
+    private String lastModifiedBy;
 
     @JsonFormat(pattern = "dd-MMM-yyyy")
     private LocalDateTime lastModifiedDate;
@@ -60,12 +69,12 @@ public class ItemViewDTO {
         this.id = id;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getStatus() {
@@ -132,6 +141,14 @@ public class ItemViewDTO {
         this.likes = likes;
     }
 
+    public boolean isLiked() {
+        return liked;
+    }
+
+    public void setLiked(boolean liked) {
+        this.liked = liked;
+    }
+
     public List<PictureViewDTO> getPictureViews() {
         return pictureViews;
     }
@@ -156,12 +173,36 @@ public class ItemViewDTO {
         this.preferredItems = preferredItems;
     }
 
+    public List<ItemHistoryDTO> getItemHistory() {
+        return itemHistory;
+    }
+
+    public void setItemHistory(List<ItemHistoryDTO> itemHistory) {
+        this.itemHistory = itemHistory;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
     public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
     }
 
     public LocalDateTime getLastModifiedDate() {
@@ -176,7 +217,7 @@ public class ItemViewDTO {
     public String toString() {
         return "ItemViewDTO{" +
                 "id=" + id +
-                ", imagePath='" + imagePath + '\'' +
+                ", userId=" + userId +
                 ", status='" + status + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
@@ -185,10 +226,14 @@ public class ItemViewDTO {
                 ", category='" + category + '\'' +
                 ", strict=" + strict +
                 ", likes=" + likes +
+                ", liked=" + liked +
                 ", pictureViews=" + pictureViews +
                 ", preferredCats=" + preferredCats +
                 ", preferredItems=" + preferredItems +
+                ", itemHistory=" + itemHistory +
+                ", createdBy='" + createdBy + '\'' +
                 ", createdDate=" + createdDate +
+                ", lastModifiedBy='" + lastModifiedBy + '\'' +
                 ", lastModifiedDate=" + lastModifiedDate +
                 '}';
     }

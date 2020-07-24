@@ -3,13 +3,15 @@ package com.swappee.domain.item;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Where;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +21,8 @@ import java.util.List;
 @Table(name = "item")
 @Where(clause = "deleted = false")
 public class Item implements Serializable {
+    private static final long serialVersionUID = -3646365871519364430L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -56,16 +60,29 @@ public class Item implements Serializable {
     @CollectionTable(name = "preferred_cat", joinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id"))
     @Fetch(FetchMode.SELECT)
     @Column(name = "category")
-    private List<String> preferredCats = new LinkedList<>();
+    private List<String> preferredCats = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "preferred_item", joinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id"))
     @Fetch(FetchMode.SELECT)
-    private List<PreferredItems> preferredItems = new LinkedList<>();
+    private List<PreferredItem> preferredItems = new ArrayList<>();
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "item_history", joinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id"))
+    @Fetch(FetchMode.SELECT)
+    private List<ItemHistory> itemHistory = new ArrayList<>();
+
+    @CreatedBy
+    @Column(name = "created_by", nullable = false, length = 50, updatable = false)
+    private String createdBy;
 
     @CreatedDate
     @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate = LocalDateTime.now();
+
+    @LastModifiedBy
+    @Column(name = "last_modified_by", length = 50)
+    private String lastModifiedBy;
 
     @LastModifiedDate
     @Column(name = "last_modified_date")
@@ -166,12 +183,28 @@ public class Item implements Serializable {
         this.preferredCats = preferredCats;
     }
 
-    public List<PreferredItems> getPreferredItems() {
+    public List<PreferredItem> getPreferredItems() {
         return preferredItems;
     }
 
-    public void setPreferredItems(List<PreferredItems> preferredItems) {
+    public void setPreferredItems(List<PreferredItem> preferredItems) {
         this.preferredItems = preferredItems;
+    }
+
+    public List<ItemHistory> getItemHistory() {
+        return itemHistory;
+    }
+
+    public void setItemHistory(List<ItemHistory> itemHistory) {
+        this.itemHistory = itemHistory;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -180,6 +213,14 @@ public class Item implements Serializable {
 
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
     }
 
     public LocalDateTime getLastModifiedDate() {
@@ -208,7 +249,7 @@ public class Item implements Serializable {
 
     @Override
     public String toString() {
-        return "Items{" +
+        return "Item{" +
                 "id=" + id +
                 ", userId=" + userId +
                 ", status=" + status +
@@ -221,7 +262,10 @@ public class Item implements Serializable {
                 ", likes=" + likes +
                 ", preferredCats=" + preferredCats +
                 ", preferredItems=" + preferredItems +
+                ", itemHistory=" + itemHistory +
+                ", createdBy='" + createdBy + '\'' +
                 ", createdDate=" + createdDate +
+                ", lastModifiedBy='" + lastModifiedBy + '\'' +
                 ", lastModifiedDate=" + lastModifiedDate +
                 ", version=" + version +
                 ", deleted=" + deleted +

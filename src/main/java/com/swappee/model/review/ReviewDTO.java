@@ -8,18 +8,21 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @XmlRootElement
-public class ReviewDTO {
+public class ReviewDTO implements Serializable {
+    private static final long serialVersionUID = 980620786629377444L;
+
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     private Long requestId;
 
-    private Long ownerId;
+    private Long reviewerId;
 
-    private Long traderId;
+    private Long reviewedId;
 
     private Long score;
 
@@ -29,9 +32,6 @@ public class ReviewDTO {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy HH:mm:ss")
     private LocalDateTime createdDate;
-
-    public ReviewDTO() {
-    }
 
     public Long getId() {
         return id;
@@ -49,20 +49,20 @@ public class ReviewDTO {
         this.requestId = requestId;
     }
 
-    public Long getOwnerId() {
-        return ownerId;
+    public Long getReviewerId() {
+        return reviewerId;
     }
 
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
+    public void setReviewerId(Long reviewerId) {
+        this.reviewerId = reviewerId;
     }
 
-    public Long getTraderId() {
-        return traderId;
+    public Long getReviewedId() {
+        return reviewedId;
     }
 
-    public void setTraderId(Long traderId) {
-        this.traderId = traderId;
+    public void setReviewedId(Long reviewedId) {
+        this.reviewedId = reviewedId;
     }
 
     public Long getScore() {
@@ -94,8 +94,8 @@ public class ReviewDTO {
         return "ReviewDTO{" +
                 "id=" + id +
                 ", requestId=" + requestId +
-                ", ownerId=" + ownerId +
-                ", traderId=" + traderId +
+                ", reviewerId=" + reviewerId +
+                ", reviewedId=" + reviewedId +
                 ", score=" + score +
                 ", remarks='" + remarks + '\'' +
                 ", createdDate=" + createdDate +

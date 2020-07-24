@@ -17,15 +17,15 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="request_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_review_item_id"
-                             referencedTableName="${table.item}" referencedColumnNames="id"/>
+                <constraints nullable="false" foreignKeyName="fk_review_request_item_id"
+                             referencedTableName="${table.request}" referencedColumnNames="id"/>
             </column>
-            <column name="owner_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_review_owner_user_id"
+            <column name="reviewer_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_review_reviewer_user_id"
                              referencedTableName="${table.user}" referencedColumnNames="id"/>
             </column>
-            <column name="trader_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_review_trader_user_id"
+            <column name="reviewed_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_review_reviewed_user_id"
                              referencedTableName="${table.user}" referencedColumnNames="id"/>
             </column>
             <column name="score" type="int" defaultValue="0">

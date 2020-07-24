@@ -1,11 +1,27 @@
 package com.swappee.mapper.item;
 
+import com.google.common.base.Preconditions;
 import com.swappee.domain.item.Item;
+import com.swappee.domain.item.ItemHistory;
+import com.swappee.domain.item.PreferredItem;
 import com.swappee.model.item.ItemDTO;
+import com.swappee.model.item.ItemHistoryDTO;
+import com.swappee.model.item.PreferredItemDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class ItemDTOMapper {
+
+    @Autowired
+    ItemHistoryDTOMapper itemHistoryDTOMapper;
+
+    @Autowired
+    PreferredItemDTOMapper preferredItemDTOMapper;
+
     public ItemDTO mapEntity(Item entity) {
         if (entity == null) {
             return null;
@@ -13,7 +29,9 @@ public class ItemDTOMapper {
 
         ItemDTO dto = new ItemDTO();
         dto.setId(entity.getId());
+        dto.setCreatedBy(entity.getCreatedBy());
         dto.setCreatedDate(entity.getCreatedDate());
+        dto.setLastModifiedBy(entity.getLastModifiedBy());
         dto.setLastModifiedDate(entity.getLastModifiedDate());
 
         dto.setUserId(entity.getUserId());
@@ -25,7 +43,20 @@ public class ItemDTOMapper {
         dto.setCategory(dto.getCategory());
         dto.setStrict(entity.isStrict());
         dto.setPreferredCats(entity.getPreferredCats());
-        dto.setPreferredItems(entity.getPreferredItems());
+
+        List<PreferredItemDTO> preferredItemDTOList = new ArrayList<>();
+        for (PreferredItem preferredItem: entity.getPreferredItems()) {
+            Preconditions.checkNotNull(preferredItem);
+            preferredItemDTOList.add(preferredItemDTOMapper.mapEntity(preferredItem));
+        }
+        dto.setPreferredItems(preferredItemDTOList);
+
+        List<ItemHistoryDTO> itemHistoryDTOList = new ArrayList<>();
+        for (ItemHistory itemHistory: entity.getItemHistory()) {
+            Preconditions.checkNotNull(itemHistory);
+            itemHistoryDTOList.add(itemHistoryDTOMapper.mapEntity(itemHistory));
+        }
+        dto.setItemHistory(itemHistoryDTOList);
 
         return dto;
     }
@@ -37,7 +68,9 @@ public class ItemDTOMapper {
 
         Item entity = new Item();
         entity.setId(dto.getId());
+        entity.setCreatedBy(dto.getCreatedBy());
         entity.setCreatedDate(dto.getCreatedDate());
+        entity.setLastModifiedBy(dto.getLastModifiedBy());
         entity.setLastModifiedDate(dto.getLastModifiedDate());
 
         entity.setUserId(dto.getUserId());
@@ -49,7 +82,20 @@ public class ItemDTOMapper {
         entity.setCategory(entity.getCategory());
         entity.setStrict(dto.isStrict());
         entity.setPreferredCats(dto.getPreferredCats());
-        entity.setPreferredItems(dto.getPreferredItems());
+
+        List<PreferredItem> preferredItemList = new ArrayList<>();
+        for (PreferredItemDTO preferredItemDTO: dto.getPreferredItems()) {
+            Preconditions.checkNotNull(preferredItemDTO);
+            preferredItemList.add(preferredItemDTOMapper.mapDto(preferredItemDTO));
+        }
+        entity.setPreferredItems(preferredItemList);
+
+        List<ItemHistory> itemHistoryList = new ArrayList<>();
+        for (ItemHistoryDTO itemHistoryDTO: dto.getItemHistory()) {
+            Preconditions.checkNotNull(itemHistoryDTO);
+            itemHistoryList.add(itemHistoryDTOMapper.mapDto(itemHistoryDTO));
+        }
+        entity.setItemHistory(itemHistoryList);
 
         return entity;
     }

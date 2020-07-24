@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 @Table(name = "review")
 @Where(clause = "deleted = false")
 public class Review implements Serializable {
+    private static final long serialVersionUID = -1328746078364898334L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,11 +23,11 @@ public class Review implements Serializable {
     @Column(name = "request_id", nullable = false)
     private Long requestId;
 
-    @Column(name = "owner_id", nullable = false)
-    private Long ownerId;
+    @Column(name = "reviewer_id", nullable = false)
+    private Long reviewerId;
 
-    @Column(name = "trader_id", nullable = false)
-    private Long traderId;
+    @Column(name = "reviewed_id", nullable = false)
+    private Long reviewedId;
 
     @Column(name = "score", nullable = false)
     private Long score;
@@ -57,20 +59,20 @@ public class Review implements Serializable {
         this.requestId = requestId;
     }
 
-    public Long getOwnerId() {
-        return ownerId;
+    public Long getReviewerId() {
+        return reviewerId;
     }
 
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
+    public void setReviewerId(Long reviewerId) {
+        this.reviewerId = reviewerId;
     }
 
-    public Long getTraderId() {
-        return traderId;
+    public Long getReviewedId() {
+        return reviewedId;
     }
 
-    public void setTraderId(Long traderId) {
-        this.traderId = traderId;
+    public void setReviewedId(Long reviewedId) {
+        this.reviewedId = reviewedId;
     }
 
     public Long getScore() {
@@ -107,11 +109,11 @@ public class Review implements Serializable {
 
     @Override
     public String toString() {
-        return "Reviews{" +
+        return "Review{" +
                 "id=" + id +
                 ", requestId=" + requestId +
-                ", ownerId=" + ownerId +
-                ", traderId=" + traderId +
+                ", reviewerId=" + reviewerId +
+                ", reviewedId=" + reviewedId +
                 ", score=" + score +
                 ", remarks='" + remarks + '\'' +
                 ", createdDate=" + createdDate +

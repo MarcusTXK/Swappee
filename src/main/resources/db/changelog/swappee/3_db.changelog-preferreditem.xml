@@ -6,7 +6,7 @@
     <!-- Default table names -->
     <property name="table.preferred_item" value="preferred_item"/>
 
-    <changeSet id="preferred_items_create_table" author="MarcusTXK">
+    <changeSet id="preferred_item_create_table" author="MarcusTXK">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="${table.preferred_item}"/>

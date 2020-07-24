@@ -69,11 +69,42 @@ public class ItemDaoImpl implements ItemDao {
             Preconditions.checkNotNull(pageable);
             return itemRepository.findAll(pageable);
         } catch (DataAccessException dae) {
-            throw new BaseDaoException(ErrorCode.DB_ERROR_GET_ALL_PAGE_FAILED, dae);
+            throw new BaseDaoException(ErrorCode.DB_ERROR_GET_PAGE_FAILED, dae);
         } catch (Exception ex) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GENERIC, ex);
         } finally {
             logger.info("End getAll page");
+        }
+    }
+
+    @Override
+    public List<Item> findByUserId(Long userId) throws BaseDaoException {
+        logger.info("Start findByUserId - userId: {}", userId);
+        try {
+            Preconditions.checkNotNull(userId);
+            return this.itemRepository.findByUserId(userId);
+        } catch (DataAccessException dae) {
+            throw new BaseDaoException(ErrorCode.DB_ERROR_GET_LIST_FAILED, dae);
+        } catch (Exception ex) {
+            throw new BaseDaoException(ErrorCode.DB_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End findByUserId");
+        }
+    }
+
+    @Override
+    public Page<Item> findByUserId(Long userId, Pageable pageable) throws BaseDaoException {
+        logger.info("Start findByUserId page - userId: {}, pageable: {}", userId, pageable);
+        try {
+            Preconditions.checkNotNull(userId);
+            Preconditions.checkNotNull(pageable);
+            return itemRepository.findByUserId(userId, pageable);
+        } catch (DataAccessException dae) {
+            throw new BaseDaoException(ErrorCode.DB_ERROR_GET_PAGE_FAILED, dae);
+        } catch (Exception ex) {
+            throw new BaseDaoException(ErrorCode.DB_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End findByUserId page");
         }
     }
 

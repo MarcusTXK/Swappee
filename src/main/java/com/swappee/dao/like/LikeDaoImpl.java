@@ -9,13 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.LockModeType;
-import java.util.List;
 
 /**
  * An Data Access Object implementation for managing likes.
@@ -48,7 +48,7 @@ public class LikeDaoImpl implements LikeDao {
         try {
             Preconditions.checkNotNull(userId);
             Preconditions.checkNotNull(itemId);
-            return likeRepository.findByUserIdAndItemId(userId, itemId);
+            return likeRepository.findByUserIdAndItemId(userId, itemId).orElse(null);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GET_ONE_FAILED, dae);
         } catch (Exception ex) {
@@ -59,13 +59,13 @@ public class LikeDaoImpl implements LikeDao {
     }
 
     @Override
-    public List<Like> findByUserId(Long userId, Pageable pageable) throws BaseDaoException {
+    public Page<Like> findByUserId(Long userId, Pageable pageable) throws BaseDaoException {
         logger.info("Start findByUserId - userId: {}.  pageable: {}", userId, pageable);
         try {
             Preconditions.checkNotNull(pageable);
             return likeRepository.findByUserId(userId, pageable);
         } catch (DataAccessException dae) {
-            throw new BaseDaoException(ErrorCode.DB_ERROR_GET_ALL_PAGE_FAILED, dae);
+            throw new BaseDaoException(ErrorCode.DB_ERROR_GET_PAGE_FAILED, dae);
         } catch (Exception ex) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GENERIC, ex);
         } finally {

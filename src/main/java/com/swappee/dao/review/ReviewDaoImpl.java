@@ -49,7 +49,7 @@ public class ReviewDaoImpl implements ReviewDao {
             Preconditions.checkNotNull(pageable);
             return reviewRepository.findAll(pageable);
         } catch (DataAccessException dae) {
-            throw new BaseDaoException(ErrorCode.DB_ERROR_GET_ALL_PAGE_FAILED, dae);
+            throw new BaseDaoException(ErrorCode.DB_ERROR_GET_PAGE_FAILED, dae);
         } catch (Exception ex) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GENERIC, ex);
         } finally {

@@ -11,9 +11,9 @@ import java.util.List;
 public interface RequestDao {
     Request findById(Long id) throws BaseDaoException;
 
-    List<Request> findByOwnerIdAndHiddenFalse(Long ownerId) throws BaseDaoException;
+    List<Request> findByOwnerId(Long ownerId) throws BaseDaoException;
 
-    List<Request> findByTraderIdAndHiddenFalse(Long traderId) throws BaseDaoException;
+    List<Request> findByTraderId(Long traderId) throws BaseDaoException;
 
     Request create(Request toCreate) throws BaseDaoException;
 

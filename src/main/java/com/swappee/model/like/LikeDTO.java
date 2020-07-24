@@ -8,10 +8,13 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @XmlRootElement
-public class LikeDTO {
+public class LikeDTO implements Serializable {
+    private static final long serialVersionUID = -5027272483483855821L;
+
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 

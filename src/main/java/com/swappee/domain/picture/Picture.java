@@ -9,6 +9,8 @@ import java.io.Serializable;
 @Entity
 @Table(name = "picture")
 public class Picture implements Serializable {
+    private static final long serialVersionUID = -31340441267477286L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,7 +18,7 @@ public class Picture implements Serializable {
     @Column(name = "item_id", nullable = false)
     private Long itemId;
 
-    @Column(name = "order", nullable = false)
+    @Column(name = "pic_order", nullable = false)
     private Long order;
 
     @Lob

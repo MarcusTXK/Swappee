@@ -6,7 +6,6 @@ import com.swappee.model.security.JwtTokenResponseDTO;
 import com.swappee.model.user.UserDTO;
 import com.swappee.utils.exception.AuthenticationException;
 import com.swappee.utils.security.JwtTokenUtil;
-import com.swappee.utils.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +33,7 @@ public class JwtAuthenticationRestController {
     private UserDetailsService userDetailsService;
 
     @PostMapping("/authenticate")
-    public ResponseEntity<JwtTokenResponseDTO> createAuthenticationToken(@RequestBody JwtTokenRequestDTO authenticationRequest) throws AuthenticationException {
+    public ResponseEntity<JwtTokenResponseDTO> createAuthenticationToken(@RequestBody JwtTokenRequestDTO authenticationRequest) {
         //check if username and password is correct
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
         //load user details and creates the token

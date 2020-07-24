@@ -1,13 +1,16 @@
 package com.swappee.model.item;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  * Preferred Item DTO
  */
 
 @XmlRootElement
-public class PreferredItemDTO {
+public class PreferredItemDTO implements Serializable {
+    private static final long serialVersionUID = -5393320864229834456L;
+
     private String name;
 
     private String category;

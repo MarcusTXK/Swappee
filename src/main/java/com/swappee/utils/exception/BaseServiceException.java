@@ -2,7 +2,7 @@ package com.swappee.utils.exception;
 
 public class BaseServiceException extends Exception {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -7296364338720559760L;
     private static final String SERVICE_ERROR_MESSAGE_NULL = "Unknown Service Error";
     private static final String SERVICE_ERROR_CODE_NULL = "service.error.code.unknown";
 

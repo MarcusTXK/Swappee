@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Repository
 public interface RequestRepository extends JpaRepository<Request, Long> {
-    List<Request> findByOwnerIdAndHiddenFalseOrderByLastModifiedDateDesc(Long ownerId);
+    List<Request> findByOwnerIdOrderByLastModifiedDateDesc(Long ownerId);
 
-    List<Request> findByTraderIdAndHiddenFalseOrderByLastModifiedDateDesc(Long traderId);
+    List<Request> findByTraderIdOrderByLastModifiedDateDesc(Long traderId);
 }

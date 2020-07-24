@@ -11,9 +11,11 @@ import java.time.LocalDateTime;
  * A Like entity
  */
 @Entity
-@Table(name = "like")
+@Table(name = "likes")
 @Where(clause = "item_deleted = false")
 public class Like implements Serializable {
+    private static final long serialVersionUID = 7367372630849886871L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

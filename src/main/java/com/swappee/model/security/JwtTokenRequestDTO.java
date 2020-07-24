@@ -6,8 +6,7 @@ import java.io.Serializable;
  * the POJO for the Request json of username and password
  */
 public class JwtTokenRequestDTO implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 8140290351429988756L;
 
     private String username;
 

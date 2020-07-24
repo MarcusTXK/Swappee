@@ -6,7 +6,7 @@ package com.swappee.utils.exception;
  */
 public class BaseDaoException extends Exception {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 7909348137309233636L;
     private static final String DAO_ERROR_MESSAGE_NULL = "Unknown DAO Error";
     private final String daoErrorMessage;
 

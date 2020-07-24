@@ -16,11 +16,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private final static Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
-//    static {
-//        inMemoryUserList.add(new JwtUserDetails(1L, "in28minutes",
-//                "$2a$10$3zHzb.Npv1hfZbLEU5qsdOju/tk2je6W6PnNnY.c1ujWPcZh4PL6e", "ROLE_USER_2"));
-//    }
+    private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
     @Autowired
     UserService userService;
