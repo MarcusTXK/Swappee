@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 
 @XmlRootElement
-public class ItemHistoryDTO  implements Serializable {
+public class ItemHistoryDTO implements Serializable {
     private static final long serialVersionUID = 6865824316270715233L;
 
     private String prevOwnerUsername;

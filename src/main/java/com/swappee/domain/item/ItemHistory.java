@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class ItemHistory implements Serializable {
     private static final long serialVersionUID = -7007054155282148372L;
 
-    @Column(name = "prev_owner_username", length = 200, nullable = false)
+    @Column(name = "prev_owner_username", length = 50, nullable = false)
     private String prevOwnerUsername;
 
     @Column(name = "traded_item_id", nullable = false)

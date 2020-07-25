@@ -65,6 +65,7 @@ public class ItemServiceImpl implements ItemService {
     /**
      * Get an ItemDTO by id
      * Used for getting item's info when editing item
+     *
      * @param id
      * @return
      * @throws BaseServiceException
@@ -91,6 +92,7 @@ public class ItemServiceImpl implements ItemService {
      * Get an ItemViewDTO
      * for displaying a Single Item on front end
      * TODO cache in the future
+     *
      * @param id
      * @return
      * @throws BaseServiceException
@@ -119,6 +121,7 @@ public class ItemServiceImpl implements ItemService {
      * Get a list ItemCardDTOs from a id list
      * Used when you already have a list of ids, and want to fetch an appropriate the list of ItemCardDTOs
      * Used by elasticsearch and likes id lists
+     *
      * @return
      * @throws BaseServiceException
      */
@@ -131,7 +134,7 @@ public class ItemServiceImpl implements ItemService {
             List<Item> itemList = itemDao.getAll(ids);
             Preconditions.checkArgument(!itemList.isEmpty());
             List<ItemCardDTO> itemCardDTOList = new ArrayList<>();
-            for (Item item: itemList) {
+            for (Item item : itemList) {
                 itemCardDTOList.add(
                         itemCardDTOMapper(
                                 item,
@@ -151,6 +154,7 @@ public class ItemServiceImpl implements ItemService {
 
     /**
      * Get a page of ItemCardDTO
+     *
      * @param pageable
      * @return
      * @throws BaseServiceException
@@ -171,7 +175,7 @@ public class ItemServiceImpl implements ItemService {
                                     userDao.findById(item.getId()));
                         } catch (BaseDaoException e) {
                             logger.debug("itemCardDTOMapper Error - item: {}", item);
-                            logger.error("Error in getAll():" , e);
+                            logger.error("Error in getAll():", e);
                         }
                         return null;
                     }
@@ -188,6 +192,7 @@ public class ItemServiceImpl implements ItemService {
     /**
      * Find all Items under a user
      * Used to delete items under a user when the user is deleted
+     *
      * @param userId
      * @return
      * @throws BaseServiceException
@@ -201,7 +206,7 @@ public class ItemServiceImpl implements ItemService {
             List<Item> itemList = itemDao.findByUserId(userId);
             Preconditions.checkArgument(!itemList.isEmpty());
             List<ItemDTO> itemDTOList = new ArrayList<>();
-            for (Item item: itemList) {
+            for (Item item : itemList) {
                 itemDTOList.add(itemDTOMapper.mapEntity(item));
             }
             return itemDTOList;
@@ -217,6 +222,7 @@ public class ItemServiceImpl implements ItemService {
     /**
      * Get a page of ItemCardDTO by user id
      * Used when looking at user's profile
+     *
      * @param userId
      * @param pageable
      * @return
@@ -239,7 +245,7 @@ public class ItemServiceImpl implements ItemService {
                                     userDao.findById(item.getId()));
                         } catch (BaseDaoException e) {
                             logger.debug("itemCardDTOMapper Error - item: {}", item);
-                            logger.error("Error in findByUserId():" , e);
+                            logger.error("Error in findByUserId():", e);
                         }
                         return null;
                     }
@@ -263,7 +269,7 @@ public class ItemServiceImpl implements ItemService {
             Preconditions.checkNotNull(itemDTO);
 
             List<Picture> pictureList = new ArrayList<>();
-            for (PictureDTO pictureDTO: pictureDTOList) {
+            for (PictureDTO pictureDTO : pictureDTOList) {
                 pictureDTO.setItemId(itemDTO.getId());
                 pictureList.add(pictureDTOMapper.mapDto(pictureDTO));
             }
@@ -288,7 +294,7 @@ public class ItemServiceImpl implements ItemService {
             Preconditions.checkNotNull(itemDTO);
 
             List<Picture> pictureList = new ArrayList<>();
-            for (PictureDTO pictureDTO: pictureDTOList) {
+            for (PictureDTO pictureDTO : pictureDTOList) {
                 pictureDTO.setItemId(itemDTO.getId());
                 pictureList.add(pictureDTOMapper.mapDto(pictureDTO));
             }
@@ -313,7 +319,7 @@ public class ItemServiceImpl implements ItemService {
             Preconditions.checkNotNull(itemDTO);
             List<Like> likeList = likeDao.findByUserId(toDelete.getUserId());
             //set each like as itemDeleted = true
-            for (Like like: likeList) {
+            for (Like like : likeList) {
                 like.setItemDeleted(true);
                 likeDao.update(like);
             }
@@ -329,6 +335,7 @@ public class ItemServiceImpl implements ItemService {
 
     /**
      * Maps item, pictures and whether or not user has liked an item into one DTO to be sent to the front end
+     *
      * @param item
      * @param pictureList
      * @param like

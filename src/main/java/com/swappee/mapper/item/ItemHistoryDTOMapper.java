@@ -1,11 +1,14 @@
 package com.swappee.mapper.item;
 
 import com.swappee.domain.item.ItemHistory;
+import com.swappee.mapper.DTOMapper;
 import com.swappee.model.item.ItemHistoryDTO;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ItemHistoryDTOMapper {
+public class ItemHistoryDTOMapper implements DTOMapper<ItemHistoryDTO, ItemHistory> {
+
+    @Override
     public ItemHistoryDTO mapEntity(ItemHistory entity) {
         if (entity == null) {
             return null;
@@ -19,6 +22,7 @@ public class ItemHistoryDTOMapper {
         return dto;
     }
 
+    @Override
     public ItemHistory mapDto(ItemHistoryDTO dto) {
         if (dto == null) {
             return null;

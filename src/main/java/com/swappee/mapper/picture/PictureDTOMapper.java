@@ -1,11 +1,14 @@
 package com.swappee.mapper.picture;
 
 import com.swappee.domain.picture.Picture;
+import com.swappee.mapper.DTOMapper;
 import com.swappee.model.picture.PictureDTO;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PictureDTOMapper {
+public class PictureDTOMapper implements DTOMapper<PictureDTO, Picture> {
+
+    @Override
     public PictureDTO mapEntity(Picture entity) {
         if (entity == null) {
             return null;
@@ -25,6 +28,7 @@ public class PictureDTOMapper {
         return dto;
     }
 
+    @Override
     public Picture mapDto(PictureDTO dto) {
         if (dto == null) {
             return null;

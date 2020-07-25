@@ -36,7 +36,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="description" type="varchar(200)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
         </createTable>
     </changeSet>

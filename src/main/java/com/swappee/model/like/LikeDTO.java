@@ -27,6 +27,12 @@ public class LikeDTO implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy HH:mm:ss")
     private LocalDateTime createdDate;
 
+    private boolean itemDeleted;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     public Long getId() {
         return id;
     }
@@ -57,6 +63,14 @@ public class LikeDTO implements Serializable {
 
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public boolean isItemDeleted() {
+        return itemDeleted;
+    }
+
+    public void setItemDeleted(boolean itemDeleted) {
+        this.itemDeleted = itemDeleted;
     }
 
     @Override

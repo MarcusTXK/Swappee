@@ -1,11 +1,14 @@
 package com.swappee.mapper.request;
 
 import com.swappee.domain.request.Request;
+import com.swappee.mapper.DTOMapper;
 import com.swappee.model.request.RequestDTO;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RequestDTOMapper {
+public class RequestDTOMapper implements DTOMapper<RequestDTO, Request> {
+
+    @Override
     public RequestDTO mapEntity(Request entity) {
         if (entity == null) {
             return null;
@@ -15,6 +18,8 @@ public class RequestDTOMapper {
         dto.setId(entity.getId());
         dto.setCreatedDate(entity.getCreatedDate());
         dto.setLastModifiedDate(entity.getLastModifiedDate());
+        dto.setVersion(entity.getVersion());
+        dto.setDeleted(entity.isDeleted());
 
         dto.setOwnerId(entity.getOwnerId());
         dto.setTraderId(entity.getTraderId());
@@ -30,6 +35,7 @@ public class RequestDTOMapper {
         return dto;
     }
 
+    @Override
     public Request mapDto(RequestDTO dto) {
         if (dto == null) {
             return null;
@@ -39,6 +45,8 @@ public class RequestDTOMapper {
         entity.setId(dto.getId());
         entity.setCreatedDate(dto.getCreatedDate());
         entity.setLastModifiedDate(dto.getLastModifiedDate());
+        entity.setVersion(dto.getVersion());
+        entity.setDeleted(dto.isDeleted());
 
         entity.setOwnerId(dto.getOwnerId());
         entity.setTraderId(dto.getTraderId());

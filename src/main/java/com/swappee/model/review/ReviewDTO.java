@@ -33,6 +33,8 @@ public class ReviewDTO implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy HH:mm:ss")
     private LocalDateTime createdDate;
 
+    private boolean deleted;
+
     public Long getId() {
         return id;
     }
@@ -87,6 +89,14 @@ public class ReviewDTO implements Serializable {
 
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     @Override

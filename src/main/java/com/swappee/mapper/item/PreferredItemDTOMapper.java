@@ -1,11 +1,14 @@
 package com.swappee.mapper.item;
 
 import com.swappee.domain.item.PreferredItem;
+import com.swappee.mapper.DTOMapper;
 import com.swappee.model.item.PreferredItemDTO;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PreferredItemDTOMapper {
+public class PreferredItemDTOMapper implements DTOMapper<PreferredItemDTO, PreferredItem> {
+
+    @Override
     public PreferredItemDTO mapEntity(PreferredItem entity) {
         if (entity == null) {
             return null;
@@ -20,6 +23,7 @@ public class PreferredItemDTOMapper {
         return dto;
     }
 
+    @Override
     public PreferredItem mapDto(PreferredItemDTO dto) {
         if (dto == null) {
             return null;

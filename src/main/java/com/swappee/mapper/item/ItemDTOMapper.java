@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import com.swappee.domain.item.Item;
 import com.swappee.domain.item.ItemHistory;
 import com.swappee.domain.item.PreferredItem;
+import com.swappee.mapper.DTOMapper;
 import com.swappee.model.item.ItemDTO;
 import com.swappee.model.item.ItemHistoryDTO;
 import com.swappee.model.item.PreferredItemDTO;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ItemDTOMapper {
+public class ItemDTOMapper implements DTOMapper<ItemDTO, Item> {
 
     @Autowired
     ItemHistoryDTOMapper itemHistoryDTOMapper;
@@ -22,6 +23,7 @@ public class ItemDTOMapper {
     @Autowired
     PreferredItemDTOMapper preferredItemDTOMapper;
 
+    @Override
     public ItemDTO mapEntity(Item entity) {
         if (entity == null) {
             return null;
@@ -33,6 +35,8 @@ public class ItemDTOMapper {
         dto.setCreatedDate(entity.getCreatedDate());
         dto.setLastModifiedBy(entity.getLastModifiedBy());
         dto.setLastModifiedDate(entity.getLastModifiedDate());
+        dto.setVersion(entity.getVersion());
+        dto.setDeleted(entity.isDeleted());
 
         dto.setUserId(entity.getUserId());
         dto.setStatus(entity.getStatus().toString());
@@ -46,14 +50,14 @@ public class ItemDTOMapper {
         dto.setPreferredCats(entity.getPreferredCats());
 
         List<PreferredItemDTO> preferredItemDTOList = new ArrayList<>();
-        for (PreferredItem preferredItem: entity.getPreferredItems()) {
+        for (PreferredItem preferredItem : entity.getPreferredItems()) {
             Preconditions.checkNotNull(preferredItem);
             preferredItemDTOList.add(preferredItemDTOMapper.mapEntity(preferredItem));
         }
         dto.setPreferredItems(preferredItemDTOList);
 
         List<ItemHistoryDTO> itemHistoryDTOList = new ArrayList<>();
-        for (ItemHistory itemHistory: entity.getItemHistory()) {
+        for (ItemHistory itemHistory : entity.getItemHistory()) {
             Preconditions.checkNotNull(itemHistory);
             itemHistoryDTOList.add(itemHistoryDTOMapper.mapEntity(itemHistory));
         }
@@ -62,6 +66,7 @@ public class ItemDTOMapper {
         return dto;
     }
 
+    @Override
     public Item mapDto(ItemDTO dto) {
         if (dto == null) {
             return null;
@@ -86,14 +91,14 @@ public class ItemDTOMapper {
         entity.setPreferredCats(dto.getPreferredCats());
 
         List<PreferredItem> preferredItemList = new ArrayList<>();
-        for (PreferredItemDTO preferredItemDTO: dto.getPreferredItems()) {
+        for (PreferredItemDTO preferredItemDTO : dto.getPreferredItems()) {
             Preconditions.checkNotNull(preferredItemDTO);
             preferredItemList.add(preferredItemDTOMapper.mapDto(preferredItemDTO));
         }
         entity.setPreferredItems(preferredItemList);
 
         List<ItemHistory> itemHistoryList = new ArrayList<>();
-        for (ItemHistoryDTO itemHistoryDTO: dto.getItemHistory()) {
+        for (ItemHistoryDTO itemHistoryDTO : dto.getItemHistory()) {
             Preconditions.checkNotNull(itemHistoryDTO);
             itemHistoryList.add(itemHistoryDTOMapper.mapDto(itemHistoryDTO));
         }

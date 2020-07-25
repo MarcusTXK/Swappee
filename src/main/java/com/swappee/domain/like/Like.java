@@ -2,6 +2,7 @@ package com.swappee.domain.like;
 
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "likes")
 @Where(clause = "item_deleted = false")
+@EntityListeners({AuditingEntityListener.class})
 public class Like implements Serializable {
     private static final long serialVersionUID = 7367372630849886871L;
 

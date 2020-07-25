@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Table(name = "picture")
 public class Picture implements Serializable {
     private static final long serialVersionUID = -31340441267477286L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,14 +28,14 @@ public class Picture implements Serializable {
     @Column(name = "file_name", length = 200, nullable = false)
     private String fileName;
 
-    @Column(name = "content_type", length = 200, nullable = false)
+    @Column(name = "content_type", length = 100, nullable = false)
     private String contentType;
 
     @Column(name = "content_length", nullable = false)
     private Long contentLength;
 
     @Lob
-    @Column(name = "description")
+    @Column(name = "description", length = 200)
     private String description;
 
     public Long getId() {

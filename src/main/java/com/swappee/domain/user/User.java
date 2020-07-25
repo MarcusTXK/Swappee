@@ -3,6 +3,7 @@ package com.swappee.domain.user;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "user")
 @Where(clause = "deleted = false")
+@EntityListeners({AuditingEntityListener.class})
 public class User implements Serializable {
     private static final long serialVersionUID = 7699855507124712353L;
 
@@ -21,13 +23,13 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name", length = 200, nullable = false)
+    @Column(name = "first_name", length = 50, nullable = false)
     private String firstName;
 
-    @Column(name = "last_name", length = 200, nullable = false)
+    @Column(name = "last_name", length = 50, nullable = false)
     private String lastName;
 
-    @Column(name = "username", length = 200, nullable = false)
+    @Column(name = "username", length = 50, nullable = false)
     private String username;
 
     @Column(name = "password", length = 200, nullable = false)
@@ -46,8 +48,9 @@ public class User implements Serializable {
     @Column(name = "email_only", nullable = false)
     private boolean emailOnly;
 
-    @Column(name = "role", nullable = false)
-    private String role;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", length = 50, nullable = false)
+    private Role role;
 
     @Column(name = "score", nullable = false)
     private Long score;
@@ -142,11 +145,11 @@ public class User implements Serializable {
         this.emailOnly = emailOnly;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -205,9 +208,7 @@ public class User implements Serializable {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", userName='" + username + '\'' +
-                ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", avatar=" + avatar.length +
                 ", phone=" + phone +
                 ", emailOnly=" + emailOnly +
                 ", role='" + role + '\'' +
@@ -218,5 +219,10 @@ public class User implements Serializable {
                 ", version=" + version +
                 ", deleted=" + deleted +
                 '}';
+    }
+
+    public enum Role {
+        USER,
+        ADMIN
     }
 }

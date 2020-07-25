@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -160,7 +161,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Create user
+     * Create user after encoding their password
      *
      * @param toCreate
      * @return created UserDTO
@@ -172,6 +173,7 @@ public class UserServiceImpl implements UserService {
         try {
             logger.info("Start create - toCreate: {}", toCreate);
             Preconditions.checkNotNull(toCreate);
+            toCreate.setPassword(new BCryptPasswordEncoder().encode(toCreate.getPassword()));
             UserDTO userDTO = userDTOMapper.mapEntity(userDao.create(userDTOMapper.mapDto(toCreate)));
             Preconditions.checkNotNull(userDTO);
             return userDTO;
