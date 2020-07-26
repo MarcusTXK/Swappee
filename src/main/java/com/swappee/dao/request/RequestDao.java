@@ -2,6 +2,8 @@ package com.swappee.dao.request;
 
 import com.swappee.domain.request.Request;
 import com.swappee.utils.exception.BaseDaoException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -11,9 +13,13 @@ import java.util.List;
 public interface RequestDao {
     Request findById(Long id) throws BaseDaoException;
 
-    List<Request> findByOwnerId(Long ownerId) throws BaseDaoException;
+    Page<Request> findByOwnerIdAndOwnerHiddenFalse(Long ownerId, Pageable pageable) throws BaseDaoException;
 
-    List<Request> findByTraderId(Long traderId) throws BaseDaoException;
+    Page<Request> findByTraderIdAndTraderHiddenFalse(Long traderId, Pageable pageable) throws BaseDaoException;
+
+    List<Request> findByOwnerItemId(Long ownerItemId) throws BaseDaoException;
+
+    List<Request> findByTraderItemId(Long traderItemId) throws BaseDaoException;
 
     Request create(Request toCreate) throws BaseDaoException;
 

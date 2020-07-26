@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,13 +44,13 @@ public class RequestDaoImpl implements RequestDao {
     }
 
     @Override
-    public List<Request> findByOwnerId(Long ownerId) throws BaseDaoException {
-        logger.info("Start findByOwnerIdAndHiddenFalse - ownerId: {}", ownerId);
+    public Page<Request> findByOwnerIdAndOwnerHiddenFalse(Long ownerId, Pageable pageable) throws BaseDaoException {
+        logger.info("Start findByOwnerIdAndHiddenFalse - ownerId: {}, pageable: {}", ownerId, pageable);
         try {
             Preconditions.checkNotNull(ownerId);
-            return this.requestRepository.findByOwnerIdOrderByLastModifiedDateDesc(ownerId);
+            return this.requestRepository.findByOwnerIdAndOwnerHiddenFalse(ownerId, pageable);
         } catch (DataAccessException dae) {
-            throw new BaseDaoException(ErrorCode.DB_ERROR_GET_LIST_FAILED, dae);
+            throw new BaseDaoException(ErrorCode.DB_ERROR_GET_PAGE_FAILED, dae);
         } catch (Exception ex) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GENERIC, ex);
         } finally {
@@ -57,17 +59,47 @@ public class RequestDaoImpl implements RequestDao {
     }
 
     @Override
-    public List<Request> findByTraderId(Long traderId) throws BaseDaoException {
-        logger.info("Start findByTraderIdAndHiddenFalse - traderId: {}", traderId);
+    public Page<Request> findByTraderIdAndTraderHiddenFalse(Long traderId, Pageable pageable) throws BaseDaoException {
+        logger.info("Start findByTraderIdAndTraderHiddenFalse - traderId: {}, pageable: {}", traderId, pageable);
         try {
             Preconditions.checkNotNull(traderId);
-            return this.requestRepository.findByTraderIdOrderByLastModifiedDateDesc(traderId);
+            return this.requestRepository.findByTraderIdAndTraderHiddenFalse(traderId, pageable);
+        } catch (DataAccessException dae) {
+            throw new BaseDaoException(ErrorCode.DB_ERROR_GET_PAGE_FAILED, dae);
+        } catch (Exception ex) {
+            throw new BaseDaoException(ErrorCode.DB_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End findByTraderIdAndTraderHiddenFalse");
+        }
+    }
+
+    @Override
+    public List<Request> findByOwnerItemId(Long ownerItemId) throws BaseDaoException {
+        logger.info("Start findByOwnerItemId - ownerItemId: {}", ownerItemId);
+        try {
+            Preconditions.checkNotNull(ownerItemId);
+            return this.requestRepository.findByOwnerItemId(ownerItemId);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GET_LIST_FAILED, dae);
         } catch (Exception ex) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GENERIC, ex);
         } finally {
-            logger.info("End findByTraderIdAndHiddenFalse");
+            logger.info("End findByOwnerItemId");
+        }
+    }
+
+    @Override
+    public List<Request> findByTraderItemId(Long traderItemId) throws BaseDaoException {
+        logger.info("Start findByTraderItemId - traderItemId: {}", traderItemId);
+        try {
+            Preconditions.checkNotNull(traderItemId);
+            return this.requestRepository.findByTraderItemId(traderItemId);
+        } catch (DataAccessException dae) {
+            throw new BaseDaoException(ErrorCode.DB_ERROR_GET_LIST_FAILED, dae);
+        } catch (Exception ex) {
+            throw new BaseDaoException(ErrorCode.DB_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End findByTraderItemId");
         }
     }
 

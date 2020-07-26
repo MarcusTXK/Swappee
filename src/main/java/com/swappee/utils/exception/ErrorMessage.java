@@ -20,6 +20,11 @@ public class ErrorMessage {
     public static final String ITEM_ERROR_GET_LIST_FAILED = "Error in get list item service";
     public static final String ITEM_ERROR_GET_PAGE_FAILED = "Error in get page item service";
 
+    //Like Error Message
+    public static final String LIKE_ERROR_CREATE_FAILED = "Error in create like service";
+    public static final String LIKE_ERROR_DELETE_FAILED = "Error in delete like service";
+    public static final String LIKE_ERROR_GET_PAGE_FAILED = "Error in get page like service";
+
     //Generic Error Message
     public static final String SVC_ERROR_GENERIC = "Error in generic service";
 

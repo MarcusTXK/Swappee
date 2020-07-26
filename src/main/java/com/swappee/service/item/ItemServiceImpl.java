@@ -4,12 +4,14 @@ import com.google.common.base.Preconditions;
 import com.swappee.dao.item.ItemDao;
 import com.swappee.dao.like.LikeDao;
 import com.swappee.dao.picture.PictureDao;
+import com.swappee.dao.request.RequestDao;
 import com.swappee.dao.user.UserDao;
 import com.swappee.domain.item.Item;
 import com.swappee.domain.item.ItemHistory;
 import com.swappee.domain.item.PreferredItem;
 import com.swappee.domain.like.Like;
 import com.swappee.domain.picture.Picture;
+import com.swappee.domain.request.Request;
 import com.swappee.domain.user.User;
 import com.swappee.mapper.item.ItemDTOMapper;
 import com.swappee.mapper.item.ItemHistoryDTOMapper;
@@ -18,6 +20,7 @@ import com.swappee.mapper.picture.PictureDTOMapper;
 import com.swappee.model.item.*;
 import com.swappee.model.picture.PictureDTO;
 import com.swappee.model.picture.PictureViewDTO;
+import com.swappee.model.wrapper.GridResult;
 import com.swappee.utils.exception.BaseDaoException;
 import com.swappee.utils.exception.BaseServiceException;
 import com.swappee.utils.exception.ErrorMessage;
@@ -51,6 +54,9 @@ public class ItemServiceImpl implements ItemService {
     LikeDao likeDao;
 
     @Autowired
+    RequestDao requestDao;
+
+    @Autowired
     ItemDTOMapper itemDTOMapper;
 
     @Autowired
@@ -76,6 +82,7 @@ public class ItemServiceImpl implements ItemService {
         try {
             logger.info("Start findItemById - id: {}", id);
             Preconditions.checkNotNull(id);
+
             ItemDTO itemDTO = itemDTOMapper.mapEntity(itemDao.findById(id));
             Preconditions.checkNotNull(itemDTO);
             return itemDTO;
@@ -103,6 +110,7 @@ public class ItemServiceImpl implements ItemService {
         try {
             logger.info("Start findItemViewById - id: {}", id);
             Preconditions.checkNotNull(id);
+
             Item item = itemDao.findById(id);
             Preconditions.checkNotNull(item);
             List<Picture> pictureList = pictureDao.findByItemId(id);
@@ -131,6 +139,7 @@ public class ItemServiceImpl implements ItemService {
         try {
             logger.info("Start getAll - ids: {}", ids);
             Preconditions.checkArgument(!ids.isEmpty());
+
             List<Item> itemList = itemDao.getAll(ids);
             Preconditions.checkArgument(!itemList.isEmpty());
             List<ItemCardDTO> itemCardDTOList = new ArrayList<>();
@@ -161,31 +170,119 @@ public class ItemServiceImpl implements ItemService {
      */
 
     @Override
-    public Page<ItemCardDTO> getAll(Pageable pageable) throws BaseServiceException {
+    public GridResult findItems(Pageable pageable) throws BaseServiceException {
         try {
-            logger.info("Start getAll - pageable: {}", pageable);
+            logger.info("Start findItems - pageable: {}", pageable);
             Preconditions.checkNotNull(pageable);
-            return itemDao.getAll(pageable).map(
-                    item -> {
-                        try {
-                            return itemCardDTOMapper(
-                                    item,
-                                    pictureDao.findByItemIdAndOrderIs(item.getId(), 0L),
-                                    likeDao.findByUserIdAndItemId(item.getUserId(), item.getId()),
-                                    userDao.findById(item.getId()));
-                        } catch (BaseDaoException e) {
-                            logger.debug("itemCardDTOMapper Error - item: {}", item);
-                            logger.error("Error in getAll():", e);
-                        }
-                        return null;
-                    }
-            );
+
+            Page<Item> itemPage = itemDao.getAll(pageable);
+            List<ItemCardDTO> itemCardDTOList = new ArrayList<>();
+            for (Item item : itemPage) {
+                itemCardDTOList.add(
+                        itemCardDTOMapper(
+                                item,
+                                pictureDao.findByItemIdAndOrderIs(item.getId(), 0L),
+                                likeDao.findByUserIdAndItemId(item.getUserId(), item.getId()),
+                                userDao.findById(item.getId())));
+            }
+            GridResult gridResult = new GridResult();
+            gridResult.setData(itemCardDTOList);
+            gridResult.setTotalRecordCount((int) itemPage.getTotalElements());
+            gridResult.setIsSuccess(true);
+            return gridResult;
         } catch (BaseDaoException bde) {
             throw new BaseServiceException(ErrorMessage.ITEM_ERROR_GET_PAGE_FAILED, bde);
         } catch (Exception ex) {
             throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
         } finally {
-            logger.info("End getAll");
+            logger.info("End findItems");
+        }
+    }
+
+    /**
+     * Get a page of ItemCardDTO by user id
+     * Used when looking at user's profile
+     *
+     * @param userId
+     * @param pageable
+     * @return
+     * @throws BaseServiceException
+     */
+
+    @Override
+    public GridResult findItemsByUserId(Long userId, Pageable pageable) throws BaseServiceException {
+        try {
+            logger.info("Start findItemsByUserId - userId: {}, pageable: {}", userId, pageable);
+            Preconditions.checkNotNull(userId);
+            Preconditions.checkNotNull(pageable);
+
+            Page<Item> itemPage = itemDao.findByUserId(userId, pageable);
+            List<ItemCardDTO> itemCardDTOList = new ArrayList<>();
+            for (Item item : itemPage) {
+                itemCardDTOList.add(
+                        itemCardDTOMapper(
+                                item,
+                                pictureDao.findByItemIdAndOrderIs(item.getId(), 0L),
+                                likeDao.findByUserIdAndItemId(item.getUserId(), item.getId()),
+                                userDao.findById(item.getId())));
+            }
+            GridResult gridResult = new GridResult();
+            gridResult.setData(itemCardDTOList);
+            gridResult.setTotalRecordCount((int) itemPage.getTotalElements());
+            gridResult.setIsSuccess(true);
+            return gridResult;
+        } catch (BaseDaoException bde) {
+            throw new BaseServiceException(ErrorMessage.ITEM_ERROR_GET_PAGE_FAILED, bde);
+        } catch (Exception ex) {
+            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End findItemsByUserId");
+        }
+    }
+
+    /**
+     * Get a page of ItemCardDTO by user id
+     * Used when a user is looking for his liked items
+     *
+     * @param userId
+     * @param pageable
+     * @return
+     */
+
+    @Override
+    public GridResult findItemsByUserLikes(Long userId, Pageable pageable) throws BaseServiceException {
+        try {
+            logger.info("Start findItemsByUserLikes - userId: {}, pageable: {}", userId, pageable);
+            Preconditions.checkNotNull(userId);
+            Preconditions.checkNotNull(pageable);
+            //Find user's likes
+            Page<Like> likePage = likeDao.findByUserId(userId, pageable);
+            List<Long> idList = new ArrayList<>();
+            for (Like like : likePage) {
+                idList.add(like.getId());
+            }
+
+            List<Item> itemList = itemDao.getAll(idList);
+            List<ItemCardDTO> itemCardDTOList = new ArrayList<>();
+            for (Item item : itemList) {
+                itemCardDTOList.add(
+                        itemCardDTOMapper(
+                                item,
+                                pictureDao.findByItemIdAndOrderIs(item.getId(), 0L),
+                                likeDao.findByUserIdAndItemId(item.getUserId(), item.getId()),
+                                userDao.findById(item.getId())));
+            }
+            GridResult gridResult = new GridResult();
+            gridResult.setData(itemCardDTOList);
+            gridResult.setTotalRecordCount((int) likePage.getTotalElements());
+            gridResult.setIsSuccess(true);
+            return gridResult;
+        } catch (BaseDaoException bde) {
+            throw new BaseServiceException(ErrorMessage.ITEM_ERROR_GET_PAGE_FAILED, bde);
+        } catch (Exception ex) {
+            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End findItemsByUserLikes");
         }
     }
 
@@ -220,45 +317,56 @@ public class ItemServiceImpl implements ItemService {
     }
 
     /**
-     * Get a page of ItemCardDTO by user id
-     * Used when looking at user's profile
+     * When item is liked/unliked
+     * Creates/Deletes Like and increments/decrements item's likes
      *
+     * @param itemId
      * @param userId
-     * @param pageable
+     * @param like   true for liked, false for unliked
      * @return
      * @throws BaseServiceException
      */
 
     @Override
-    public Page<ItemCardDTO> findByUserId(Long userId, Pageable pageable) throws BaseServiceException {
+    public ItemDTO itemLiked(Long itemId, Long userId, Boolean like) throws BaseServiceException {
         try {
-            logger.info("Start findByUserId - userId: {}, pageable: {}", userId, pageable);
+            logger.info("Start itemLiked - itemId: {}, userId: {}, like: {}", itemId, userId, like);
+            Preconditions.checkNotNull(itemId);
             Preconditions.checkNotNull(userId);
-            Preconditions.checkNotNull(pageable);
-            return itemDao.findByUserId(userId, pageable).map(
-                    item -> {
-                        try {
-                            return itemCardDTOMapper(
-                                    item,
-                                    pictureDao.findByItemIdAndOrderIs(item.getId(), 0L),
-                                    likeDao.findByUserIdAndItemId(item.getUserId(), item.getId()),
-                                    userDao.findById(item.getId()));
-                        } catch (BaseDaoException e) {
-                            logger.debug("itemCardDTOMapper Error - item: {}", item);
-                            logger.error("Error in findByUserId():", e);
-                        }
-                        return null;
-                    }
-            );
+            Preconditions.checkNotNull(like);
+
+            Item item = (itemDao.findById(itemId));
+            Preconditions.checkNotNull(item);
+            if (Boolean.TRUE.equals(like)) {
+                item.setLikes(item.getLikes() + 1L);
+                Like newLike = new Like();
+                newLike.setUserId(userId);
+                newLike.setItemId(itemId);
+                likeDao.create(newLike);
+            } else {
+                item.setLikes(item.getLikes() - 1L);
+                likeDao.delete(likeDao.findByUserIdAndItemId(userId, itemId));
+            }
+            ItemDTO updatedItemDTO = itemDTOMapper.mapEntity(itemDao.update(item));
+            Preconditions.checkNotNull(updatedItemDTO);
+            return updatedItemDTO;
         } catch (BaseDaoException bde) {
-            throw new BaseServiceException(ErrorMessage.ITEM_ERROR_GET_PAGE_FAILED, bde);
+            throw new BaseServiceException(ErrorMessage.ITEM_ERROR_UPDATE_FAILED, bde);
         } catch (Exception ex) {
             throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
         } finally {
-            logger.info("End findByUserId");
+            logger.info("End itemLiked");
         }
     }
 
+    /**
+     * Creates ItemDTO
+     *
+     * @param toCreate
+     * @param pictureDTOList
+     * @return
+     * @throws BaseServiceException
+     */
     @Override
     public ItemDTO create(ItemDTO toCreate, List<PictureDTO> pictureDTOList) throws BaseServiceException {
         try {
@@ -301,7 +409,7 @@ public class ItemServiceImpl implements ItemService {
             pictureDao.update(pictureList);
             return itemDTO;
         } catch (BaseDaoException bde) {
-            throw new BaseServiceException(ErrorMessage.ITEM_ERROR_CREATE_FAILED, bde);
+            throw new BaseServiceException(ErrorMessage.ITEM_ERROR_UPDATE_FAILED, bde);
         } catch (Exception ex) {
             throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
         } finally {
@@ -309,7 +417,13 @@ public class ItemServiceImpl implements ItemService {
         }
     }
 
-    //Delete item and likes
+    /**
+     * Deletes ItemDTO, set all likes under as deleted and set statuses of requests the item is in to REMOVED
+     *
+     * @param toDelete
+     * @return
+     * @throws BaseServiceException
+     */
     @Override
     public ItemDTO delete(ItemDTO toDelete) throws BaseServiceException {
         try {
@@ -323,9 +437,24 @@ public class ItemServiceImpl implements ItemService {
                 like.setItemDeleted(true);
                 likeDao.update(like);
             }
+            //set statuses of requests the item is in to REMOVED
+            List<Request> ownerRequestList = requestDao.findByOwnerItemId(toDelete.getId());
+            for (Request request : ownerRequestList) {
+                if (!(request.getStatus() == Request.Status.REMOVED || request.getStatus() == Request.Status.TRADED)) {
+                    request.setStatus(Request.Status.REMOVED);
+                    requestDao.update(request);
+                }
+            }
+            List<Request> traderRequestList = requestDao.findByTraderItemId(toDelete.getId());
+            for (Request request : traderRequestList) {
+                if (!(request.getStatus() == Request.Status.REMOVED || request.getStatus() == Request.Status.TRADED)) {
+                    request.setStatus(Request.Status.REMOVED);
+                    requestDao.update(request);
+                }
+            }
             return itemDTO;
         } catch (BaseDaoException bde) {
-            throw new BaseServiceException(ErrorMessage.ITEM_ERROR_CREATE_FAILED, bde);
+            throw new BaseServiceException(ErrorMessage.ITEM_ERROR_DELETE_FAILED, bde);
         } catch (Exception ex) {
             throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
         } finally {
