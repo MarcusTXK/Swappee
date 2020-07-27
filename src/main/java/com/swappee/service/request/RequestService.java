@@ -1,18 +1,22 @@
 package com.swappee.service.request;
 
+import com.swappee.domain.request.Request;
 import com.swappee.model.request.RequestDTO;
 import com.swappee.model.wrapper.GridResult;
-import com.swappee.utils.exception.BaseDaoException;
+import com.swappee.utils.exception.BaseServiceException;
+import org.springframework.data.domain.Pageable;
 
 public interface RequestService {
 
-    GridResult findByOwnerId(Long ownerId) throws BaseDaoException;
+    GridResult findByOwnerId(Long ownerId, Pageable pageable) throws BaseServiceException;
 
-    GridResult findByTraderId(Long traderId) throws BaseDaoException;
+    GridResult findByTraderId(Long traderId, Pageable pageable) throws BaseServiceException;
 
-    RequestDTO create(RequestDTO toCreate) throws BaseDaoException;
+    RequestDTO create(RequestDTO toCreate) throws BaseServiceException;
 
-    RequestDTO update(RequestDTO toUpdate) throws BaseDaoException;
+    RequestDTO updateStatus(Long requestId, Request.Status status) throws BaseServiceException;
 
-    RequestDTO hide(Long requestId, Long userId) throws BaseDaoException;
+    RequestDTO update(RequestDTO toUpdate) throws BaseServiceException;
+
+    RequestDTO hide(Long requestId, Long userId) throws BaseServiceException;
 }

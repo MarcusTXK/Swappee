@@ -1,5 +1,6 @@
 package com.swappee.service.user;
 
+import com.swappee.model.review.ReviewDTO;
 import com.swappee.model.user.UserDTO;
 import com.swappee.model.user.UserViewDTO;
 import com.swappee.utils.exception.BaseServiceException;
@@ -23,6 +24,8 @@ public interface UserService {
     Page<UserViewDTO> getAll(Pageable pageable) throws BaseServiceException;
 
     UserDTO create(UserDTO toCreate) throws BaseServiceException;
+
+    Boolean reviewUser(ReviewDTO reviewDTO) throws BaseServiceException;
 
     UserDTO update(UserDTO toUpdate) throws BaseServiceException;
 

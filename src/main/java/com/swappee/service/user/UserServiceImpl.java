@@ -1,10 +1,16 @@
 package com.swappee.service.user;
 
 import com.google.common.base.Preconditions;
+import com.swappee.dao.request.RequestDao;
+import com.swappee.dao.review.ReviewDao;
 import com.swappee.dao.user.UserDao;
+import com.swappee.domain.request.Request;
+import com.swappee.domain.review.Review;
 import com.swappee.domain.user.User;
+import com.swappee.mapper.review.ReviewDTOMapper;
 import com.swappee.mapper.user.UserDTOMapper;
 import com.swappee.model.item.ItemDTO;
+import com.swappee.model.review.ReviewDTO;
 import com.swappee.model.user.UserDTO;
 import com.swappee.model.user.UserViewDTO;
 import com.swappee.service.item.ItemService;
@@ -35,6 +41,15 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     ItemService itemService;
+
+    @Autowired
+    ReviewDao reviewDao;
+
+    @Autowired
+    RequestDao requestDao;
+
+    @Autowired
+    ReviewDTOMapper reviewDTOMapper;
 
     @Autowired
     UserDTOMapper userDTOMapper;
@@ -183,6 +198,60 @@ public class UserServiceImpl implements UserService {
             throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
         } finally {
             logger.info("End create");
+        }
+    }
+
+    /**
+     * Create review and updates user
+     * @param reviewDTO
+     * @return true if successful, false if unsuccessful
+     */
+
+    @Override
+    public Boolean reviewUser(ReviewDTO reviewDTO) throws BaseServiceException {
+        try {
+            logger.info("Start reviewUser - reviewDTO: {}", reviewDTO);
+            Preconditions.checkNotNull(reviewDTO);
+            //check user to be reviewed exists
+            User user = userDao.findById(reviewDTO.getReviewedId());
+            Preconditions.checkNotNull(user);
+            //Check if request exists and if status is TRADED
+            Request request = requestDao.findById(reviewDTO.getRequestId());
+            Preconditions.checkNotNull(request);
+            if (request.getStatus() == Request.Status.TRADED) {
+                //Check if user reviewing is the owner or trader
+                if (request.getOwnerId().equals(reviewDTO.getReviewerId())) {
+                    if (request.isOwnerReviewed()) {
+                        logger.warn("Reviewer has already reviewed - reviewerId: {}", reviewDTO.getReviewerId());
+                        return false;
+                    }
+                    request.setOwnerReviewed(true);
+                } else if (request.getTraderId().equals(reviewDTO.getReviewerId())) {
+                    if (request.isTraderReviewed()) {
+                        logger.warn("Reviewer has already reviewed - reviewerId: {}", reviewDTO.getReviewerId());
+                        return false;
+                    }
+                    request.setTraderReviewed(true);
+                } else {
+                    logger.warn("Reviewer is neither owner nor trader of request - reviewerId: {}", reviewDTO.getReviewerId());
+                    return false;
+                }
+                reviewDao.create(reviewDTOMapper.mapDto(reviewDTO));
+                user.setScore(user.getScore() + reviewDTO.getScore());
+                user.setTotalTraded(user.getTotalTraded() + 1);
+                userDao.update(user);
+                requestDao.update(request);
+                return true;
+            } else {
+                logger.warn("Request status is not TRADED - requestId: {}", reviewDTO.getRequestId());
+                return false;
+            }
+        } catch (BaseDaoException bde) {
+            throw new BaseServiceException(ErrorMessage.USER_ERROR_REVIEW_FAILED, bde);
+        } catch (Exception ex) {
+            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End reviewUser");
         }
     }
 

@@ -351,7 +351,7 @@ public class ItemServiceImpl implements ItemService {
             Preconditions.checkNotNull(updatedItemDTO);
             return updatedItemDTO;
         } catch (BaseDaoException bde) {
-            throw new BaseServiceException(ErrorMessage.ITEM_ERROR_UPDATE_FAILED, bde);
+            throw new BaseServiceException(ErrorMessage.ITEM_ERROR_LIKE_FAILED, bde);
         } catch (Exception ex) {
             throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
         } finally {
@@ -367,6 +367,7 @@ public class ItemServiceImpl implements ItemService {
      * @return
      * @throws BaseServiceException
      */
+
     @Override
     public ItemDTO create(ItemDTO toCreate, List<PictureDTO> pictureDTOList) throws BaseServiceException {
         try {
@@ -391,6 +392,14 @@ public class ItemServiceImpl implements ItemService {
             logger.info("End create");
         }
     }
+
+    /**
+     * Update ItemDTO and its pictureDTOs
+     * @param toUpdate
+     * @param pictureDTOList
+     * @return
+     * @throws BaseServiceException
+     */
 
     @Override
     public ItemDTO update(ItemDTO toUpdate, List<PictureDTO> pictureDTOList) throws BaseServiceException {
