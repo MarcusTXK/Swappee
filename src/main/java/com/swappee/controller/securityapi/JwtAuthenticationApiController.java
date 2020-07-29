@@ -1,4 +1,4 @@
-package com.swappee.controller.security;
+package com.swappee.controller.securityapi;
 
 import com.google.common.base.Preconditions;
 import com.swappee.model.security.JwtTokenRequestDTO;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/login")
-public class JwtAuthenticationRestController {
+public class JwtAuthenticationApiController {
 
     @Autowired
     private AuthenticationManager authenticationManager;

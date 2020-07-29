@@ -183,7 +183,7 @@ public class ItemServiceImpl implements ItemService {
                                 item,
                                 pictureDao.findByItemIdAndOrderIs(item.getId(), 0L),
                                 likeDao.findByUserIdAndItemId(item.getUserId(), item.getId()),
-                                userDao.findById(item.getId())));
+                                userDao.findById(item.getUserId())));
             }
             GridResult gridResult = new GridResult();
             gridResult.setData(itemCardDTOList);
@@ -196,6 +196,45 @@ public class ItemServiceImpl implements ItemService {
             throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
         } finally {
             logger.info("End findItems");
+        }
+    }
+
+    /**
+     * Get a page of ItemCardDTO by category
+     * @param category
+     * @param pageable
+     * @return
+     * @throws BaseServiceException
+     */
+
+    @Override
+    public GridResult findByCategory(String category, Pageable pageable) throws BaseServiceException {
+        try {
+            logger.info("Start findByCategory - category: {}, pageable: {}", category, pageable);
+            Preconditions.checkNotNull(category);
+            Preconditions.checkNotNull(pageable);
+
+            Page<Item> itemPage = itemDao.findByCategory(category, pageable);
+            List<ItemCardDTO> itemCardDTOList = new ArrayList<>();
+            for (Item item : itemPage) {
+                itemCardDTOList.add(
+                        itemCardDTOMapper(
+                                item,
+                                pictureDao.findByItemIdAndOrderIs(item.getId(), 0L),
+                                likeDao.findByUserIdAndItemId(item.getUserId(), item.getId()),
+                                userDao.findById(item.getUserId())));
+            }
+            GridResult gridResult = new GridResult();
+            gridResult.setData(itemCardDTOList);
+            gridResult.setTotalRecordCount((int) itemPage.getTotalElements());
+            gridResult.setIsSuccess(true);
+            return gridResult;
+        } catch (BaseDaoException bde) {
+            throw new BaseServiceException(ErrorMessage.ITEM_ERROR_GET_PAGE_FAILED, bde);
+        } catch (Exception ex) {
+            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End findByCategory");
         }
     }
 
@@ -224,7 +263,7 @@ public class ItemServiceImpl implements ItemService {
                                 item,
                                 pictureDao.findByItemIdAndOrderIs(item.getId(), 0L),
                                 likeDao.findByUserIdAndItemId(item.getUserId(), item.getId()),
-                                userDao.findById(item.getId())));
+                                userDao.findById(item.getUserId())));
             }
             GridResult gridResult = new GridResult();
             gridResult.setData(itemCardDTOList);
@@ -270,7 +309,7 @@ public class ItemServiceImpl implements ItemService {
                                 item,
                                 pictureDao.findByItemIdAndOrderIs(item.getId(), 0L),
                                 likeDao.findByUserIdAndItemId(item.getUserId(), item.getId()),
-                                userDao.findById(item.getId())));
+                                userDao.findById(item.getUserId())));
             }
             GridResult gridResult = new GridResult();
             gridResult.setData(itemCardDTOList);
@@ -546,6 +585,7 @@ public class ItemServiceImpl implements ItemService {
         itemCardDTO.setId(item.getId());
         itemCardDTO.setImagePath(picture.getId().toString());
         itemCardDTO.setName(item.getName());
+        itemCardDTO.setStatus(item.getStatus().toString());
         itemCardDTO.setBrand(item.getBrand());
         itemCardDTO.setDescription(item.getDescription());
         itemCardDTO.setNew(item.isNew());

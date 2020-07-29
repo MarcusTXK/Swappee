@@ -17,6 +17,8 @@ public interface ItemDao {
 
     Page<Item> getAll(Pageable pageable) throws BaseDaoException;
 
+    Page<Item> findByCategory(String category, Pageable pageable) throws BaseDaoException;
+
     List<Item> findByUserId(Long userId) throws BaseDaoException;
 
     Page<Item> findByUserId(Long userId, Pageable pageable) throws BaseDaoException;

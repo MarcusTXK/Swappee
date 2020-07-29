@@ -28,6 +28,9 @@ public class ErrorMessage {
     public static final String REQUEST_ERROR_HIDE_FAILED = "Error in hide request service";
     public static final String REQUEST_ERROR_GET_PAGE_FAILED = "Error in get page request service";
 
+    //Picture Error Message
+    public static final String PICTURE_ERROR_GET_ONE_FAILED = "Error in get picture service";
+
     //Generic Error Message
     public static final String SVC_ERROR_GENERIC = "Error in generic service";
 

@@ -11,7 +11,8 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 /**
- * Service interface for managing items.
+ * Service interface for managing items
+ * Items Service deals with Likes as well
  */
 public interface ItemService {
     ItemDTO findItemById(Long id) throws BaseServiceException;
@@ -21,6 +22,8 @@ public interface ItemService {
     List<ItemCardDTO> getAll(List<Long> ids) throws BaseServiceException;
 
     GridResult findItems(Pageable pageable) throws BaseServiceException;
+
+    GridResult findByCategory(String category, Pageable pageable) throws BaseServiceException;
 
     GridResult findItemsByUserId(Long userId, Pageable pageable) throws BaseServiceException;
 
