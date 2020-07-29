@@ -28,8 +28,14 @@ public class PicturePublicApiController {
     @Autowired
     PictureService pictureService;
 
+    /**
+     * Api to display a picture by id
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
-    public ResponseEntity<ByteArrayResource> download(@PathVariable Long id){
+    public ResponseEntity<ByteArrayResource> download(@PathVariable Long id) {
         logger.info("Start download - id: {}", id);
         HttpStatus httpStatus = HttpStatus.OK;
         try {

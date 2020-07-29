@@ -19,6 +19,8 @@ public interface UserService {
 
     UserDTO findByUsername(String username) throws BaseServiceException;
 
+    UserViewDTO findUserViewByUsername(String username) throws BaseServiceException;
+
     List<UserViewDTO> getAll(List<Long> ids) throws BaseServiceException;
 
     Page<UserViewDTO> getAll(Pageable pageable) throws BaseServiceException;

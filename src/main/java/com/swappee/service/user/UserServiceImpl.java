@@ -103,6 +103,29 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * Find user view by username
+     * For users trying to get information on other users
+     * @param username
+     * @return
+     * @throws BaseServiceException
+     */
+
+    @Override
+    public UserViewDTO findUserViewByUsername(String username) throws BaseServiceException {
+        try {
+            logger.info("Start findByUsername - username: {}", username);
+            Preconditions.checkNotNull(username);
+            return userViewDTOMapper(userDao.findByUsername(username));
+        } catch (BaseDaoException bde) {
+            throw new BaseServiceException(ErrorMessage.USER_ERROR_GET_ONE_FAILED, bde);
+        } catch (Exception ex) {
+            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End findByUsername");
+        }
+    }
+
+    /**
      * Find user by username
      *
      * @param username
