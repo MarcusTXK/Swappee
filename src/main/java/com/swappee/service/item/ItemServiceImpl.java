@@ -377,16 +377,20 @@ public class ItemServiceImpl implements ItemService {
             Preconditions.checkNotNull(like);
 
             Item item = (itemDao.findById(itemId));
+            Like likeExist = likeDao.findByUserIdAndItemId(userId,itemId);
             Preconditions.checkNotNull(item);
-            if (Boolean.TRUE.equals(like)) {
+            if (Boolean.TRUE.equals(like) && likeExist == null) {
                 item.setLikes(item.getLikes() + 1L);
                 Like newLike = new Like();
                 newLike.setUserId(userId);
                 newLike.setItemId(itemId);
                 likeDao.create(newLike);
-            } else {
+            } else if (Boolean.FALSE.equals(like) && likeExist != null){
                 item.setLikes(item.getLikes() - 1L);
                 likeDao.delete(likeDao.findByUserIdAndItemId(userId, itemId));
+            } else {
+                logger.error("Unable to like/unlike item");
+                throw new BaseDaoException("Item is already liked/unliked");
             }
             ItemDTO updatedItemDTO = itemDTOMapper.mapEntity(itemDao.update(item));
             Preconditions.checkNotNull(updatedItemDTO);

@@ -15,6 +15,11 @@ public class BaseDaoException extends Exception {
         this.daoErrorMessage = daoErrorMessage;
     }
 
+    public BaseDaoException(String daoErrorMessage) {
+        super(daoErrorMessage);
+        this.daoErrorMessage = daoErrorMessage;
+    }
+
     public String getDaoErrorMessage() {
         return daoErrorMessage == null ? DAO_ERROR_MESSAGE_NULL : daoErrorMessage;
     }
