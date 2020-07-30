@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * REST controller for managing pictures.
+ * Public REST controller for managing pictures.
+ * Only has Get methods
  */
 
 @RestController

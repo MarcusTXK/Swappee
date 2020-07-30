@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,6 +109,7 @@ public class RequestServiceImpl implements RequestService {
      * @throws BaseServiceException
      */
     @Override
+    @Transactional(rollbackFor = {BaseServiceException.class})
     public RequestDTO create(RequestDTO toCreate) throws BaseServiceException {
         try {
             logger.info("Start create - toCreate: {}", toCreate);
@@ -133,6 +135,7 @@ public class RequestServiceImpl implements RequestService {
      * @return
      */
     @Override
+    @Transactional(rollbackFor = {BaseServiceException.class})
     public RequestDTO updateStatus(Long requestId, Request.Status status) throws BaseServiceException {
         try {
             logger.info("Start updateStatus - requestId: {}, status: {}", requestId, status);
@@ -162,6 +165,7 @@ public class RequestServiceImpl implements RequestService {
      * @throws BaseServiceException
      */
     @Override
+    @Transactional(rollbackFor = {BaseServiceException.class})
     public RequestDTO update(RequestDTO toUpdate) throws BaseServiceException {
         try {
             logger.info("Start update - toUpdate: {}", toUpdate);
@@ -187,6 +191,7 @@ public class RequestServiceImpl implements RequestService {
      * @return
      */
     @Override
+    @Transactional(rollbackFor = {BaseServiceException.class})
     public RequestDTO hide(Long requestId, Long userId) throws BaseServiceException {
         try {
             logger.info("Start hide - requestId: {}, userId: {}", requestId, userId);

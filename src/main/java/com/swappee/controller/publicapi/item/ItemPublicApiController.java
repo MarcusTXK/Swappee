@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.*;
 
 
 /**
- * REST controller for managing items.
+ * Public REST controller for managing items.
+ * Only has Get methods
  */
 
 @RestController
@@ -30,9 +31,14 @@ public class ItemPublicApiController {
     @Autowired
     ItemService itemService;
 
+    /**
+     * Api to get item view by id
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
-    public ResponseEntity<ContentResult> getItem(@PathVariable Long id) {
-        logger.info("Start getItem - id: {}", id);
+    public ResponseEntity<ContentResult> getItemView(@PathVariable Long id) {
+        logger.info("Start getItemView - id: {}", id);
         ContentResult contentResult = new ContentResult();
         HttpStatus httpStatus = HttpStatus.OK;
         try {
@@ -42,27 +48,36 @@ public class ItemPublicApiController {
             contentResult.setData(itemViewDTO);
             contentResult.setMessage(UserFriendlyMessage.ITEM_GET_ONE_SUCCEED);
         } catch (BaseServiceException bse) {
-            logger.error("Error in getItem():", bse);
+            logger.error("Error in getItemView():", bse);
             contentResult.setIsSuccess(false);
             contentResult.setMessage(UserFriendlyMessage.ITEM_GET_ONE_FAILED);
             httpStatus = HttpStatus.NOT_FOUND;
         } catch (Exception e) {
-            logger.error("Error in getItem():", e);
+            logger.error("Error in getItemView():", e);
             contentResult.setIsSuccess(false);
             contentResult.setMessage(UserFriendlyMessage.ITEM_GET_ONE_FAILED);
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        logger.info("End getItem");
+        logger.info("End getItemView");
         return new ResponseEntity<>(contentResult, httpStatus);
     }
 
+    /**
+     * Api to get all item views by pageable and category filters
+     * @param currentPage
+     * @param filter
+     * @param sortColumn
+     * @param sortDir
+     * @param pageSize
+     * @return
+     */
     @GetMapping("/list")
-    public ResponseEntity<GridResult> getAll(@RequestParam(defaultValue = "1") Integer currentPage,
+    public ResponseEntity<GridResult> getAllItemViews(@RequestParam(defaultValue = "1") Integer currentPage,
                                              @RequestParam(defaultValue = "all") String filter,
                                              @RequestParam(defaultValue = "createdDate") String sortColumn,
                                              @RequestParam(defaultValue = "asc") String sortDir,
                                              @RequestParam(defaultValue = "12") Integer pageSize) {
-        logger.info("Start getAll - currentPage: {}, filter: {}, sortColumn: {}, sortDir: {}, pageSize:{}", currentPage, filter, sortColumn, sortDir, pageSize);
+        logger.info("Start getAllItemViews - currentPage: {}, filter: {}, sortColumn: {}, sortDir: {}, pageSize:{}", currentPage, filter, sortColumn, sortDir, pageSize);
         GridResult gridResult = new GridResult();
         HttpStatus httpStatus = HttpStatus.OK;
         try {
@@ -81,27 +96,36 @@ public class ItemPublicApiController {
             }
             gridResult.setMessage(UserFriendlyMessage.ITEM_GET_LIST_SUCCEED);
         } catch (BaseServiceException bse) {
-            logger.error("Error in getAll():", bse);
+            logger.error("Error in getAllItemViews():", bse);
             gridResult.setIsSuccess(false);
             gridResult.setMessage(UserFriendlyMessage.ITEM_GET_LIST_FAILED);
             httpStatus = HttpStatus.NOT_FOUND;
         } catch (Exception e) {
-            logger.error("Error in getAll():", e);
+            logger.error("Error in getAllItemViews():", e);
             gridResult.setIsSuccess(false);
             gridResult.setMessage(UserFriendlyMessage.ITEM_GET_LIST_FAILED);
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        logger.info("End getAll");
+        logger.info("End getAllItemViews");
         return new ResponseEntity<>(gridResult, httpStatus);
     }
 
+    /**
+     * Api to get item views by used's id
+     * @param currentPage
+     * @param sortColumn
+     * @param sortDir
+     * @param pageSize
+     * @param userId
+     * @return
+     */
     @GetMapping("/user/{userId}")
-    public ResponseEntity<GridResult> findItemsByUserId(@RequestParam(defaultValue = "1") Integer currentPage,
+    public ResponseEntity<GridResult> findItemViewsByUserId(@RequestParam(defaultValue = "1") Integer currentPage,
                                                         @RequestParam(defaultValue = "createdDate") String sortColumn,
                                                         @RequestParam(defaultValue = "asc") String sortDir,
                                                         @RequestParam(defaultValue = "12") Integer pageSize,
                                                         @PathVariable Long userId) {
-        logger.info("Start findItemsByUserId - currentPage: {}, sortColumn: {}, sortDir: {}, pageSize:{}, userId:{}", currentPage, sortColumn, sortDir, pageSize, userId);
+        logger.info("Start findItemViewsByUserId - currentPage: {}, sortColumn: {}, sortDir: {}, pageSize:{}, userId:{}", currentPage, sortColumn, sortDir, pageSize, userId);
         GridResult gridResult = new GridResult();
         HttpStatus httpStatus = HttpStatus.OK;
         try {
@@ -115,54 +139,18 @@ public class ItemPublicApiController {
             gridResult = itemService.findItemsByUserId(userId, pageable);
             gridResult.setMessage(UserFriendlyMessage.ITEM_GET_LIST_SUCCEED);
         } catch (BaseServiceException bse) {
-            logger.error("Error in findItemsByUserId():", bse);
+            logger.error("Error in findItemViewsByUserId():", bse);
             gridResult.setIsSuccess(false);
             gridResult.setMessage(UserFriendlyMessage.ITEM_GET_LIST_FAILED);
             httpStatus = HttpStatus.NOT_FOUND;
         } catch (Exception e) {
-            logger.error("Error in findItemsByUserId():", e);
+            logger.error("Error in findItemViewsByUserId():", e);
             gridResult.setIsSuccess(false);
             gridResult.setMessage(UserFriendlyMessage.ITEM_GET_LIST_FAILED);
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        logger.info("End findItemsByUserId");
+        logger.info("End findItemViewsByUserId");
         return new ResponseEntity<>(gridResult, httpStatus);
     }
-
-    @GetMapping("/likes/{userId}")
-    public ResponseEntity<GridResult> findItemsByUserLikes(@RequestParam(defaultValue = "1") Integer currentPage,
-                                                        @RequestParam(defaultValue = "createdDate") String sortColumn,
-                                                        @RequestParam(defaultValue = "asc") String sortDir,
-                                                        @RequestParam(defaultValue = "12") Integer pageSize,
-                                                        @PathVariable Long userId) {
-        logger.info("Start findItemsByUserLikes - currentPage: {}, sortColumn: {}, sortDir: {}, pageSize:{}, userId:{}", currentPage, sortColumn, sortDir, pageSize, userId);
-        GridResult gridResult = new GridResult();
-        HttpStatus httpStatus = HttpStatus.OK;
-        try {
-            Sort sort;
-            if (sortDir.equals("asc")) {
-                sort = Sort.by(sortColumn).ascending();
-            } else {
-                sort = Sort.by(sortColumn).descending();
-            }
-            Pageable pageable = PageRequest.of(currentPage - 1, pageSize, sort);
-            gridResult = itemService.findItemsByUserLikes(userId, pageable);
-            gridResult.setMessage(UserFriendlyMessage.ITEM_GET_LIST_SUCCEED);
-        } catch (BaseServiceException bse) {
-            logger.error("Error in findItemsByUserLikes():", bse);
-            gridResult.setIsSuccess(false);
-            gridResult.setMessage(UserFriendlyMessage.ITEM_GET_LIST_FAILED);
-            httpStatus = HttpStatus.NOT_FOUND;
-        } catch (Exception e) {
-            logger.error("Error in findItemsByUserLikes():", e);
-            gridResult.setIsSuccess(false);
-            gridResult.setMessage(UserFriendlyMessage.ITEM_GET_LIST_FAILED);
-            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-        logger.info("End findItemsByUserLikes");
-        return new ResponseEntity<>(gridResult, httpStatus);
-    }
-
-
 
 }

@@ -62,6 +62,7 @@ public class ItemServiceImplTest {
 
     @Test
     public void getAll() {
+        createItemDTO();
     }
 
     @Test
@@ -80,7 +81,7 @@ public class ItemServiceImplTest {
     public void create() throws BaseServiceException {
         mockLogin();
         logger.info("logged in user: {}", securityUtil.getAuthenticatedUsername());
-        ItemDTO itemDTO = itemService.create(createItemDTO(), pictureDTOList());
+        ItemDTO itemDTO = itemService.create(createItemDTO());
         logger.info("itemDTO: {}", itemDTO);
     }
 
@@ -89,7 +90,7 @@ public class ItemServiceImplTest {
         mockLogin();
         logger.info("logged in user: {}", securityUtil.getAuthenticatedUsername());
         ItemDTO originalItemDTO = itemService.findItemById(4L);
-        ItemDTO itemDTO = itemService.update(updateItemDTO(originalItemDTO), pictureDTOList2());
+        ItemDTO itemDTO = itemService.update(updateItemDTO(originalItemDTO));
         logger.info("itemDTO: {}", itemDTO);
     }
 
@@ -142,7 +143,7 @@ public class ItemServiceImplTest {
         itemHistoryDTO2.setTradedItemId(2L);
         List<ItemHistoryDTO> itemHistoryDTOList = new ArrayList<>(Arrays.asList(itemHistoryDTO1, itemHistoryDTO2));
         itemDTO.setItemHistory(itemHistoryDTOList);
-
+        logger.debug("itemDTO: {}", itemDTO);
         return itemDTO;
     }
 

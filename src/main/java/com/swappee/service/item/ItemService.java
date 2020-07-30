@@ -33,9 +33,9 @@ public interface ItemService {
 
     ItemDTO itemLiked(Long itemId, Long userId, Boolean like) throws BaseServiceException;
 
-    ItemDTO create(ItemDTO toCreate, List<PictureDTO> pictureDTOList) throws BaseServiceException;
+    ItemDTO create(ItemDTO toCreate) throws BaseServiceException;
 
-    ItemDTO update(ItemDTO toUpdate, List<PictureDTO> pictureDTOList) throws BaseServiceException;
+    ItemDTO update(ItemDTO toUpdate) throws BaseServiceException;
 
     ItemDTO delete(ItemDTO toDelete) throws BaseServiceException;
 }

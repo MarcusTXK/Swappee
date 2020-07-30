@@ -30,6 +30,8 @@ public class ErrorMessage {
 
     //Picture Error Message
     public static final String PICTURE_ERROR_GET_ONE_FAILED = "Error in get picture service";
+    public static final String PICTURE_ERROR_CREATE_FAILED = "Error in create picture service";
+    public static final String PICTURE_ERROR_UPDATE_FAILED = "Error in update picture service";
 
     //Generic Error Message
     public static final String SVC_ERROR_GENERIC = "Error in generic service";

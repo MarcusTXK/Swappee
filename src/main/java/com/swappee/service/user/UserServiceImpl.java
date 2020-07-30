@@ -231,6 +231,7 @@ public class UserServiceImpl implements UserService {
      */
 
     @Override
+    @Transactional(rollbackFor = {BaseServiceException.class})
     public Boolean reviewUser(ReviewDTO reviewDTO) throws BaseServiceException {
         try {
             logger.info("Start reviewUser - reviewDTO: {}", reviewDTO);

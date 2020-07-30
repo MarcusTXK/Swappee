@@ -24,7 +24,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * REST controller for managing pictures.
+ * Public REST controller for managing pictures.
+ * Only has Get methods
  */
 
 @RestController
@@ -35,6 +36,11 @@ public class UserPublicApiController {
     @Autowired
     UserService userService;
 
+    /**
+     * Api to get user view by username
+     * @param username
+     * @return
+     */
     @GetMapping("/{username}")
     public ResponseEntity<ContentResult> getUser(@PathVariable String username) {
         logger.info("Start getUser - username: {}", username);
@@ -60,6 +66,14 @@ public class UserPublicApiController {
         return new ResponseEntity<>(contentResult, httpStatus);
     }
 
+    /**
+     * Api to list User views by pageable
+     * @param currentPage
+     * @param sortColumn
+     * @param sortDir
+     * @param pageSize
+     * @return
+     */
     @GetMapping("/list")
     public ResponseEntity<GridResult> getAll(@RequestParam(defaultValue = "1") Integer currentPage,
                                              @RequestParam(defaultValue = "createdDate") String sortColumn,
@@ -75,7 +89,6 @@ public class UserPublicApiController {
             } else {
                 sort = Sort.by(sortColumn).descending();
             }
-
             Pageable pageable = PageRequest.of(currentPage - 1, pageSize, sort);
             Page<UserViewDTO> users = userService.getAll(pageable);
             gridResult.setTotalRecordCount(users.getNumberOfElements());
@@ -109,15 +122,12 @@ public class UserPublicApiController {
         try {
             Preconditions.checkArgument(id != null);
             UserDTO userDTO = this.userService.findUserById(id);
-//            Tika tika = new Tika();
-//            logger.info("contentType - {}", MediaType.parseMediaType(tika.detect(userDTO.getAvatar())));
             return ResponseEntity
                     .ok()
                     .header(HttpHeaders.CONTENT_DISPOSITION,
                             "Content-Disposition: inline; filename=\"" + userDTO.getUsername() + ".jpeg\"")
                     .header(HttpHeaders.CONTENT_LENGTH, String.valueOf(userDTO.getAvatar().length))
                     .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
-//                    .contentType(MediaType.parseMediaType(tika.detect(userDTO.getAvatar())))
                     .body(new ByteArrayResource(userDTO.getAvatar()));
         } catch (BaseServiceException bse) {
             logger.error("Error in display avatar: ", bse);

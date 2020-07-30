@@ -1,5 +1,7 @@
 package com.swappee.model.item;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
@@ -17,6 +19,7 @@ public class PreferredItemDTO implements Serializable {
 
     private String brand;
 
+    @JsonProperty("new")
     private boolean isNew;
 
     public String getName() {

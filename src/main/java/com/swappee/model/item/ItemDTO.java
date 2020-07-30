@@ -1,6 +1,7 @@
 package com.swappee.model.item;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -29,6 +30,7 @@ public class ItemDTO implements Serializable {
 
     private String brand;
 
+    @JsonProperty("new")
     private boolean isNew;
 
     private String category;

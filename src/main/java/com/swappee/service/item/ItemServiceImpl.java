@@ -30,6 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -367,6 +368,7 @@ public class ItemServiceImpl implements ItemService {
      */
 
     @Override
+    @Transactional(rollbackFor = {BaseServiceException.class})
     public ItemDTO itemLiked(Long itemId, Long userId, Boolean like) throws BaseServiceException {
         try {
             logger.info("Start itemLiked - itemId: {}, userId: {}, like: {}", itemId, userId, like);
@@ -402,26 +404,18 @@ public class ItemServiceImpl implements ItemService {
      * Creates ItemDTO
      *
      * @param toCreate
-     * @param pictureDTOList
      * @return
      * @throws BaseServiceException
      */
 
     @Override
-    public ItemDTO create(ItemDTO toCreate, List<PictureDTO> pictureDTOList) throws BaseServiceException {
+    @Transactional(rollbackFor = {BaseServiceException.class})
+    public ItemDTO create(ItemDTO toCreate) throws BaseServiceException {
         try {
-            logger.info("Start create - toCreate: {}, pictureDTOList: {}", toCreate, pictureDTOList);
+            logger.info("Start create - toCreate: {}", toCreate);
             Preconditions.checkNotNull(toCreate);
-            Preconditions.checkArgument(!pictureDTOList.isEmpty());
             ItemDTO itemDTO = itemDTOMapper.mapEntity(itemDao.create(itemDTOMapper.mapDto(toCreate)));
             Preconditions.checkNotNull(itemDTO);
-
-            List<Picture> pictureList = new ArrayList<>();
-            for (PictureDTO pictureDTO : pictureDTOList) {
-                pictureDTO.setItemId(itemDTO.getId());
-                pictureList.add(pictureDTOMapper.mapDto(pictureDTO));
-            }
-            pictureDao.create(pictureList);
             return itemDTO;
         } catch (BaseDaoException bde) {
             throw new BaseServiceException(ErrorMessage.ITEM_ERROR_CREATE_FAILED, bde);
@@ -435,26 +429,18 @@ public class ItemServiceImpl implements ItemService {
     /**
      * Update ItemDTO and its pictureDTOs
      * @param toUpdate
-     * @param pictureDTOList
      * @return
      * @throws BaseServiceException
      */
 
     @Override
-    public ItemDTO update(ItemDTO toUpdate, List<PictureDTO> pictureDTOList) throws BaseServiceException {
+    @Transactional(rollbackFor = {BaseServiceException.class})
+    public ItemDTO update(ItemDTO toUpdate) throws BaseServiceException {
         try {
-            logger.info("Start update - toUpdate: {}, pictureDTOList: {}", toUpdate, pictureDTOList);
+            logger.info("Start update - toUpdate: {}", toUpdate);
             Preconditions.checkNotNull(toUpdate);
-            Preconditions.checkArgument(!pictureDTOList.isEmpty());
             ItemDTO itemDTO = itemDTOMapper.mapEntity(itemDao.update(itemDTOMapper.mapDto(toUpdate)));
             Preconditions.checkNotNull(itemDTO);
-
-            List<Picture> pictureList = new ArrayList<>();
-            for (PictureDTO pictureDTO : pictureDTOList) {
-                pictureDTO.setItemId(itemDTO.getId());
-                pictureList.add(pictureDTOMapper.mapDto(pictureDTO));
-            }
-            pictureDao.update(pictureList);
             return itemDTO;
         } catch (BaseDaoException bde) {
             throw new BaseServiceException(ErrorMessage.ITEM_ERROR_UPDATE_FAILED, bde);
@@ -473,6 +459,7 @@ public class ItemServiceImpl implements ItemService {
      * @throws BaseServiceException
      */
     @Override
+    @Transactional(rollbackFor = {BaseServiceException.class})
     public ItemDTO delete(ItemDTO toDelete) throws BaseServiceException {
         try {
             logger.info("Start delete - toDelete: {}", toDelete);

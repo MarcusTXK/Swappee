@@ -25,7 +25,7 @@ public class PictureDTO implements Serializable {
 
     private Long contentLength;
 
-    private String description;
+    private String description = "";
 
     public Long getId() {
         return id;
