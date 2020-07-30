@@ -120,7 +120,7 @@ public class UserPublicApiController {
         logger.info("Start displayAvatar - id: {}", id);
         HttpStatus httpStatus = HttpStatus.OK;
         try {
-            Preconditions.checkArgument(id != null);
+            Preconditions.checkNotNull(id);
             UserDTO userDTO = this.userService.findUserById(id);
             return ResponseEntity
                     .ok()

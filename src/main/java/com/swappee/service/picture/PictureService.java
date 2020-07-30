@@ -1,6 +1,7 @@
 package com.swappee.service.picture;
 
 import com.swappee.model.picture.PictureDTO;
+import com.swappee.model.picture.PictureViewDTO;
 import com.swappee.utils.exception.BaseServiceException;
 
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.List;
  */
 public interface PictureService {
     PictureDTO findById(Long id) throws BaseServiceException;
+
+    List<PictureViewDTO> findByItemId(Long itemId) throws BaseServiceException;
 
     Boolean create(List<PictureDTO> pictureDTOList) throws BaseServiceException;
 

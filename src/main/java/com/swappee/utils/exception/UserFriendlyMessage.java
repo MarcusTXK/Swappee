@@ -36,6 +36,12 @@ public class UserFriendlyMessage {
     public static final String ITEM_GET_LIST_FAILED = "Error in retrieving Items";
     public static final String ITEM_LIKE_FAILED = "Error in liking Item";
 
+    //Picture Success Message
+    public static final String PICTURE_GET_LIST_SUCCEED = "Successfully retrieved Pictures";
+
+    //Picture Error Message
+    public static final String PICTURE_GET_LIST_FAILED = "Error in retrieving Pictures";
+
     //Authentication Error Message
 
 }

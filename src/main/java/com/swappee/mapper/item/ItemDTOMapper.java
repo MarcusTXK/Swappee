@@ -78,6 +78,8 @@ public class ItemDTOMapper implements DTOMapper<ItemDTO, Item> {
         entity.setCreatedDate(dto.getCreatedDate());
         entity.setLastModifiedBy(dto.getLastModifiedBy());
         entity.setLastModifiedDate(dto.getLastModifiedDate());
+        entity.setVersion(dto.getVersion());
+        entity.setDeleted(dto.isDeleted());
 
         entity.setUserId(dto.getUserId());
         entity.setStatus(Item.Status.valueOf(dto.getStatus()));

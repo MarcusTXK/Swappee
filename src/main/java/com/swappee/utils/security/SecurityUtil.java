@@ -15,9 +15,9 @@ public class SecurityUtil {
     private final Logger logger = LoggerFactory.getLogger(SecurityUtil.class);
 
     /**
-     * Returns the username used to authenticate the user.
+     * Returns the username of authenticated user.
      *
-     * @return the username
+     * @return username
      */
     public String getAuthenticatedUsername() {
         String username = null;
@@ -33,7 +33,7 @@ public class SecurityUtil {
     }
 
     /**
-     * Returns the user identified related to authenticated user.
+     * Returns the user id of authenticated user.
      *
      * @return userId
      */

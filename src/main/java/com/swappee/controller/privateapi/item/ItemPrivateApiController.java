@@ -62,6 +62,9 @@ public class ItemPrivateApiController {
         try {
             Preconditions.checkNotNull(id);
             ItemDTO itemDTO = this.itemService.findItemById(id);
+            Long userId = securityUtil.getAuthenticatedUserId();
+            //Ensure use logged in is same user who is retrieving the item
+            Preconditions.checkArgument(itemDTO.getUserId().equals(userId));
             contentResult.setIsSuccess(true);
             contentResult.setData(itemDTO);
             contentResult.setMessage(UserFriendlyMessage.ITEM_GET_ONE_SUCCEED);
@@ -165,6 +168,10 @@ public class ItemPrivateApiController {
         ContentResult contentResult = new ContentResult();
         HttpStatus httpStatus = HttpStatus.OK;
         try {
+            Preconditions.checkNotNull(jsonString);
+            Preconditions.checkArgument(photos.length > 0);
+            Preconditions.checkArgument(descriptions.length > 0);
+
             ItemDTO itemDTO = new ObjectMapper().readValue(jsonString, ItemDTO.class);
             Long userId = securityUtil.getAuthenticatedUserId();
             //Ensure use logged in is same user who is creating the item
@@ -214,17 +221,22 @@ public class ItemPrivateApiController {
      * @return
      * @throws JsonProcessingException
      */
-    @PutMapping(value = {"/id"} ,consumes = {"multipart/form-data"})
-    public ResponseEntity<ContentResult> updateItem(@RequestParam("itemDTO") String jsonString, @RequestParam("photos") MultipartFile[] photos, @RequestParam("descriptions") String[] descriptions) throws JsonProcessingException {
+    @PutMapping(value = "/{id}" ,consumes = {"multipart/form-data"})
+    public ResponseEntity<ContentResult> updateItem(@RequestParam("itemDTO") String jsonString, @RequestParam("photos") MultipartFile[] photos, @RequestParam("descriptions") String[] descriptions, @PathVariable Long id) throws JsonProcessingException {
         logger.info("Start updateItem - itemDTO: {}, photos: {}, descriptions: {}", jsonString, photos, descriptions);
         ContentResult contentResult = new ContentResult();
         HttpStatus httpStatus = HttpStatus.OK;
         try {
+            Preconditions.checkNotNull(jsonString);
+            Preconditions.checkArgument(photos.length > 0);
+            Preconditions.checkArgument(descriptions.length > 0);
+
             ItemDTO itemDTO = new ObjectMapper().readValue(jsonString, ItemDTO.class);
             Long userId = securityUtil.getAuthenticatedUserId();
-            //Ensure use logged in is same user who is creating the item
+            //Ensure use logged in is same user who is updating the item
             Preconditions.checkArgument(itemDTO.getUserId().equals(userId));
             Preconditions.checkArgument(photos.length == descriptions.length);
+            Preconditions.checkArgument(id.equals(itemDTO.getId()));
 
             ItemDTO createdItemDTO = itemService.update(itemDTO);
             List<PictureDTO> pictureDTOList = new ArrayList<>();
@@ -259,5 +271,35 @@ public class ItemPrivateApiController {
         return new ResponseEntity<>(contentResult, httpStatus);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ContentResult> deleteItem(@PathVariable Long id) {
+        logger.info("Start deleteItem - id: {}", id);
+        ContentResult contentResult = new ContentResult();
+        HttpStatus httpStatus = HttpStatus.OK;
+        try {
+            Preconditions.checkNotNull(id);
+            ItemDTO toDelete = this.itemService.findItemById(id);
+            Long userId = securityUtil.getAuthenticatedUserId();
+            //Ensure use logged in is same user who is deleting the item
+            Preconditions.checkArgument(toDelete.getUserId().equals(userId));
+
+            ItemDTO itemDTO = this.itemService.delete(toDelete);
+            contentResult.setIsSuccess(true);
+            contentResult.setData(itemDTO);
+            contentResult.setMessage(UserFriendlyMessage.ITEM_DELETE_SUCCEED);
+        } catch (BaseServiceException bse) {
+            logger.error("Error in deleteItem():", bse);
+            contentResult.setIsSuccess(false);
+            contentResult.setMessage(UserFriendlyMessage.ITEM_DELETE_FAILED);
+            httpStatus = HttpStatus.NOT_FOUND;
+        } catch (Exception e) {
+            logger.error("Error in deleteItem():", e);
+            contentResult.setIsSuccess(false);
+            contentResult.setMessage(UserFriendlyMessage.ITEM_DELETE_FAILED);
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        logger.info("End deleteItem");
+        return new ResponseEntity<>(contentResult, httpStatus);
+    }
 
 }

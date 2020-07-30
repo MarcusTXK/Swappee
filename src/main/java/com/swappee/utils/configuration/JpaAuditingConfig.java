@@ -21,13 +21,6 @@ public class JpaAuditingConfig {
         return new SecurityAuditor();
     }
 
-//    @Bean
-//    public AuditorAware<String> auditorProvider() {
-//        String user = "UknownUser";
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        return () -> Optional.ofNullable(auth != null ? auth.getName() : "UknownUser");
-//    }
-
     public static class SecurityAuditor implements AuditorAware<String> {
         @Override
         public Optional<String> getCurrentAuditor() {

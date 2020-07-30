@@ -63,7 +63,6 @@ public class UserDaoImpl implements UserDao {
     public List<User> getAll(List<Long> ids) throws BaseDaoException {
         logger.info("Start getAll list - ids: {}", ids);
         try {
-            Preconditions.checkArgument(!ids.isEmpty());
             if (ids.isEmpty()) {
                 return Lists.newArrayList();
             }
@@ -81,7 +80,7 @@ public class UserDaoImpl implements UserDao {
     public Page<User> getAll(Pageable pageable) throws BaseDaoException {
         logger.info("Start getAll page - pageable: {}", pageable);
         try {
-            Preconditions.checkArgument(pageable != null);
+            Preconditions.checkNotNull(pageable);
             return userRepository.findAll(pageable);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GET_PAGE_FAILED, dae);

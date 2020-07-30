@@ -30,11 +30,15 @@ public class ErrorMessage {
 
     //Picture Error Message
     public static final String PICTURE_ERROR_GET_ONE_FAILED = "Error in get picture service";
+    public static final String PICTURE_ERROR_GET_LIST_FAILED = "Error in get list picture service";
     public static final String PICTURE_ERROR_CREATE_FAILED = "Error in create picture service";
     public static final String PICTURE_ERROR_UPDATE_FAILED = "Error in update picture service";
 
     //Generic Error Message
     public static final String SVC_ERROR_GENERIC = "Error in generic service";
+
+    //Picture Util Error Message
+    public static final String PICTURE_UTIL_ERROR_PROCESS_FAILED = "Error in processing picture util";
 
     private ErrorMessage() {
     }

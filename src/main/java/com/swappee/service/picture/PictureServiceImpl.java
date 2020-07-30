@@ -6,6 +6,7 @@ import com.swappee.domain.picture.Picture;
 import com.swappee.mapper.picture.PictureDTOMapper;
 import com.swappee.model.item.ItemDTO;
 import com.swappee.model.picture.PictureDTO;
+import com.swappee.model.picture.PictureViewDTO;
 import com.swappee.utils.exception.BaseDaoException;
 import com.swappee.utils.exception.BaseServiceException;
 import com.swappee.utils.exception.ErrorMessage;
@@ -50,6 +51,27 @@ public class PictureServiceImpl implements PictureService{
     }
 
     @Override
+    public List<PictureViewDTO> findByItemId(Long itemId) throws BaseServiceException {
+        try {
+            logger.info("Start findByItemId - itemId: {}", itemId);
+            Preconditions.checkNotNull(itemId);
+
+            List<PictureViewDTO> pictureViewDTOList = new ArrayList<>();
+            List<Picture> pictureList = pictureDao.findByItemId(itemId);
+            for(Picture picture: pictureList) {
+                pictureViewDTOList.add(pictureViewDTOMapper(picture));
+            }
+            return pictureViewDTOList;
+        } catch (BaseDaoException bde) {
+            throw new BaseServiceException(ErrorMessage.PICTURE_ERROR_GET_LIST_FAILED, bde);
+        } catch (Exception ex) {
+            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End findByItemId");
+        }
+    }
+
+    @Override
     @Transactional(rollbackFor = {BaseServiceException.class})
     public Boolean create(List<PictureDTO> pictureDTOList) throws BaseServiceException {
         try {
@@ -90,5 +112,17 @@ public class PictureServiceImpl implements PictureService{
         } finally {
             logger.info("End update");
         }
+    }
+
+    private PictureViewDTO pictureViewDTOMapper(Picture picture) {
+        Preconditions.checkNotNull(picture);
+
+        PictureViewDTO pictureViewDTO = new PictureViewDTO();
+        pictureViewDTO.setId(picture.getId());
+        pictureViewDTO.setOrder(picture.getOrder());
+        pictureViewDTO.setImagePath(picture.getId().toString());
+        pictureViewDTO.setDescription(picture.getDescription());
+
+        return pictureViewDTO;
     }
 }

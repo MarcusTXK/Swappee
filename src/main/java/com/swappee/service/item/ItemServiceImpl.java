@@ -139,10 +139,8 @@ public class ItemServiceImpl implements ItemService {
     public List<ItemCardDTO> getAll(List<Long> ids) throws BaseServiceException {
         try {
             logger.info("Start getAll - ids: {}", ids);
-            Preconditions.checkArgument(!ids.isEmpty());
 
             List<Item> itemList = itemDao.getAll(ids);
-            Preconditions.checkArgument(!itemList.isEmpty());
             List<ItemCardDTO> itemCardDTOList = new ArrayList<>();
             for (Item item : itemList) {
                 itemCardDTOList.add(
@@ -341,7 +339,6 @@ public class ItemServiceImpl implements ItemService {
             logger.info("Start findByUserId - userId: {}", userId);
             Preconditions.checkNotNull(userId);
             List<Item> itemList = itemDao.findByUserId(userId);
-            Preconditions.checkArgument(!itemList.isEmpty());
             List<ItemDTO> itemDTOList = new ArrayList<>();
             for (Item item : itemList) {
                 itemDTOList.add(itemDTOMapper.mapEntity(item));
@@ -562,7 +559,7 @@ public class ItemServiceImpl implements ItemService {
         pictureViewDTO.setId(picture.getId());
         pictureViewDTO.setOrder(picture.getOrder());
         pictureViewDTO.setImagePath(picture.getId().toString());
-        pictureViewDTO.setDescription(pictureViewDTO.getDescription());
+        pictureViewDTO.setDescription(picture.getDescription());
 
         return pictureViewDTO;
     }
