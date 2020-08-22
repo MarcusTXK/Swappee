@@ -1,6 +1,7 @@
 package com.swappee.model.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -39,7 +40,7 @@ public class UserDTO implements UserDetails {
 
     private boolean emailOnly;
 
-    private String role;
+    private String role = "USER";
 
     private Long score;
 
@@ -93,6 +94,7 @@ public class UserDTO implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
@@ -133,6 +135,7 @@ public class UserDTO implements UserDetails {
         this.emailOnly = emailOnly;
     }
 
+    @JsonIgnore
     public String getRole() {
         return role;
     }
@@ -190,26 +193,31 @@ public class UserDTO implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return new ArrayList<>(Arrays.asList(new SimpleGrantedAuthority(role)));
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }

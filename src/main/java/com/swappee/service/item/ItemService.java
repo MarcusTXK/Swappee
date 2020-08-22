@@ -3,7 +3,6 @@ package com.swappee.service.item;
 import com.swappee.model.item.ItemCardDTO;
 import com.swappee.model.item.ItemDTO;
 import com.swappee.model.item.ItemViewDTO;
-import com.swappee.model.picture.PictureDTO;
 import com.swappee.model.wrapper.GridResult;
 import com.swappee.utils.exception.BaseServiceException;
 import org.springframework.data.domain.Pageable;

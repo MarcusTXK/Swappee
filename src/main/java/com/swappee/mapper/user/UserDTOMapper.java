@@ -26,7 +26,8 @@ public class UserDTOMapper implements DTOMapper<UserDTO, User> {
         dto.setUsername(entity.getUsername());
         dto.setPassword(entity.getPassword());
         dto.setEmail(entity.getEmail());
-        dto.setAvatar(entity.getAvatar());
+        //front end does not need Avatar BLOB
+//        dto.setAvatar(entity.getAvatar());
         dto.setPhone(entity.getPhone());
         dto.setEmailOnly(entity.isEmailOnly());
         dto.setRole(entity.getRole().toString());

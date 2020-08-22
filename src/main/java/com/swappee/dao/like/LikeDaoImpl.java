@@ -113,7 +113,14 @@ public class LikeDaoImpl implements LikeDao {
         logger.info("Start update - toUpdate: {}", toUpdate);
         try {
             Preconditions.checkNotNull(toUpdate);
-            return this.likeRepository.save(toUpdate);
+            Preconditions.checkNotNull(toUpdate.getId());
+
+            Like originalEntity = likeRepository.getOne(toUpdate.getId());
+            originalEntity.setItemId(toUpdate.getItemId());
+            originalEntity.setUserId(toUpdate.getUserId());
+            originalEntity.setItemDeleted(toUpdate.isItemDeleted());
+
+            return this.likeRepository.save(originalEntity);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_UPDATE_FAILED, dae);
         } catch (Exception ex) {

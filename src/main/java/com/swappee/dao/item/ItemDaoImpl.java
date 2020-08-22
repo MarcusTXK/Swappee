@@ -147,7 +147,23 @@ public class ItemDaoImpl implements ItemDao {
         logger.info("Start update - toUpdate: {}", toUpdate);
         try {
             Preconditions.checkNotNull(toUpdate);
-            return this.itemRepository.save(toUpdate);
+            Preconditions.checkNotNull(toUpdate.getId());
+
+            Item originalEntity = itemRepository.getOne(toUpdate.getId());
+            originalEntity.setUserId(toUpdate.getUserId());
+            originalEntity.setStatus(toUpdate.getStatus());
+            originalEntity.setName(toUpdate.getName());
+            originalEntity.setDescription(toUpdate.getDescription());
+            originalEntity.setBrand(toUpdate.getBrand());
+            originalEntity.setNew(toUpdate.isNew());
+            originalEntity.setCategory(toUpdate.getCategory());
+            originalEntity.setStrict(toUpdate.isStrict());
+            originalEntity.setLikes(toUpdate.getLikes());
+            originalEntity.setPreferredCats(toUpdate.getPreferredCats());
+            originalEntity.setPreferredItems(toUpdate.getPreferredItems());
+            originalEntity.setItemHistory(toUpdate.getItemHistory());
+
+            return this.itemRepository.save(originalEntity);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_UPDATE_FAILED, dae);
         } catch (Exception ex) {
@@ -164,8 +180,12 @@ public class ItemDaoImpl implements ItemDao {
         logger.info("Start delete - toDelete: {}", toDelete);
         try {
             Preconditions.checkNotNull(toDelete);
-            toDelete.setDeleted(true);
-            return this.itemRepository.save(toDelete);
+            Preconditions.checkNotNull(toDelete.getId());
+
+            Item originalEntity = itemRepository.getOne(toDelete.getId());
+            originalEntity.setDeleted(true);
+
+            return this.itemRepository.save(originalEntity);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_DELETE_FAILED, dae);
         } catch (Exception ex) {

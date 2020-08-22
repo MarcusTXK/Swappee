@@ -4,7 +4,6 @@ import com.google.common.base.Preconditions;
 import com.swappee.dao.picture.PictureDao;
 import com.swappee.domain.picture.Picture;
 import com.swappee.mapper.picture.PictureDTOMapper;
-import com.swappee.model.item.ItemDTO;
 import com.swappee.model.picture.PictureDTO;
 import com.swappee.model.picture.PictureViewDTO;
 import com.swappee.utils.exception.BaseDaoException;

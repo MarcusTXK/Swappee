@@ -5,7 +5,6 @@ import com.swappee.dao.request.RequestDao;
 import com.swappee.dao.review.ReviewDao;
 import com.swappee.dao.user.UserDao;
 import com.swappee.domain.request.Request;
-import com.swappee.domain.review.Review;
 import com.swappee.domain.user.User;
 import com.swappee.mapper.review.ReviewDTOMapper;
 import com.swappee.mapper.user.UserDTOMapper;

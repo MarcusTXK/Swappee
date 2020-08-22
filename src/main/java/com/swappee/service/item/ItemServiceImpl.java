@@ -18,7 +18,6 @@ import com.swappee.mapper.item.ItemHistoryDTOMapper;
 import com.swappee.mapper.item.PreferredItemDTOMapper;
 import com.swappee.mapper.picture.PictureDTOMapper;
 import com.swappee.model.item.*;
-import com.swappee.model.picture.PictureDTO;
 import com.swappee.model.picture.PictureViewDTO;
 import com.swappee.model.wrapper.GridResult;
 import com.swappee.utils.exception.BaseDaoException;

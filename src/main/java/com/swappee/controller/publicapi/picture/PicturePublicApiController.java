@@ -1,7 +1,6 @@
 package com.swappee.controller.publicapi.picture;
 
 import com.google.common.base.Preconditions;
-import com.swappee.model.item.ItemViewDTO;
 import com.swappee.model.picture.PictureDTO;
 import com.swappee.model.picture.PictureViewDTO;
 import com.swappee.model.wrapper.ContentResult;

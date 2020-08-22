@@ -127,7 +127,21 @@ public class RequestDaoImpl implements RequestDao {
         logger.info("Start update - toUpdate: {}", toUpdate);
         try {
             Preconditions.checkNotNull(toUpdate);
-            return this.requestRepository.save(toUpdate);
+            Preconditions.checkNotNull(toUpdate.getId());
+
+            Request originalEntity = requestRepository.getOne(toUpdate.getId());
+            originalEntity.setOwnerId(toUpdate.getOwnerId());
+            originalEntity.setTraderId(toUpdate.getTraderId());
+            originalEntity.setOwnerItemId(toUpdate.getOwnerItemId());
+            originalEntity.setTraderItemId(toUpdate.getTraderItemId());
+            originalEntity.setStatus(toUpdate.getStatus());
+            originalEntity.setRemarks(toUpdate.getRemarks());
+            originalEntity.setOwnerReviewed(toUpdate.isOwnerReviewed());
+            originalEntity.setTraderReviewed(toUpdate.isTraderReviewed());
+            originalEntity.setOwnerHidden(toUpdate.isOwnerHidden());
+            originalEntity.setTraderHidden(toUpdate.isTraderHidden());
+
+            return this.requestRepository.save(originalEntity);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_UPDATE_FAILED, dae);
         } catch (Exception ex) {
@@ -144,8 +158,11 @@ public class RequestDaoImpl implements RequestDao {
         logger.info("Start delete - toDelete: {}", toDelete);
         try {
             Preconditions.checkNotNull(toDelete);
-            toDelete.setDeleted(true);
-            return this.requestRepository.save(toDelete);
+            Preconditions.checkNotNull(toDelete.getId());
+
+            Request originalEntity = requestRepository.getOne(toDelete.getId());
+            originalEntity.setDeleted(true);
+            return this.requestRepository.save(originalEntity);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_DELETE_FAILED, dae);
         } catch (Exception ex) {

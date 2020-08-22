@@ -81,7 +81,16 @@ public class ReviewDaoImpl implements ReviewDao {
         logger.info("Start update - toUpdate: {}", toUpdate);
         try {
             Preconditions.checkNotNull(toUpdate);
-            return this.reviewRepository.save(toUpdate);
+            Preconditions.checkNotNull(toUpdate.getId());
+
+            Review originalEntity = reviewRepository.getOne(toUpdate.getId());
+            originalEntity.setRequestId(toUpdate.getRequestId());
+            originalEntity.setReviewerId(toUpdate.getReviewerId());
+            originalEntity.setReviewedId(toUpdate.getReviewedId());
+            originalEntity.setScore(toUpdate.getScore());
+            originalEntity.setRemarks(toUpdate.getRemarks());
+
+            return this.reviewRepository.save(originalEntity);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_UPDATE_FAILED, dae);
         } catch (Exception ex) {
@@ -98,8 +107,11 @@ public class ReviewDaoImpl implements ReviewDao {
         logger.info("Start delete - toDelete: {}", toDelete);
         try {
             Preconditions.checkNotNull(toDelete);
-            toDelete.setDeleted(true);
-            return this.reviewRepository.save(toDelete);
+            Preconditions.checkNotNull(toDelete.getId());
+
+            Review originalEntity = reviewRepository.getOne(toDelete.getId());
+            originalEntity.setDeleted(true);
+            return this.reviewRepository.save(originalEntity);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_DELETE_FAILED, dae);
         } catch (Exception ex) {

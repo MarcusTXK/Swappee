@@ -63,7 +63,7 @@ public class ItemPrivateApiController {
             Preconditions.checkNotNull(id);
             ItemDTO itemDTO = this.itemService.findItemById(id);
             Long userId = securityUtil.getAuthenticatedUserId();
-            //Ensure use logged in is same user who is retrieving the item
+            //Ensure user logged in is the owner of the item
             Preconditions.checkArgument(itemDTO.getUserId().equals(userId));
             contentResult.setIsSuccess(true);
             contentResult.setData(itemDTO);
@@ -83,14 +83,23 @@ public class ItemPrivateApiController {
         return new ResponseEntity<>(contentResult, httpStatus);
     }
 
+    /**
+     * Api to like/unlike an item
+     * Has validation to prevent liking/unliking twice
+     *
+     * @param id
+     * @param liked
+     * @return
+     */
     @GetMapping("/{id}/{liked}")
     public ResponseEntity<ContentResult> itemLiked(@PathVariable Long id, @PathVariable Boolean liked) {
         logger.info("Start itemLiked - id: {}, liked: {}", id, liked);
         ContentResult contentResult = new ContentResult();
         HttpStatus httpStatus = HttpStatus.OK;
         try {
-            Long userId = securityUtil.getAuthenticatedUserId();
             Preconditions.checkNotNull(id);
+            Preconditions.checkNotNull(liked);
+            Long userId = securityUtil.getAuthenticatedUserId();
             ItemDTO itemDTO = this.itemService.itemLiked(id, userId, liked);
             contentResult.setIsSuccess(true);
             contentResult.setData(itemDTO);
@@ -155,7 +164,7 @@ public class ItemPrivateApiController {
 
     /**
      * Api to create Items and Pictures
-     *
+     * TODO add validation for fields
      * @param jsonString
      * @param photos
      * @param descriptions
@@ -181,7 +190,7 @@ public class ItemPrivateApiController {
             ItemDTO createdItemDTO = itemService.create(itemDTO);
             List<PictureDTO> pictureDTOList = new ArrayList<>();
             for (int i = 0; i < photos.length; i++) {
-
+                //resize img and convert to jpg to reduce size while minimising image quality loss
                 PictureDTO pictureDTO = pictureUtil.processImagetoPictureDTO(photos[i]);
                 pictureDTO.setItemId(createdItemDTO.getId());
                 pictureDTO.setOrder((long) i);
@@ -238,23 +247,24 @@ public class ItemPrivateApiController {
             Preconditions.checkArgument(photos.length == descriptions.length);
             Preconditions.checkArgument(id.equals(itemDTO.getId()));
 
-            ItemDTO createdItemDTO = itemService.update(itemDTO);
+            ItemDTO updatedItemDTO = itemService.update(itemDTO);
             List<PictureDTO> pictureDTOList = new ArrayList<>();
             for (int i = 0; i < photos.length; i++) {
-                PictureDTO pictureDTO = new PictureDTO();
-                pictureDTO.setItemId(createdItemDTO.getId());
+                //resize img and convert to jpg to reduce size while minimising image quality loss
+                PictureDTO pictureDTO = pictureUtil.processImagetoPictureDTO(photos[i]);
+                pictureDTO.setItemId(updatedItemDTO.getId());
                 pictureDTO.setOrder((long) i);
-                pictureDTO.setFileData(photos[i].getBytes());
-                pictureDTO.setFileName(itemDTO.getName() + "_" + i);
-                pictureDTO.setContentType(photos[i].getContentType());
-                pictureDTO.setContentLength(photos[i].getSize());
+//                pictureDTO.setFileData(photos[i].getBytes());
+                pictureDTO.setFileName(itemDTO.getName() + "_" + i + ".jpeg");
+//                pictureDTO.setContentType(photos[i].getContentType());
+//                pictureDTO.setContentLength(photos[i].getSize());
                 Preconditions.checkNotNull(descriptions[i]);
                 pictureDTO.setDescription(descriptions[i]);
                 pictureDTOList.add(pictureDTO);
             }
             //create picture DTO list
             contentResult.setIsSuccess(pictureService.update(pictureDTOList));
-            contentResult.setData(createdItemDTO);
+            contentResult.setData(updatedItemDTO);
             contentResult.setMessage(UserFriendlyMessage.ITEM_UPDATE_SUCCEED);
         } catch (BaseServiceException bse) {
             logger.error("Error in updateItem():", bse);

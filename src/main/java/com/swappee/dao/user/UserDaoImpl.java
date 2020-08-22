@@ -115,7 +115,22 @@ public class UserDaoImpl implements UserDao {
         logger.info("Start update - toUpdate: {}", toUpdate);
         try {
             Preconditions.checkNotNull(toUpdate);
-            return this.userRepository.save(toUpdate);
+            Preconditions.checkNotNull(toUpdate.getId());
+
+            User originalEntity = userRepository.getOne(toUpdate.getId());
+            originalEntity.setFirstName(toUpdate.getFirstName());
+            originalEntity.setLastName(toUpdate.getLastName());
+            originalEntity.setUsername(toUpdate.getUsername());
+            originalEntity.setPassword(toUpdate.getPassword());
+            originalEntity.setEmail(toUpdate.getEmail());
+            originalEntity.setAvatar(toUpdate.getAvatar());
+            originalEntity.setPhone(toUpdate.getPhone());
+            originalEntity.setEmailOnly(toUpdate.isEmailOnly());
+            originalEntity.setRole(toUpdate.getRole());
+            originalEntity.setScore(toUpdate.getScore());
+            originalEntity.setTotalTraded(toUpdate.getTotalTraded());
+
+            return this.userRepository.save(originalEntity);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_UPDATE_FAILED, dae);
         } catch (Exception ex) {
@@ -132,8 +147,11 @@ public class UserDaoImpl implements UserDao {
         logger.info("Start delete - toDelete: {}", toDelete);
         try {
             Preconditions.checkNotNull(toDelete);
-            toDelete.setDeleted(true);
-            return this.userRepository.save(toDelete);
+            Preconditions.checkNotNull(toDelete.getId());
+
+            User originalEntity = userRepository.getOne(toDelete.getId());
+            originalEntity.setDeleted(true);
+            return this.userRepository.save(originalEntity);
         } catch (DataAccessException dae) {
             throw new BaseDaoException(ErrorCode.DB_ERROR_DELETE_FAILED, dae);
         } catch (Exception ex) {
