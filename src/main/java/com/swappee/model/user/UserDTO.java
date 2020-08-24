@@ -94,7 +94,6 @@ public class UserDTO implements UserDetails {
     }
 
     @Override
-    @JsonIgnore
     public String getPassword() {
         return password;
     }

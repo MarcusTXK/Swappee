@@ -64,6 +64,7 @@ public class ItemPrivateApiController {
             ItemDTO itemDTO = this.itemService.findItemById(id);
             Long userId = securityUtil.getAuthenticatedUserId();
             //Ensure user logged in is the owner of the item
+            logger.debug("item: {}", itemDTO);
             Preconditions.checkArgument(itemDTO.getUserId().equals(userId));
             contentResult.setIsSuccess(true);
             contentResult.setData(itemDTO);
@@ -281,6 +282,11 @@ public class ItemPrivateApiController {
         return new ResponseEntity<>(contentResult, httpStatus);
     }
 
+    /**
+     * Api to soft delete item
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<ContentResult> deleteItem(@PathVariable Long id) {
         logger.info("Start deleteItem - id: {}", id);

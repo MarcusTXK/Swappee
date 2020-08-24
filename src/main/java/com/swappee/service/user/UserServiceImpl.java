@@ -291,6 +291,10 @@ public class UserServiceImpl implements UserService {
         try {
             logger.info("Start update - toUpdate: {}", toUpdate);
             Preconditions.checkNotNull(toUpdate);
+            //check if a new password was set, and encode it
+            if(!toUpdate.getPassword().isEmpty()) {
+                toUpdate.setPassword(new BCryptPasswordEncoder().encode(toUpdate.getPassword()));
+            }
             UserDTO userDTO = userDTOMapper.mapEntity(userDao.update(userDTOMapper.mapDto(toUpdate)));
             Preconditions.checkNotNull(userDTO);
             return userDTO;
