@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface RequestService {
 
+//    RequestDTO findById(Long id) throws BaseServiceException;
+
     GridResult findByOwnerId(Long ownerId, Pageable pageable) throws BaseServiceException;
 
     GridResult findByTraderId(Long traderId, Pageable pageable) throws BaseServiceException;

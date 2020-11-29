@@ -42,6 +42,38 @@ public class UserFriendlyMessage {
     //Picture Error Message
     public static final String PICTURE_GET_LIST_FAILED = "Error in retrieving Pictures";
 
+    //Request Success Message
+    public static final String REQUEST_CREATE_SUCCEED = "Successfully created Request";
+    public static final String REQUEST_UPDATE_SUCCEED = "Successfully updated Request";
+    public static final String REQUEST_DELETE_SUCCEED = "Successfully deleted Request";
+    public static final String REQUEST_GET_ONE_SUCCEED = "Successfully retrieved Request";
+    public static final String REQUEST_GET_LIST_SUCCEED = "Successfully retrieved Requests";
+    public static final String REQUEST_LIKE_SUCCEED = "Successfully liked Request";
+
+    //Request Error Message
+    public static final String REQUEST_CREATE_FAILED = "Error in creating Request";
+    public static final String REQUEST_UPDATE_FAILED = "Error in updating Request";
+    public static final String REQUEST_DELETE_FAILED = "Error in deleting Request";
+    public static final String REQUEST_GET_ONE_FAILED = "Error in retrieving Request";
+    public static final String REQUEST_GET_LIST_FAILED = "Error in retrieving Requests";
+    public static final String REQUEST_LIKE_FAILED = "Error in liking Request";
+
+    //Review Success Message
+    public static final String REVIEW_CREATE_SUCCEED = "Successfully created Review";
+    public static final String REVIEW_UPDATE_SUCCEED = "Successfully updated Review";
+    public static final String REVIEW_DELETE_SUCCEED = "Successfully deleted Review";
+    public static final String REVIEW_GET_ONE_SUCCEED = "Successfully retrieved Review";
+    public static final String REVIEW_GET_LIST_SUCCEED = "Successfully retrieved Reviews";
+    public static final String REVIEW_LIKE_SUCCEED = "Successfully liked Review";
+
+    //Review Error Message
+    public static final String REVIEW_CREATE_FAILED = "Error in creating Review";
+    public static final String REVIEW_UPDATE_FAILED = "Error in updating Review";
+    public static final String REVIEW_DELETE_FAILED = "Error in deleting Review";
+    public static final String REVIEW_GET_ONE_FAILED = "Error in retrieving Review";
+    public static final String REVIEW_GET_LIST_FAILED = "Error in retrieving Reviews";
+    public static final String REVIEW_LIKE_FAILED = "Error in liking Review";
+
     //Authentication Error Message
 
 }

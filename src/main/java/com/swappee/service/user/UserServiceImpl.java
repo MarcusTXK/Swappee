@@ -235,9 +235,12 @@ public class UserServiceImpl implements UserService {
         try {
             logger.info("Start reviewUser - reviewDTO: {}", reviewDTO);
             Preconditions.checkNotNull(reviewDTO);
-            //check user to be reviewed exists
-            User user = userDao.findById(reviewDTO.getReviewedId());
-            Preconditions.checkNotNull(user);
+            //Check user to be reviewed exists
+            User userReviewed = userDao.findById(reviewDTO.getReviewedId());
+            Preconditions.checkNotNull(userReviewed);
+            //Check user reviewing exists
+            User userReviewer = userDao.findById(reviewDTO.getReviewerId());
+            Preconditions.checkNotNull(userReviewer);
             //Check if request exists and if status is TRADED
             Request request = requestDao.findById(reviewDTO.getRequestId());
             Preconditions.checkNotNull(request);
@@ -260,9 +263,9 @@ public class UserServiceImpl implements UserService {
                     return false;
                 }
                 reviewDao.create(reviewDTOMapper.mapDto(reviewDTO));
-                user.setScore(user.getScore() + reviewDTO.getScore());
-                user.setTotalTraded(user.getTotalTraded() + 1);
-                userDao.update(user);
+                userReviewed.setScore(userReviewed.getScore() + reviewDTO.getScore());
+                userReviewed.setTotalTraded(userReviewed.getTotalTraded() + 1);
+                userDao.update(userReviewed);
                 requestDao.update(request);
                 return true;
             } else {
