@@ -7,7 +7,7 @@
 * Item cards in each user’s inventory will be swapped upon trading and each item will have a history log on its previous trades and owners
 ---
 # Progress
-* Backend: 80% done
+* Backend: 80% done (Left with search functionality and request controller)
 * Frontend: Todo
 ---
 ## For more information: 
@@ -15,3 +15,6 @@
 https://drive.google.com/file/d/1woZuQanSfAL04bDhyud6wsw_oO9OqfCV/view?usp=sharing
 ### Design document
 https://www.evernote.com/l/AsWhibK56SpIN7pL8QtfK2XlXIyZDN7XZDc/
+### Wireframe design
+![Sẅappee-Wireframe Design (1)](https://user-images.githubusercontent.com/50147457/129481860-ca8acbd8-bcc2-4ab5-b0a8-263f181f93eb.png)
+
