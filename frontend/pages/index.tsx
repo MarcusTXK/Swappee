@@ -16,6 +16,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <h1 className={styles.title}>
           Welcome to <a href="https://github.com/MarcusTXK/Swappee">Swapee!</a>
+          TAUFIQ HERE
         </h1>
 
         <p className={styles.description}>
