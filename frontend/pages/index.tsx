@@ -1,12 +1,13 @@
 import { Button, Box } from '@material-ui/core';
 import Link from 'next/link';
-
-import AHead from 'components/atoms/AHead';
+import Head from 'next/head';
 
 const Home = () => {
   return (
     <>
-      <AHead />
+      <Head>
+        <title>Swappee</title>
+      </Head>
       <Box component="body">
         <Box display="flex" alignItems="center" flexDirection="column" width="100%" pt={4}>
           <h1>
