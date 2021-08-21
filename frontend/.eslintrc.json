@@ -1,3 +1,84 @@
 {
-  "extends": "next/core-web-vitals"
+  "plugins": ["prettier", "@typescript-eslint"],
+  "extends": ["airbnb-typescript", "react-app", "prettier", "plugin:prettier/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    }
+  },
+  "rules": {
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "object-curly-spacing": ["warn", "always"],
+    "one-var": "off",
+    "import/no-cycle": "off",
+    "no-static-element-interactions": "off",
+    "no-underscore-dangle": "off",
+    "no-useless-escape": "off",
+    "react/no-array-index-key": "off",
+    "react-hooks/rules-of-hooks": "off",
+    "react/button-has-type": 0,
+    "no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "args": "none"
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "args": "none"
+      }
+    ],
+    "@typescript-eslint/no-explicit-any": [
+      "error",
+      {
+        "ignoreRestArgs": true
+      }
+    ],
+    "max-len": [
+      "error",
+      { "code": 120, "ignoreUrls": true, "ignoreStrings": true, "ignoreComments": true, "ignoreRegExpLiterals": true }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto",
+        "printWidth": 120
+      }
+    ],
+    "no-plusplus": [
+      "error",
+      {
+        "allowForLoopAfterthoughts": true
+      }
+    ],
+    "react/jsx-key": "error",
+    "import/no-extraneous-dependencies": "off",
+    "import/no-anonymous-default-export": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "@typescript-eslint/naming-convention": "off",
+    "react/jsx-props-no-spreading": "off",
+    "import/prefer-default-export": "off",
+    "react/jsx-boolean-value": "off",
+    "react/prop-types": "off",
+    "react/no-unescaped-entities": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-wrap-multilines": "off",
+    "react/destructuring-assignment": "off",
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/comma-dangle": "off",
+    "no-nested-ternary": "off"
+  }
 }
