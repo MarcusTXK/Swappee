@@ -20,6 +20,10 @@ const theme = createTheme({
         // Some CSS
         color: 'white',
         boxShadow: 'none',
+        height: '40px',
+      },
+      outlinedPrimary: {
+        height: '40px',
       },
     },
   },
