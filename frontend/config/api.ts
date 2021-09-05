@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { create } from 'apisauce';
 import { useSelector } from 'react-redux';
 import { AxiosRequestConfig } from 'axios';

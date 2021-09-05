@@ -1,4 +1,4 @@
-import { applyMiddleware, createStore, Middleware, Store, StoreEnhancer } from 'redux';
+import { applyMiddleware, createStore, Middleware, StoreEnhancer } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { createWrapper } from 'next-redux-wrapper';
 
