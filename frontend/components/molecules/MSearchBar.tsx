@@ -40,10 +40,10 @@ const MSearchBar = () => {
           <>
             <Divider orientation="vertical" />
             <ButtonGroup variant="text" ref={anchorRef}>
-              <Button className="m-searchbar-searchbutton" onClick={handleSearch}>
+              <Button className="m-searchbar__searchbutton" onClick={handleSearch}>
                 <Search />
               </Button>
-              <Button className="m-searchbar-dropdownbutton" onClick={handleToggle}>
+              <Button className="m-searchbar__dropdownbutton" onClick={handleToggle}>
                 <ArrowDropDown />
               </Button>
             </ButtonGroup>

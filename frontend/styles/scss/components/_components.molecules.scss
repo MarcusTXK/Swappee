@@ -1,4 +1,11 @@
 .m-searchbar {
+  .m-searchbar__searchbutton {
+    border-radius: 0px;
+    width: 50px;
+  }
+  .m-searchbar__dropdownbutton {
+    width: 25px;
+  }
   .MuiDivider-vertical {
     height: 40px;
   }
@@ -13,13 +20,6 @@
   }
   .MuiButtonGroup-grouped {
     min-width: 0px;
-  }
-  .m-searchbar-searchbutton {
-    border-radius: 0px;
-    width: 50px;
-  }
-  .m-searchbar-dropdownbutton {
-    width: 25px;
   }
 }
 
