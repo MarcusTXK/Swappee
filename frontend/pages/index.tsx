@@ -16,9 +16,7 @@ const Home = () => {
               <a>Swappee!</a>
             </Link>
           </h1>
-          <Box component="p" my={4}>
-            A platform allowing users in a community to list items online and trade.
-          </Box>
+          <Box my={4}>A platform allowing users in a community to list items online and trade.</Box>
           <Box display="flex">
             <Box mr={2}>
               <Button color="primary" variant="outlined">
