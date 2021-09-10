@@ -1,8 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { create } from 'apisauce';
-import { useSelector } from 'react-redux';
-import { AxiosRequestConfig } from 'axios';
-import { AppState } from 'redux-saga/interfaces';
 import ApiUrlConfig from './envConfig';
 
 enum StatusCode {
@@ -17,22 +14,6 @@ export const API = create({
 export const ROUTES = {
   LOGIN: `/api/login/authenticate/`,
 };
-
-const AxiosRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
-  try {
-    const {
-      user: { token },
-    } = useSelector((state: AppState) => state);
-    // eslint-disable-next-line
-    if (token != null) config.headers.Authorization = `Bearer ${token}`;
-    return config;
-    // eslint-disable-next-line
-  } catch (error: any) {
-    throw new Error(error);
-  }
-};
-
-API.axiosInstance.interceptors.request.use(AxiosRequest, (error) => Promise.reject(error));
 
 API.axiosInstance.interceptors.response.use(
   (response) => response,

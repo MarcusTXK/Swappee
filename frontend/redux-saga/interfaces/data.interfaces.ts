@@ -9,4 +9,6 @@ export interface Error {
 export interface AppState {
   error: null | Error;
   user: LoginData;
+
+  isLoginLoading: boolean;
 }

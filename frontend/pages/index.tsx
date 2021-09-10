@@ -2,12 +2,19 @@ import { useState } from 'react';
 import { Button, Box } from '@material-ui/core';
 import Link from 'next/link';
 import Head from 'next/head';
+import { useSelector } from 'react-redux';
+
+import { AppState } from 'redux-saga/interfaces';
 import AContainer1440 from 'components/atoms/AContainer1440';
 import MSampleSearchBar from 'components/molecules/MSampleSearchBar';
 import MLoginDialog from 'components/organisms/OLoginDialog';
 
 const Home = () => {
   const [isLogin, setLogin] = useState(false);
+  const {
+    user: { token },
+  } = useSelector((state: AppState) => state);
+
   return (
     <>
       <Head>
@@ -29,12 +36,20 @@ const Home = () => {
           </Box>
           <Box display="flex">
             <Box mr={2}>
-              <Button color="primary" variant="contained" onClick={() => setLogin(true)}>
-                Login
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={() => (token ? console.log('Trade') : setLogin(true))}
+              >
+                {token ? 'Trade' : 'Login'}
               </Button>
             </Box>
-            <Button color="primary" variant="outlined">
-              Register
+            <Button
+              color="primary"
+              variant="outlined"
+              onClick={() => (token ? console.log('Menu') : console.log('Register'))}
+            >
+              {token ? 'Menu' : 'Register'}
             </Button>
           </Box>
         </Box>

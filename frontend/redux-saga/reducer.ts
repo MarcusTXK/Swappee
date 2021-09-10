@@ -6,6 +6,8 @@ const initialState: AppState = {
   user: {
     token: '',
   },
+
+  isLoginLoading: false,
 };
 
 const reducer = (state = initialState, action: Action | { type: typeof HYDRATE; payload: AppState }): AppState => {
@@ -13,13 +15,16 @@ const reducer = (state = initialState, action: Action | { type: typeof HYDRATE; 
     case HYDRATE:
       return { ...state, ...action.payload };
 
+    case actionTypes.LOGIN:
+      return { ...state, isLoginLoading: true };
+
     case actionTypes.LOGIN_SUCCESS:
-      return { ...state, user: action.data };
+      return { ...state, user: action.data, isLoginLoading: false };
 
     case actionTypes.LOGIN_FAILED:
       return {
         ...state,
-        ...{ error: action.error },
+        ...{ error: action.error, isLoginLoading: false },
       };
 
     default:
