@@ -1,6 +1,8 @@
 import { Button, Box } from '@material-ui/core';
 import Link from 'next/link';
 import Head from 'next/head';
+import AContainer1440 from 'components/atoms/AContainer1440';
+import MSampleSearchBar from 'components/molecules/MSampleSearchBar';
 
 const Home = () => {
   return (
@@ -8,7 +10,7 @@ const Home = () => {
       <Head>
         <title>Swappee</title>
       </Head>
-      <Box component="body">
+      <AContainer1440>
         <Box display="flex" alignItems="center" flexDirection="column" width="100%" pt={4}>
           <h1>
             Welcome to{' '}
@@ -16,7 +18,12 @@ const Home = () => {
               <a>Swappee!</a>
             </Link>
           </h1>
-          <Box my={4}>A platform allowing users in a community to list items online and trade.</Box>
+          <Box component="p" my={4}>
+            A platform allowing users in a community to list items online and trade.
+          </Box>
+          <Box mb={4}>
+            <MSampleSearchBar />
+          </Box>
           <Box display="flex">
             <Box mr={2}>
               <Button color="primary" variant="outlined">
@@ -28,7 +35,7 @@ const Home = () => {
             </Button>
           </Box>
         </Box>
-      </Box>
+      </AContainer1440>
     </>
   );
 };
