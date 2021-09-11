@@ -87,7 +87,7 @@ const OLoginDialog: FC<OLoginDialogProps> = ({ isOpen, onClose, handleForgotPass
               disabled={!username || !password}
               onClick={handleSubmit}
             >
-              {isLoginLoading ? <CircularProgress /> : 'Login'}
+              {isLoginLoading ? <CircularProgress color="inherit" size={22} /> : 'Login'}
             </Button>
             <Box mt={2}>
               Don't have an account? <Link onClick={handleSignup}>Sign up</Link>
