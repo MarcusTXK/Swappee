@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 import { AppState } from 'redux-saga/interfaces';
 import AContainer1440 from 'components/atoms/AContainer1440';
-import MSampleSearchBar from 'components/molecules/MSampleSearchBar';
+import MSearchBar from 'components/molecules/MSearchBar';
 import MLoginDialog from 'components/organisms/OLoginDialog';
 
 const Home = () => {
@@ -32,7 +32,7 @@ const Home = () => {
             A platform allowing users in a community to list items online and trade.
           </Box>
           <Box mb={4}>
-            <MSampleSearchBar />
+            <MSearchBar />
           </Box>
           <Box display="flex">
             <Box mr={2}>
