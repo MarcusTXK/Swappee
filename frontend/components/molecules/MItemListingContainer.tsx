@@ -10,17 +10,7 @@ interface MItemListingContainerProps {
 const MItemListingContainer: FC<MItemListingContainerProps> = ({ isDataLoaded, ...other }) => {
   const elements = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   return (
-    <Box
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        width: 700,
-        border: '1px solid black',
-        borderRadius: '10px',
-        padding: '20px',
-      }}
-    >
+    <Box className="listing-container">
       {isDataLoaded
         ? elements.map((value) => {
             return (
