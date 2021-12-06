@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { Box, Typography } from '@material-ui/core';
 import img from 'public/passportphoto.jpg';
 import Image from 'next/image';
-import AUserName from 'components/atoms/AUserName';
+import MUserName from 'components/molecules/MUserName';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
@@ -41,7 +41,7 @@ const MItemCard: FC<MItemCardProps> = ({
         </Box>
         {isUsed ? <Typography variant="caption">Used</Typography> : <Typography variant="caption">New</Typography>}
         <Box className="m-item-card__bottom-box">
-          <AUserName username={username} />
+          <MUserName username={username} />
           {isRed ? (
             <FavoriteIcon onClick={toggleLike} className="m-item-card__heart" />
           ) : (
