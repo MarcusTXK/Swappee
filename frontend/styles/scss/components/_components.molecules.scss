@@ -1,13 +1,34 @@
 $heart-color: rgb(250, 70, 70);
 
-.m-sample-searchbar {
-  width: 700px;
-
+.m-searchbar {
+  .m-searchbar__searchbutton {
+    border-radius: 0px;
+    width: 50px;
+  }
+  .m-searchbar__dropdownbutton {
+    width: 25px;
+  }
   .MuiDivider-vertical {
     height: 40px;
   }
   .MuiOutlinedInput-adornedEnd {
     padding-right: 0px;
+  }
+  .MuiButtonGroup-groupedTextHorizontal:not(:last-child) {
+    border-right: none;
+  }
+  .MuiInputBase-input {
+    width: 350px;
+  }
+  .MuiButtonGroup-grouped {
+    min-width: 0px;
+  }
+}
+
+.m-search-menulist {
+  .MuiList-padding {
+    padding-top: 0px;
+    padding-bottom: 0px;
   }
 }
 

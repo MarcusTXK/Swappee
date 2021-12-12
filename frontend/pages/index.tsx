@@ -3,10 +3,10 @@ import MCarousel from 'components/molecules/MCarousel';
 import Link from 'next/link';
 import Head from 'next/head';
 import AContainer1440 from 'components/atoms/AContainer1440';
-import MSampleSearchBar from 'components/molecules/MSampleSearchBar';
 import MCategoriesSection from 'components/molecules/MCategoriesSection';
 import MItemListingContainer from 'components/molecules/MItemListingContainer';
 import MAppBar from 'components/molecules/MAppBar';
+import MSearchBar from 'components/molecules/MSearchBar';
 
 const Home = () => {
   return (
@@ -15,11 +15,11 @@ const Home = () => {
         <title>Swappee</title>
       </Head>
       <AContainer1440>
-        <MAppBar/>
-        <MCarousel/>
-        <MCategoriesSection/>
-        <div className = 'home-container'>  
-          <MItemListingContainer isDataLoaded = {true}/>
+        <MAppBar />
+        <MCarousel />
+        <MCategoriesSection />
+        <div className="home-container">
+          <MItemListingContainer isDataLoaded={true} />
         </div>
         <Box display="flex" alignItems="center" flexDirection="column" width="100%" pt={4}>
           <h1>
@@ -32,7 +32,7 @@ const Home = () => {
             A platform allowing users in a community to list items online and trade.
           </Box>
           <Box mb={4}>
-            <MSampleSearchBar />
+            <MSearchBar />
           </Box>
           <Box display="flex">
             <Box mr={2}>
