@@ -1,6 +1,8 @@
 $heart-color: rgb(250, 70, 70);
 
 .m-sample-searchbar {
+  width: 700px;
+
   .MuiDivider-vertical {
     height: 40px;
   }
@@ -15,9 +17,9 @@ $heart-color: rgb(250, 70, 70);
   justify-content: center;
   width: 200;
   height: 320;
+  margin: 10px;
   border: 1px solid lightgrey;
   border-radius: 10px;
-  margin-bottom: 20px;
   cursor: pointer;
 
   &:hover {
@@ -85,16 +87,65 @@ $heart-color: rgb(250, 70, 70);
   
 }
 
-.listing-container {
+.m-listing-container {
+  padding: 10px;
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  width: 700px;
+  margin-top: 20px;
+  flex-direction: column;
   border: 1px solid black;
   border-radius: 10px;
-  padding: 20px;
+  align-items: center;
+
+  .m-listing-container__items {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 20px;
+    margin: 10px;
+  }
 }
 
+.m-categories-section {
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
 
+  .m-categories-section__categories {
+    display: flex;
+    margin: 10px;
+    padding: 20px;
+    justify-content: space-between;
+    
+  }
+}
 
+.a-category {
+  display: flex;
+  flex-direction: column;
 
+  .a-category__image {
+    border-radius: 100%;
+  }
+}
+
+.m-carousel {
+  margin: 10px;
+}
+
+.m-appbar {
+  display: flex;
+  padding: 10px;
+
+  .m-appbar__logo {
+    width: 900px;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 30px;
+  }
+
+  .m-appbar__buttons {
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+  }
+}

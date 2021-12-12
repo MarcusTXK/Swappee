@@ -17,7 +17,7 @@ const MSampleSearchBar = () => {
     <TextField
       className="m-sample-searchbar"
       variant="outlined"
-      label="Test"
+      label="Search for item"
       size="small"
       InputProps={{
         endAdornment: (

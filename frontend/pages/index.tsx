@@ -1,8 +1,12 @@
 import { Button, Box } from '@material-ui/core';
+import MCarousel from 'components/molecules/MCarousel';
 import Link from 'next/link';
 import Head from 'next/head';
 import AContainer1440 from 'components/atoms/AContainer1440';
 import MSampleSearchBar from 'components/molecules/MSampleSearchBar';
+import MCategoriesSection from 'components/molecules/MCategoriesSection';
+import MItemListingContainer from 'components/molecules/MItemListingContainer';
+import MAppBar from 'components/molecules/MAppBar';
 
 const Home = () => {
   return (
@@ -11,6 +15,12 @@ const Home = () => {
         <title>Swappee</title>
       </Head>
       <AContainer1440>
+        <MAppBar/>
+        <MCarousel/>
+        <MCategoriesSection/>
+        <div className = 'home-container'>  
+          <MItemListingContainer isDataLoaded = {true}/>
+        </div>
         <Box display="flex" alignItems="center" flexDirection="column" width="100%" pt={4}>
           <h1>
             Welcome to{' '}
