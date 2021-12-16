@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup } from '@material-ui/core';
+import { Button, Box, Grid } from '@material-ui/core';
 import MMenuList from './MMenuList';
 import React, { FC } from 'react';
 import MLoginDialog from './MLoginDialog';
@@ -36,57 +36,61 @@ const MAppBarButtons: FC<MAppBarButtonProps> = ({
 }) => {
   if (!isLoggedIn) {
     return (
-      <ButtonGroup>
-        <Box pl={3}>
-          <Button
-            variant="contained"
-            color="primary"
-            style={{ maxWidth: '80px', minWidth: '80px' }}
-            onClick={() => handleOpenLoginModal()}
-          >
-            Login
-          </Button>
-          <MLoginDialog
-            showLoginModal={showLoginModal}
-            handleCloseLoginModal={handleCloseLoginModal}
-            handleOpenRegisterModal={handleOpenRegisterModal}
-            handleOpenForgotPasswordModal={handleOpenForgotPasswordModal}
-            handleLogin={handleLogin}
-          />
-          <MForgotPasswordDialog
-            showForgotPasswordModal={showForgotPasswordModal}
-            handleCloseForgotPasswordModal={handleCloseForgotPasswordModal}
-          />
-        </Box>
-        <Box px={3}>
-          <Button
-            variant="outlined"
-            color="primary"
-            style={{ maxWidth: '80px', minWidth: '80px' }}
-            onClick={() => handleOpenRegisterModal()}
-          >
-            Register
-          </Button>
-          <MRegisterDialog
-            showRegisterModal={showRegisterModal}
-            handleCloseRegisterModal={handleCloseRegisterModal}
-            handleOpenLoginModal={handleOpenLoginModal}
-          />
-        </Box>
-      </ButtonGroup>
+      <Box ml={3}>
+        <Grid container spacing={3} direction="row" justifyContent="flex-end" wrap="nowrap" className="m-appbarbuttons">
+          <Grid item>
+            <Button
+              variant="contained"
+              color="primary"
+              className="m-appbarbuttons__button"
+              onClick={() => handleOpenLoginModal()}
+            >
+              Login
+            </Button>
+            <MLoginDialog
+              showLoginModal={showLoginModal}
+              handleCloseLoginModal={handleCloseLoginModal}
+              handleOpenRegisterModal={handleOpenRegisterModal}
+              handleOpenForgotPasswordModal={handleOpenForgotPasswordModal}
+              handleLogin={handleLogin}
+            />
+            <MForgotPasswordDialog
+              showForgotPasswordModal={showForgotPasswordModal}
+              handleCloseForgotPasswordModal={handleCloseForgotPasswordModal}
+            />
+          </Grid>
+          <Grid item>
+            <Button
+              variant="outlined"
+              color="primary"
+              className="m-appbarbuttons__button"
+              onClick={() => handleOpenRegisterModal()}
+            >
+              Register
+            </Button>
+            <MRegisterDialog
+              showRegisterModal={showRegisterModal}
+              handleCloseRegisterModal={handleCloseRegisterModal}
+              handleOpenLoginModal={handleOpenLoginModal}
+            />
+          </Grid>
+        </Grid>
+      </Box>
     );
   }
   return (
-    <ButtonGroup>
-      <Box pl={3}>
-        <Button variant="contained" color="primary" style={{ maxWidth: '80px', minWidth: '80px' }}>
-          Trade
-        </Button>
-      </Box>
-      <Box px={3}>
-        <MMenuList handleLogout={handleLogout} />
-      </Box>
-    </ButtonGroup>
+    <Box ml={3}>
+      <Grid container justifyContent="flex-end" spacing={3} wrap="nowrap" className="m-appbarbuttons">
+        <Grid item>
+          <Button variant="contained" color="primary" className="m-appbarbuttons__button">
+            Trade
+          </Button>
+        </Grid>
+        <Grid item>
+          <MMenuList handleLogout={handleLogout} />
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

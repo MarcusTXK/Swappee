@@ -1,4 +1,4 @@
-import { Box, AppBar, Toolbar, Button, Grid } from '@material-ui/core';
+import { Box, AppBar, Toolbar, Link, Grid } from '@material-ui/core';
 import MSearchBar from '../molecules/MSearchBar';
 import logo from './logo.svg';
 import Image from 'next/image';
@@ -49,17 +49,9 @@ const OAppBar = () => {
     <Box>
       <AppBar color="default" position="static" className="o-appbar">
         <Toolbar>
-          <Grid>
-            <Button
-              className="o-appbar__logo"
-              disableRipple
-              onClick={() => {
-                Router.push('/');
-              }}
-            >
-              <Image src={logo} alt="LOGO" />
-            </Button>
-          </Grid>
+          <Link href="/" className="o-appbar__logo">
+            <Image src={logo} alt="LOGO" />
+          </Link>
           <Box pl={5}>
             <MSearchBar />
           </Box>
