@@ -30,6 +30,12 @@
   }
 }
 
+.m-login-dialog {
+  .MuiOutlinedInput-adornedEnd {
+    padding-right: 0px;
+  }
+}
+
 .m-item-card {
   display: flex;
   flex-direction: column;
@@ -105,7 +111,3 @@
   }
   
 }
-
-
-
-

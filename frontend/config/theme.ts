@@ -26,6 +26,13 @@ const theme = createTheme({
         height: '40px',
       },
     },
+    MuiLink: {
+      root: {
+        '&:hover': {
+          cursor: 'pointer',
+        },
+      },
+    },
   },
 });
 
