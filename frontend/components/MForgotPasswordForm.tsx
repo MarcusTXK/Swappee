@@ -1,12 +1,11 @@
-import { FormControl, Grid, TextField, Button } from '@material-ui/core';
-import { Box } from '@material-ui/core';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
+import { Box, FormControl, Grid, TextField, Button } from '@material-ui/core';
 
 const MForgotPasswordForm = () => {
   const [emailAddress, setEmailAddress] = useState('');
 
-  const handleChange = (e) => {
-    setEmailAddress(e.target.value);
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmailAddress(event.target.value);
   };
 
   const handleSubmit = () => {

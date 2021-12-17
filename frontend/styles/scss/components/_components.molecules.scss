@@ -29,3 +29,83 @@
     padding-bottom: 0px;
   }
 }
+
+.m-item-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 200;
+  height: 320;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+
+  .m-item-card__image {
+    border-radius: 10px 10px 0px 0px;
+  }
+  .m-item-card__top-box {
+    height: 50px;
+  }
+  .m-item-card__bottom-box {
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .m-item-card__heart {
+    color:var(--heart-color);
+    cursor: pointer;
+  }
+  .m-item-card__empty-heart {
+    color: black;
+    cursor: pointer;
+  
+    &:hover{
+      color: var(--heart-color);
+    }
+  }
+}
+
+.username-box {
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+
+  .username-box__user-avatar {
+    border-radius: 50%;
+  
+  }
+
+  .m-item-card__username {
+    font-weight:bold;
+    padding-top:5px;
+    margin-left:5px;
+  }
+}
+
+.m-skeleton-card {
+  margin-bottom: 25px;
+
+  .m-skeleton-card__title {
+    margin-bottom: 20px;
+  }
+  
+  .m-skeleton-card__used {
+    margin-bottom: 5px;
+  }
+
+  .m-skeleton-card__avatar {
+    margin-right: 10px;
+  }
+  
+}
+
+
+
+
