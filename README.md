@@ -6,10 +6,6 @@
 * Users can make trade requests, accept, and review other users upon trading
 * Item cards in each user’s inventory will be swapped upon trading and each item will have a history log on its previous trades and owners
 ---
-# Progress
-* Backend: 80% done (Left with search functionality and request controller)
-* Frontend: Todo
----
 ## For more information: 
 ### Logo and database and wireframe design:
 https://drive.google.com/file/d/1woZuQanSfAL04bDhyud6wsw_oO9OqfCV/view?usp=sharing
