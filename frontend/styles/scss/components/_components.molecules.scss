@@ -32,6 +32,12 @@ $heart-color: rgb(250, 70, 70);
   }
 }
 
+.m-login-dialog {
+  .MuiOutlinedInput-adornedEnd {
+    padding-right: 0px;
+  }
+}
+
 .m-item-card {
   display: flex;
   flex-direction: column;
@@ -84,7 +90,7 @@ $heart-color: rgb(250, 70, 70);
   
   }
 
-  .a-item-card__username {
+  .m-item-card__username {
     font-weight:bold;
     padding-top:5px;
     margin-left:5px;
