@@ -41,8 +41,8 @@ const MUserCard = () => {
         <p className="m-user-card__ratings__reviews">{`(${numRatings} Reviews)`}</p>
       </Box>
       <Box className="m-user-card__buttons">
-        <Button color="primary" variant="outlined" onClick={() => console.log("Email Swapper")}>
-          <MailOutlineIcon className="m-user-card__buttons__mail"/>
+        <Button color="primary" variant="outlined" onClick={() => console.log('Email Swapper')}>
+          <MailOutlineIcon className="m-user-card__buttons__mail" />
           Email
         </Button>
         <AFilledButton buttonText="Trade Item" onClick={() => console.log('Trade Item')} />
