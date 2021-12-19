@@ -7,7 +7,7 @@ const categories = ['cars', 'books', 'watches', 'electronics', 'home appliances'
 const MCategoriesSection = () => {
   return (
     <div>
-      <Box className="m-categories-section">
+      <Box className="m-categories-section" boxShadow={3}>
         Explore Categories
         <div className="m-categories-section__categories">
           {categories.map((value) => (

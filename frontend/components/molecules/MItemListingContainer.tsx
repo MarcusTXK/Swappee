@@ -10,7 +10,7 @@ interface MItemListingContainerProps {
 const MItemListingContainer: FC<MItemListingContainerProps> = ({ isDataLoaded, ...other }) => {
   const elements = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   return (
-    <Box className="m-listing-container">
+    <Box className="m-listing-container" boxShadow={3}>
       <p>Recent</p>
       <Box className="m-listing-container__items">
         {isDataLoaded
