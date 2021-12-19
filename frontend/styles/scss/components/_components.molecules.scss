@@ -1,3 +1,5 @@
+$heart-color: rgb(250, 70, 70);
+
 .m-searchbar {
   .m-searchbar__searchbutton {
     border-radius: 0px;
@@ -33,5 +35,147 @@
 .m-appbarbuttons {
   .m-appbarbuttons__button {
     width: 80px;
+  }
+}
+
+.m-login-dialog {
+  .MuiOutlinedInput-adornedEnd {
+    padding-right: 0px;
+  }
+}
+
+.m-item-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 200;
+  height: 320;
+  margin: 10px;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+
+  .m-item-card__image {
+    border-radius: 10px 10px 0px 0px;
+  }
+  .m-item-card__top-box {
+    height: 50px;
+  }
+  .m-item-card__bottom-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .m-item-card__heart {
+    color: $heart-color;
+    cursor: pointer;
+  }
+  .m-item-card__empty-heart {
+    color: black;
+    cursor: pointer;
+
+    &:hover {
+      color: $heart-color;
+    }
+  }
+}
+
+.username-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .username-box__user-avatar {
+    border-radius: 50%;
+  }
+
+  .m-item-card__username {
+    font-weight: bold;
+    padding-top: 5px;
+    margin-left: 5px;
+  }
+}
+
+.m-skeleton-card {
+  margin-bottom: 25px;
+
+  .m-skeleton-card__title {
+    margin-bottom: 20px;
+  }
+
+  .m-skeleton-card__used {
+    margin-bottom: 5px;
+  }
+
+  .m-skeleton-card__avatar {
+    margin-right: 10px;
+  }
+}
+
+.m-listing-container {
+  padding: 10px;
+  display: flex;
+  margin-top: 20px;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 10px;
+  align-items: center;
+
+  .m-listing-container__items {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 20px;
+    margin: 10px;
+  }
+}
+
+.m-categories-section {
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+
+  .m-categories-section__categories {
+    display: flex;
+    margin: 10px;
+    padding: 20px;
+    justify-content: space-between;
+  }
+}
+
+.a-category {
+  display: flex;
+  flex-direction: column;
+
+  .a-category__image {
+    border-radius: 100%;
+  }
+}
+
+.m-carousel {
+  margin: 10px;
+}
+
+.m-appbar {
+  display: flex;
+  padding: 10px;
+
+  .m-appbar__logo {
+    width: 900px;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 30px;
+  }
+
+  .m-appbar__buttons {
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
   }
 }
