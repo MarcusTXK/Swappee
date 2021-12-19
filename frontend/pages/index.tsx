@@ -2,7 +2,6 @@ import { Button, Box } from '@material-ui/core';
 import Link from 'next/link';
 import Head from 'next/head';
 import AContainer1440 from 'components/atoms/AContainer1440';
-import MSearchBar from 'components/molecules/MSearchBar';
 import OAppBar from 'components/organisms/OAppBar';
 
 const Home = () => {
@@ -24,7 +23,7 @@ const Home = () => {
             A platform allowing users in a community to list items online and trade.
           </Box>
           <Box mb={4}>
-            <MSearchBar />
+            <OAppBar />
           </Box>
           <Box display="flex">
             <Box mr={2}>
