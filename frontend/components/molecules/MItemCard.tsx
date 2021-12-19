@@ -3,8 +3,7 @@ import { Box, Typography } from '@material-ui/core';
 import img from 'public/passportphoto.jpg';
 import Image from 'next/image';
 import MUserName from 'components/molecules/MUserName';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import AHeart from 'components/atoms/AHeart';
 
 interface MItemCardProps {
   hasAvatar: boolean;
@@ -42,11 +41,7 @@ const MItemCard: FC<MItemCardProps> = ({
         {isUsed ? <Typography variant="caption">Used</Typography> : <Typography variant="caption">New</Typography>}
         <Box className="m-item-card__bottom-box">
           <MUserName username={username} />
-          {isRed ? (
-            <FavoriteIcon onClick={toggleLike} className="m-item-card__heart" />
-          ) : (
-            <FavoriteBorder onClick={toggleLike} className="m-item-card__empty-heart" />
-          )}
+          <AHeart />
         </Box>
       </Box>
     </div>

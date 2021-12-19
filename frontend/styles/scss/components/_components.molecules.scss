@@ -1,4 +1,6 @@
 $heart-color: rgb(250, 70, 70);
+$star-color: #ffb400;
+$primary-color: #388e3c;
 
 .m-searchbar {
   .m-searchbar__searchbutton {
@@ -65,18 +67,6 @@ $heart-color: rgb(250, 70, 70);
     flex-direction: row;
     align-items:center;
     justify-content:space-between;
-  }
-  .m-item-card__heart {
-    color:$heart-color;
-    cursor: pointer;
-  }
-  .m-item-card__empty-heart {
-    color: black;
-    cursor: pointer;
-  
-    &:hover{
-      color: $heart-color;
-    }
   }
 }
 
@@ -174,5 +164,114 @@ $heart-color: rgb(250, 70, 70);
     width: 200px;
     display: flex;
     justify-content: space-between;
+  }
+}
+
+.a-heart {
+  color:$heart-color;
+  cursor: pointer;
+}
+.a-empty-heart {
+  color: black;
+  cursor: pointer;
+
+  &:hover{
+    color: $heart-color;
+  }
+}
+
+.m-item-name-history {
+  width: 150px;
+ .m-item-name-history__item-name {
+   font-size: 25px;
+ } 
+
+ .m-item-name-history__last-modified {
+   font-size: 12px;
+   color:grey;
+ }
+
+ .m-item-name-history__button-heart {
+   margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 17px;
+
+    .m-item-name-history__button-heart__heart {
+      width: 30%;
+      display: flex;
+      justify-content: space-between;
+    }
+ }
+}
+
+.a-star {
+  color: $star-color;
+}
+
+.m-user-card {
+  width: 300px;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 20px 60px 20px 20px;
+
+  .m-user-card__ratings {
+    display: flex;
+    align-items: center;
+    .m-user-card__ratings__reviews {
+      margin-left: 5px;
+    }
+  }
+
+  .m-user-card__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .m-user-card__buttons__mail {
+      margin: 5px;
+    }
+  }
+}
+
+.m-item-details {
+  display: flex;
+  flex-direction: column;
+  .m-item-details__description {
+    padding-top: 20px;
+    .m-item-details__description__title {
+      font-size: 25px;
+    }
+    .m-item-details__description__description {
+      font-size: 15px;
+    }
+  }
+
+  .m-item-details__details {
+    padding-top: 20px;
+    .m-item-details__details__title {
+      font-size: 25px;
+    }
+    .m-item-details__details__description {
+      font-size: 15px;
+    }
+  }
+
+  .m-item-details__categories {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.a-category-pill {
+  background-color: $primary-color;
+  padding: 5px 10px 5px 10px;
+  border-radius: 20px;
+  margin: 5px;
+  .a-category-pill__categoryname {
+    color: white;
+    font-weight: bold;
   }
 }
