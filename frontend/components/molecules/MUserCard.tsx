@@ -12,7 +12,7 @@ const numRatings = 17;
 
 const MUserCard = () => {
   return (
-    <Box className="m-user-card">
+    <Box className="m-user-card" boxShadow={3}>
       <MUserName username="username" />
       {/* https://github.com/voronianski/react-star-rating-component/blob/master/example/index.js */}
       <Box className="m-user-card__ratings">
