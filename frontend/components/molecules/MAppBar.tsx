@@ -3,7 +3,7 @@ import Image from 'next/image';
 import logo from 'public/logo.jpg';
 import MSearchBar from './MSearchBar';
 
-const handleClick = (event) => {
+const handleClick = (event: React.MouseEventHandler<HTMLButtonElement>) => {
   console.log('hi');
 };
 

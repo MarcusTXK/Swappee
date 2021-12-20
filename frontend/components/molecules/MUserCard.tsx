@@ -1,10 +1,8 @@
 import { Box, Button } from '@material-ui/core';
-import StarRatingComponent from 'react-star-rating-component';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import StarIcon from '@material-ui/icons/Star';
-import StarHalfIcon from '@material-ui/icons/StarHalf';
 import AFilledButton from 'components/atoms/AFilledButton';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import Rating from '@material-ui/lab/Rating';
+import Typography from '@material-ui/core/Typography';
 import MUserName from './MUserName';
 
 // Hardcoded value, to be retrieved using API
@@ -16,28 +14,10 @@ const MUserCard = () => {
       <MUserName username="username" />
       {/* https://github.com/voronianski/react-star-rating-component/blob/master/example/index.js */}
       <Box className="m-user-card__ratings">
-        <StarRatingComponent
-          name=""
-          value={3.5}
-          starCount={5}
-          editing={false}
-          emptyStarColor="#ffb400"
-          renderStarIcon={(index: number, value: number) => {
-            return <span>{index <= value ? <StarIcon /> : <StarBorderIcon />}</span>;
-          }}
-          renderStarIconHalf={() => {
-            return (
-              <span>
-                <span style={{ position: 'absolute' }}>
-                  <StarBorderIcon />
-                </span>
-                <span>
-                  <StarHalfIcon className="a-star" />
-                </span>
-              </span>
-            );
-          }}
-        />
+        <Box component="fieldset" mb={3} borderColor="transparent">
+          <Typography component="legend">Read only</Typography>
+          <Rating name="user-rating" defaultValue={5} size="small" readOnly />
+        </Box>
         <p className="m-user-card__ratings__reviews">{`(${numRatings} Reviews)`}</p>
       </Box>
       <Box className="m-user-card__buttons">
