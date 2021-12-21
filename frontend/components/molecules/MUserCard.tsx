@@ -1,23 +1,24 @@
+import { FC } from 'react';
 import { Box, Button } from '@material-ui/core';
 import AFilledButton from 'components/atoms/AFilledButton';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import Rating from '@material-ui/lab/Rating';
-import Typography from '@material-ui/core/Typography';
 import MUserName from './MUserName';
 
 // Hardcoded value, to be retrieved using API
 const numRatings = 17;
 
-const MUserCard = () => {
+interface MUserCardProps {
+  openOfferItem: React.MouseEventHandler<HTMLButtonElement>;
+}
+
+const MUserCard: FC<MUserCardProps> = ({ openOfferItem }) => {
   return (
     <Box className="m-user-card" boxShadow={3}>
       <MUserName username="username" />
       {/* https://github.com/voronianski/react-star-rating-component/blob/master/example/index.js */}
       <Box className="m-user-card__ratings">
-        <Box component="fieldset" mb={3} borderColor="transparent">
-          <Typography component="legend">Read only</Typography>
-          <Rating name="user-rating" defaultValue={5} size="small" readOnly />
-        </Box>
+        <Rating name="user-rating" defaultValue={4} size="small" readOnly />
         <p className="m-user-card__ratings__reviews">{`(${numRatings} Reviews)`}</p>
       </Box>
       <Box className="m-user-card__buttons">
@@ -25,7 +26,7 @@ const MUserCard = () => {
           <MailOutlineIcon className="m-user-card__buttons__mail" />
           Email
         </Button>
-        <AFilledButton buttonText="Trade Item" onClick={() => console.log('Trade Item')} />
+        <AFilledButton buttonText="Trade Item" onClick={openOfferItem} />
       </Box>
     </Box>
   );

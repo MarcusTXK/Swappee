@@ -1,4 +1,4 @@
-import { Box, Typography } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import AOutlinedButton from 'components/atoms/AOutlinedButton';
 import AHeart from 'components/atoms/AHeart';
 

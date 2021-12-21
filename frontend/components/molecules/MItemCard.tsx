@@ -13,6 +13,7 @@ interface MItemCardProps {
   username: string;
   title: string;
   avatar?: string;
+  onClick: React.MouseEventHandler<HTMLDivElement>;
 }
 
 const MItemCard: FC<MItemCardProps> = ({
@@ -23,6 +24,7 @@ const MItemCard: FC<MItemCardProps> = ({
   username,
   title,
   avatar,
+  onClick,
   ...other
 }) => {
   const [isRed, setIsRed] = useState(false);
@@ -32,7 +34,7 @@ const MItemCard: FC<MItemCardProps> = ({
     // Other code to change liked status in database.
   };
   return (
-    <div className="m-item-card">
+    <div className="m-item-card" onClick={onClick}>
       <Image className="m-item-card__image" src={img} width="200px" height="200px" alt="item image" />
       <Box padding="10px">
         <Box className="m-item-card__top-box">

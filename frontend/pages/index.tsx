@@ -12,6 +12,7 @@ import MItemListingContainer from 'components/molecules/MItemListingContainer';
 import MAppBar from 'components/molecules/MAppBar';
 import MSearchBar from 'components/molecules/MSearchBar';
 import MLoginDialog from 'components/organisms/OLoginDialog';
+import AFilledButton from 'components/atoms/AFilledButton';
 
 const Home = () => {
   const [isLogin, setLogin] = useState(false);
@@ -28,39 +29,11 @@ const Home = () => {
         <MAppBar />
         <MCarousel />
         <MCategoriesSection />
-        <Box className="home-container">
-          <MItemListingContainer isDataLoaded={true} />
-        </Box>
-        <Box display="flex" alignItems="center" flexDirection="column" width="100%" pt={4}>
-          <h1>
-            Welcome to{' '}
-            <Link href="https://github.com/MarcusTXK/Swappee">
-              <a>Swappee!</a>
-            </Link>
-          </h1>
-          <Box component="p" my={4}>
-            A platform allowing users in a community to list items online and trade.
-          </Box>
-          <Box mb={4}>
-            <MSearchBar />
-          </Box>
-          <Box display="flex">
-            <Box mr={2}>
-              <Button
-                color="primary"
-                variant="contained"
-                onClick={() => (token ? console.log('Trade') : setLogin(true))}
-              >
-                {token ? 'Trade' : 'Login'}
-              </Button>
-            </Box>
-            <Button
-              color="primary"
-              variant="outlined"
-              onClick={() => (token ? console.log('Menu') : console.log('Register'))}
-            >
-              {token ? 'Menu' : 'Register'}
-            </Button>
+        <Box className="home-page-items" boxShadow={3}>
+          <p>Recent Items</p>
+          <MItemListingContainer isDataLoaded={true} onClick={() => console.log('Load detailed item')} />
+          <Box className="home-page-items__button">
+            <AFilledButton buttonText="View More!" onClick={() => console.log('Load more items')} />
           </Box>
         </Box>
       </AContainer1440>

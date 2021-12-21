@@ -5,3 +5,45 @@
     border-bottom: 1px solid black;
     padding-bottom: 20px;
 }
+
+.o-offer-item {
+    padding: 20px;
+    .o-offer-item__note {
+      margin-top: 20px;
+      color:grey;
+    }
+    .o-offer-item__titlesearch {
+      display: flex;
+      justify-content: space-between;
+      .o-offer-item__titlesearch__close {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      .o-offer-item__title {
+        font-size: 25px;
+        font-weight: bold;
+      }
+    }
+    .o-offer-item__pagination {
+      display: flex;
+      justify-content: center;
+      text-align: right;
+    }
+  }
+
+  .o-leave-message {
+    padding: 20px;
+    .o-leave-message__close {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    .o-leave-message__text-field {
+        display: flex;
+        flex-direction: column;
+        .o-leave-message__text-field__textarea {
+            margin-bottom: 20px;
+        }
+    }
+  }
