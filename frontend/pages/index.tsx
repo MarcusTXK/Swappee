@@ -7,15 +7,11 @@ import { useSelector } from 'react-redux';
 
 import { AppState } from 'redux-saga/interfaces';
 import AContainer1440 from 'components/atoms/AContainer1440';
-<<<<<<< HEAD
 import OAppBar from 'components/organisms/OAppBar';
-=======
 import MCategoriesSection from 'components/molecules/MCategoriesSection';
 import MItemListingContainer from 'components/molecules/MItemListingContainer';
 import MAppBar from 'components/molecules/MAppBar';
-import MSearchBar from 'components/molecules/MSearchBar';
 import MLoginDialog from 'components/organisms/OLoginDialog';
->>>>>>> 9cd736496a8693f9e277008c2c85a8ba590e9071
 
 const Home = () => {
   const [isLogin, setLogin] = useState(false);
