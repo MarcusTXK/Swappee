@@ -1,28 +1,29 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { IconButton, TextField, InputAdornment, TextFieldProps } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 interface MPasswordFieldProps {
+  label?: string;
   password: string;
   handlePassword: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  isVisible: boolean;
-  handleVisible: () => void;
 }
 
 const MPasswordField: FC<MPasswordFieldProps & TextFieldProps> = ({
+  label = 'Password',
   password,
   handlePassword,
-  isVisible,
-  handleVisible,
   ...other
 }) => {
+  const [isVisible, setVisible] = useState(false);
+  const handleVisible = () => {
+    setVisible(!isVisible);
+  };
   return (
     <TextField
-      label="Password"
+      label={label}
       type={isVisible ? 'text' : 'password'}
       fullWidth
       variant="outlined"
-      size="small"
       value={password}
       onChange={handlePassword}
       InputProps={{
