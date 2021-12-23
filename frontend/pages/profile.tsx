@@ -5,7 +5,7 @@ import OEditProfileForm from 'components/organisms/OEditProfileForm';
 import { useState } from 'react';
 
 const ProfilePage = () => {
-  const [page, setPage] = useState<String>('edit_profile');
+  const [page, setPage] = useState('edit_profile');
 
   const handleClickEditProfile = () => {
     setPage('edit_profile');
@@ -30,6 +30,7 @@ const ProfilePage = () => {
         <MProfileMenu
           handleClickEditProfile={handleClickEditProfile}
           handleClickChangePassword={handleClickChangePassword}
+          page={page}
         />
       </Box>
       <Box sx={{ px: 5 }}>{renderForm()}</Box>
