@@ -10,6 +10,7 @@ const OEditProfileForm = () => {
   const [aboutMe, setAboutMe] = useState('');
   const [email, setEmail] = useState('');
   const [mobile, setMobile] = useState('');
+  const [uploadedPhoto, setUploadedPhoto] = useState('');
 
   const handleUserChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUser(event.target.value);
@@ -39,6 +40,12 @@ const OEditProfileForm = () => {
     alert('Saved Successfully');
   };
 
+  const handleUploadPhoto = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      setUploadedPhoto(URL.createObjectURL(event.target.files[0]));
+    }
+  };
+
   return (
     <Paper variant="outlined" className="m-editprofile-form">
       <Box sx={{ px: 3, py: 3 }}>
@@ -50,7 +57,7 @@ const OEditProfileForm = () => {
             <Box fontSize={20}>Profile photo</Box>
           </Grid>
           <Grid item>
-            <MProfilePhoto />
+            <MProfilePhoto username={user} uploadedPhoto={uploadedPhoto} handleUploadPhoto={handleUploadPhoto} />
           </Grid>
           <Grid item>
             <Box fontSize={20} pt={3}>

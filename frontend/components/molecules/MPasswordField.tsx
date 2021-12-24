@@ -23,6 +23,7 @@ const MPasswordField: FC<MPasswordFieldProps & TextFieldProps> = ({
       label={label}
       type={isVisible ? 'text' : 'password'}
       fullWidth
+      size="small"
       variant="outlined"
       value={password}
       onChange={handlePassword}

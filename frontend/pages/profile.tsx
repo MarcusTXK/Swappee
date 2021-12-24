@@ -5,21 +5,21 @@ import OEditProfileForm from 'components/organisms/OEditProfileForm';
 import { useState } from 'react';
 
 const ProfilePage = () => {
-  const [page, setPage] = useState('edit_profile');
+  const [page, setPage] = useState('edit_Profile');
 
   const handleClickEditProfile = () => {
-    setPage('edit_profile');
+    setPage('edit_Profile');
   };
 
   const handleClickChangePassword = () => {
-    setPage('change_password');
+    setPage('change_Password');
   };
 
   const renderForm = () => {
     switch (page) {
-      case 'edit_profile':
+      case 'edit_Profile':
         return <OEditProfileForm />;
-      case 'change_password':
+      case 'change_Password':
         return <OChangePasswordForm />;
     }
   };

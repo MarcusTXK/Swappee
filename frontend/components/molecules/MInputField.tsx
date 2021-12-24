@@ -13,6 +13,7 @@ const MInputField: FC<MInputFieldProps & TextFieldProps> = ({ label, value, hand
       label={label}
       type="text"
       fullWidth
+      size="small"
       variant="outlined"
       value={value}
       onChange={handleChange}

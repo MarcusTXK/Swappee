@@ -9,7 +9,6 @@ import { AppState } from 'redux-saga/interfaces';
 import AContainer1440 from 'components/atoms/AContainer1440';
 import MCategoriesSection from 'components/molecules/MCategoriesSection';
 import MItemListingContainer from 'components/molecules/MItemListingContainer';
-import MAppBar from 'components/molecules/MAppBar';
 import MSearchBar from 'components/molecules/MSearchBar';
 import MLoginDialog from 'components/organisms/OLoginDialog';
 
@@ -25,7 +24,6 @@ const Home = () => {
         <title>Swappee</title>
       </Head>
       <AContainer1440>
-        <MAppBar />
         <MCarousel />
         <MCategoriesSection />
         <div className="home-container">

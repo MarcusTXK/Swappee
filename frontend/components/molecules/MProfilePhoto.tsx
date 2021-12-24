@@ -1,12 +1,24 @@
 import { Grid, Box, Button } from '@material-ui/core';
 import Image from 'next/image';
-import profilePicture from '../../public/profilepicture.svg';
+import { FC } from 'react';
 
-const ProfilePhoto = () => {
+interface MProfilePhotoProps {
+  username: string;
+  uploadedPhoto?: string;
+  handleUploadPhoto: Function;
+}
+
+const MProfilePhoto: FC<MProfilePhotoProps> = ({ username, uploadedPhoto = '', handleUploadPhoto = () => {} }) => {
   return (
     <Grid container direction="row" wrap="nowrap">
       <Grid>
-        <Image src={profilePicture} alt="profile picture" />
+        <Image
+          src={uploadedPhoto || `https://avatars.dicebear.com/api/bottts/${username}.svg`}
+          width="60"
+          height="60"
+          alt="profile picture"
+          unoptimized={true}
+        />
       </Grid>
       <Box pl={3}>
         <Grid container direction="column" justifyContent="center">
@@ -14,7 +26,13 @@ const ProfilePhoto = () => {
           <Grid>
             <Button size="small" color="primary" variant="outlined" component="label">
               Upload a photo
-              <input type="file" hidden />
+              <input
+                id="photo"
+                type="file"
+                accept="image/jpeg, image/png"
+                onChange={(e) => handleUploadPhoto(e)}
+                hidden
+              />
             </Button>
           </Grid>
         </Grid>
@@ -23,4 +41,4 @@ const ProfilePhoto = () => {
   );
 };
 
-export default ProfilePhoto;
+export default MProfilePhoto;

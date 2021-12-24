@@ -1,8 +1,8 @@
 import { Box, Grid, Paper, TextField, Button } from '@material-ui/core';
 import { useState, ChangeEvent } from 'react';
 import Image from 'next/image';
-import forgotPasswordImage from '../public/forgot_password.svg';
 import AContainer1440 from 'components/atoms/AContainer1440';
+import forgotPasswordImage from '../public/forgot_password.svg';
 
 const ForgotPasswordPage = () => {
   const [emailAddress, setEmailAddress] = useState('');
