@@ -24,3 +24,23 @@ export function loginFailed(error: data.Error): actions.LoginFailed {
     error,
   };
 }
+
+export function getItemList(): actions.GetItemList {
+  return {
+    type: actionTypes.GET_ITEM_LIST,
+  };
+}
+
+export function getItemListSuccess(itemListData: data.GetItemListData): actions.GetItemListSuccess {
+  return {
+    type: actionTypes.GET_ITEM_LIST_SUCCESS,
+    data: itemListData,
+  };
+}
+
+export function getItemListFailed(error: data.Error): actions.GetItemListFailed {
+  return {
+    type: actionTypes.GET_ITEM_LIST_FAILED,
+    error,
+  };
+}

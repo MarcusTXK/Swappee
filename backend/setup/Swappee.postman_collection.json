@@ -1,0 +1,750 @@
+{
+	"info": {
+		"_postman_id": "4614ace9-62a7-4359-8375-1efb42aa8aed",
+		"name": "Swappee",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Security",
+			"item": [
+				{
+					"name": "createAuthenticationToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();\r",
+									"console.log(data.token);\r",
+									"pm.globals.set(\"token\", data.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"MarcusTXK\",\r\n    \"password\": \"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/login/authenticate",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"login",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createAuthenticationToken Biscuit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();\r",
+									"console.log(data.token);\r",
+									"pm.globals.set(\"token\", data.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Biscuit2015\",\r\n    \"password\": \"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/login/authenticate",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"login",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createAuthenticationToken NewGuy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();\r",
+									"console.log(data.token);\r",
+									"pm.globals.set(\"token\", data.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"NewGuy\",\r\n    \"password\": \"testing123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/login/authenticate",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"login",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refreshAndGetAuthenticationToken",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/login/refresh",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"login",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ItemPublicApiController",
+			"item": [
+				{
+					"name": "getItem",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/public/item/4",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"public",
+								"item",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/public/item/list",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"public",
+								"item",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findItemsByUserId",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/public/item/user/1",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"public",
+								"item",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PicturePublicApiController",
+			"item": [
+				{
+					"name": "download",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/public/picture/12",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"public",
+								"picture",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByItemId",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/public/picture/item/15",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"public",
+								"picture",
+								"item",
+								"15"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "UserPublicApiController",
+			"item": [
+				{
+					"name": "getUser",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/public/user/MarcusTXK",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"public",
+								"user",
+								"MarcusTXK"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "displayAvatar",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/public/user/2/avatar",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"public",
+								"user",
+								"2",
+								"avatar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUser",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "userDTO",
+									"value": "{\n\t\"id\": \"\",\n\t\"firstName\": \"New Guy\",\n\t\"lastName\": \"Tang\",\n\t\"username\": \"NewGuy\",\n\t\"password\": \"test\",\n\t\"email\": \"Guy@gmail\",\n\t\"avatar\": null,\n\t\"phone\": 98787397,\n\t\"emailOnly\": false,\n\t\"score\": 0,\n\t\"totalTraded\": 0\n}",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/Marcus Tang/Pictures/ProfilePics/Charmander.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/public/user/",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"public",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "ItemPrivateApiController",
+			"item": [
+				{
+					"name": "getItem",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/private/item/4",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"private",
+								"item",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "itemLiked",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/private/item/1/true",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"private",
+								"item",
+								"1",
+								"true"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findItemsByUserLikes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/private/item/likes",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"private",
+								"item",
+								"likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createItem",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "itemDTO",
+									"value": "{\n\t\"id\": \"null\",\n\t\"userId\": \"1\",\n\t\"status\": \"OPEN\",\n\t\"name\": \"Samsung Galaxy Note 10+\",\n\t\"description\": \"Its big\",\n\t\"brand\": \"Samsung\",\n\t\"new\": \"false\",\n\t\"category\": \"Phones\",\n\t\"strict\": \"true\",\n\t\"likes\": \"2\",\n\t\"preferredCats\": [\"Phone\", \"Game\", \"Car\"],\n\t\"preferredItems\": [{\n\t\t\"name\": \"1\",\n\t\t\"category\": \"1\",\n\t\t\"brand\": \"1\",\n\t\t\"new\": \"true\"\n\t}, {\n\t\t\"name\": \"2\",\n\t\t\"category\": \"2\",\n\t\t\"brand\": \"2\",\n\t\t\"new\": \"true\"\n\t}],\n\t\"itemHistory\": []\n}",
+									"type": "text"
+								},
+								{
+									"key": "photos",
+									"type": "file",
+									"src": "/C:/Users/Marcus Tang/Pictures/ProfilePics/Charmander original.png"
+								},
+								{
+									"key": "descriptions",
+									"value": "postman, postman2",
+									"type": "text"
+								},
+								{
+									"key": "photos",
+									"type": "file",
+									"src": "/C:/Users/Marcus Tang/Pictures/ProfilePics/Charmander.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/private/item",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"private",
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateItem",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "itemDTO",
+									"value": "{\n\t\"id\": \"19\",\n\t\"userId\": \"1\",\n\t\"status\": \"OPEN\",\n\t\"name\": \"updated Samsung Galaxy Note 10+\",\n\t\"description\": \"Its big\",\n\t\"brand\": \"Samsung\",\n\t\"new\": \"false\",\n\t\"category\": \"Phones\",\n\t\"strict\": \"true\",\n\t\"likes\": \"2\",\n\t\"preferredCats\": [\"Phone\", \"Game\", \"Car\"],\n\t\"preferredItems\": [{\n\t\t\"name\": \"1\",\n\t\t\"category\": \"1\",\n\t\t\"brand\": \"1\",\n\t\t\"new\": \"true\"\n\t}, {\n\t\t\"name\": \"2\",\n\t\t\"category\": \"2\",\n\t\t\"brand\": \"2\",\n\t\t\"new\": \"true\"\n\t}],\n\t\"itemHistory\": []\n}",
+									"type": "text"
+								},
+								{
+									"key": "photos",
+									"type": "file",
+									"src": "PostManTest.png"
+								},
+								{
+									"key": "descriptions",
+									"value": "updated",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/private/item/2",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"private",
+								"item",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteItem",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "itemDTO",
+									"value": "{\n\t\"id\": \"null\",\n\t\"userId\": \"1\",\n\t\"status\": \"OPEN\",\n\t\"name\": \"Samsung Galaxy Note 10+\",\n\t\"description\": \"Its big\",\n\t\"brand\": \"Samsung\",\n\t\"new\": \"false\",\n\t\"category\": \"Phones\",\n\t\"strict\": \"true\",\n\t\"likes\": \"2\",\n\t\"preferredCats\": [\"Phone\", \"Game\", \"Car\"],\n\t\"preferredItems\": [{\n\t\t\"name\": \"1\",\n\t\t\"category\": \"1\",\n\t\t\"brand\": \"1\",\n\t\t\"new\": \"true\"\n\t}, {\n\t\t\"name\": \"2\",\n\t\t\"category\": \"2\",\n\t\t\"brand\": \"2\",\n\t\t\"new\": \"true\"\n\t}],\n\t\"itemHistory\": [{\n\t\t\t\"prevOwnerUsername\": \"MarcusTXK\",\n\t\t\t\"tradedItemId\": \"1\",\n\t\t\t\"tradedItemName\": \"1\"\n\t\t},\n\t\t{\n\t\t\t\"prevOwnerUsername\": \"MarcusTXK\",\n\t\t\t\"tradedItemId\": \"2\",\n\t\t\t\"tradedItemName\": \"2\"\n\t\t}\n\t]\n}",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "photos",
+									"type": "file",
+									"src": "PostManTest.png",
+									"disabled": true
+								},
+								{
+									"key": "descriptions",
+									"value": "postman",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/private/item/1",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"private",
+								"item",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UserPrivateApiController",
+			"item": [
+				{
+					"name": "getUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/private/user/5",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"private",
+								"user",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "userDTO",
+									"value": "{\n\t\"id\": \"5\",\n\t\"firstName\": \"New Guy\",\n\t\"lastName\": \"updated Tang\",\n\t\"username\": \"NewGuy\",\n\t\"password\": \"testing123\",\n\t\"email\": \"Guy@gmail\",\n\t\"avatar\": null,\n\t\"phone\": 98787397,\n\t\"emailOnly\": false,\n\t\"score\": 0,\n\t\"totalTraded\": 0\n}",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/Marcus Tang/Pictures/ProfilePics/Charmander original.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/private/user/5",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"private",
+								"user",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "userDTO",
+									"value": "{\n\t\"id\": \"5\",\n\t\"firstName\": \"New Guy\",\n\t\"lastName\": \"updated Tang\",\n\t\"username\": \"NewGuy\",\n\t\"password\": \"\",\n\t\"email\": \"Guy@gmail\",\n\t\"avatar\": null,\n\t\"phone\": 98787397,\n\t\"emailOnly\": false,\n\t\"score\": 0,\n\t\"totalTraded\": 0\n}",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/Marcus Tang/Pictures/ProfilePics/Charmander original.png",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/private/user/5",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"private",
+								"user",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test (\"Status Code is 200\", function() {",
+					"    pm.response.to.have.status(200)",
+					"})"
+				]
+			}
+		}
+	]
+}
