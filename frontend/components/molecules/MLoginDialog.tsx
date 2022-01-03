@@ -13,14 +13,13 @@ import {
 } from '@material-ui/core';
 import { useState, ChangeEvent } from 'react';
 import { Close } from '@material-ui/icons';
-import { useRouter } from 'next/dist/client/router';
 
 interface MLoginDialogProps {
   showLoginModal?: boolean;
-  handleCloseLoginModal?: Function;
-  handleOpenRegisterModal?: Function;
-  handleOpenForgotPasswordModal?: Function;
-  handleLogin?: Function;
+  handleCloseLoginModal: Function;
+  handleOpenRegisterModal: Function;
+  handleOpenForgotPasswordModal: Function;
+  handleLogin: Function;
 }
 
 const MLoginDialog: FC<MLoginDialogProps> = ({
@@ -30,7 +29,6 @@ const MLoginDialog: FC<MLoginDialogProps> = ({
   handleOpenForgotPasswordModal = () => {},
   handleLogin = () => {},
 }) => {
-  const Router = useRouter();
   const [user, setUser] = useState<String>('');
   const [pass, setPass] = useState<String>('');
   const handleUserChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -47,6 +45,11 @@ const MLoginDialog: FC<MLoginDialogProps> = ({
     handleCloseLoginModal();
     handleOpenForgotPasswordModal();
   };
+  const handleClickLogin = () => {
+    handleCloseLoginModal();
+    handleLogin();
+  };
+
   return (
     <Dialog open={showLoginModal} fullWidth>
       <Box display="flex" justifyContent="flex-end" mt={2} mr={2}>
@@ -69,7 +72,7 @@ const MLoginDialog: FC<MLoginDialogProps> = ({
             <FormControlLabel control={<Checkbox size="small" />} label="Remember Me" />
           </Grid>
           <Grid item>
-            <Button fullWidth color="primary" variant="contained" onClick={() => handleLogin()}>
+            <Button fullWidth color="primary" variant="contained" onClick={() => handleClickLogin()}>
               Login
             </Button>
           </Grid>

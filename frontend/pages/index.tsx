@@ -11,8 +11,8 @@ import AContainer1440 from 'components/atoms/AContainer1440';
 import OAppBar from 'components/organisms/OAppBar';
 import MCategoriesSection from 'components/molecules/MCategoriesSection';
 import MItemListingContainer from 'components/molecules/MItemListingContainer';
-import MAppBar from 'components/molecules/MAppBar';
 import MLoginDialog from 'components/organisms/OLoginDialog';
+import OLoginDialog from 'components/organisms/OLoginDialog';
 
 const Home = () => {
   const [isLogin, setLogin] = useState(false);
@@ -32,7 +32,6 @@ const Home = () => {
       </Head>
       <OAppBar />
       <AContainer1440>
-        <MAppBar />
         <MCarousel />
         <MCategoriesSection />
         <div className="home-container">

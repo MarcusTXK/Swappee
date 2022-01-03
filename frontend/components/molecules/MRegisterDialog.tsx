@@ -6,8 +6,8 @@ import { useRouter } from 'next/dist/client/router';
 
 interface MRegisterDialogProps {
   showRegisterModal?: boolean;
-  handleCloseRegisterModal?: Function;
-  handleOpenLoginModal?: Function;
+  handleCloseRegisterModal: Function;
+  handleOpenLoginModal: Function;
 }
 
 const MRegisterDialog: FC<MRegisterDialogProps> = ({

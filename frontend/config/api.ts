@@ -2,6 +2,8 @@
 import { create } from 'apisauce';
 import ApiUrlConfig from './envConfig';
 
+let token = 1;
+
 enum StatusCode {
   Unauthorized = 401,
   InternalServerError = 500,
@@ -9,11 +11,14 @@ enum StatusCode {
 
 export const API = create({
   baseURL: ApiUrlConfig.API_URL,
+  headers: { Authentication: `Bearer ${token}` },
 });
 
 export const ROUTES = {
   LOGIN: `/api/login/authenticate/`,
   GET_ITEM_LIST: `/api/public/item/list`,
+  GET_USER: `api/private/user/`,
+  GET_OTHER_USERS: `/api/public/user/`,
 };
 
 API.axiosInstance.interceptors.response.use(

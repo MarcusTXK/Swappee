@@ -25,6 +25,35 @@ export interface GetItemListData {
   data: ItemData[];
 }
 
+export interface OtherUserData {
+  id: string;
+  username: string;
+  emailOnly: boolean;
+  score: number;
+}
+
+export interface GetOtherUsersData {
+  message: string;
+  isSuccess: boolean;
+  data: OtherUserData;
+}
+
+export interface UserData {
+  id: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  aboutMe?: string;
+  email: string;
+  mobileNumber: string;
+}
+
+export interface GetUserData {
+  message: string;
+  isSuccess: boolean;
+  data: UserData;
+}
+
 export interface Error {
   message?: string;
   isSuccess?: boolean;
@@ -36,4 +65,6 @@ export interface AppState {
   user: LoginData;
   items: ItemData[];
   isLoginLoading: boolean;
+  otherUsersData: OtherUserData;
+  userData: UserData;
 }

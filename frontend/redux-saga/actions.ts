@@ -44,3 +44,47 @@ export function getItemListFailed(error: data.Error): actions.GetItemListFailed 
     error,
   };
 }
+
+export function getOtherUser(payload: payloads.GetOtherUserPayload): actions.GetOtherUsers {
+  return {
+    type: actionTypes.GET_OTHER_USERS,
+    payload,
+  };
+}
+
+export function getOtherUserSuccess(otherUsersData: data.GetOtherUsersData): actions.GetOtherUsersSuccess {
+  console.log('success');
+  return {
+    type: actionTypes.GET_OTHER_USERS_SUCCESS,
+    data: otherUsersData,
+  };
+}
+
+export function getOtherUserFailed(error: data.Error): actions.GetOtherUsersFailed {
+  console.log('failed');
+  return {
+    type: actionTypes.GET_OTHER_USERS_FAILED,
+    error,
+  };
+}
+
+export function getUser(payload: payloads.GetUserPayload): actions.GetUser {
+  return {
+    type: actionTypes.GET_USER,
+    payload,
+  };
+}
+
+export function getUserSuccess(userData: data.GetUserData): actions.GetUserSuccess {
+  return {
+    type: actionTypes.GET_USER_SUCCESS,
+    data: userData,
+  };
+}
+
+export function getUserFailed(error: data.Error): actions.GetUserFailed {
+  return {
+    type: actionTypes.GET_USER_FAILED,
+    error,
+  };
+}
