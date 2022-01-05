@@ -9,9 +9,8 @@ import {
   getOtherUserFailed,
   getUserSuccess,
   getUserFailed,
-  getOtherUser,
 } from './actions';
-import { actionTypes, Login, GetOtherUserPayload } from './interfaces';
+import { actionTypes, Login, GetOtherUsers } from './interfaces';
 
 function* loginSaga(action: Login) {
   const { data, ok } = yield call(() => API.post(ROUTES.LOGIN, action.payload));
@@ -23,8 +22,8 @@ function* getItemListSaga() {
   yield put(ok ? getItemListSuccess(data) : getItemListFailed(data));
 }
 
-function* getOtherUsersSaga({ payload }: ReturnType<typeof getOtherUser>) {
-  const { data, ok } = yield call(() => API.get(ROUTES.GET_OTHER_USERS + payload.username));
+function* getOtherUsersSaga(action: GetOtherUsers) {
+  const { data, ok } = yield call(() => API.get(ROUTES.GET_OTHER_USERS + action.payload.username));
   yield put(ok ? getOtherUserSuccess(data) : getOtherUserFailed(data));
 }
 
