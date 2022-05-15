@@ -13,6 +13,7 @@ export const API = create({
 
 export const ROUTES = {
   LOGIN: `/api/login/authenticate/`,
+  GET_ITEM_LIST: `/api/public/item/list`,
 };
 
 API.axiosInstance.interceptors.response.use(

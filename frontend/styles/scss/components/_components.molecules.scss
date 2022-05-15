@@ -53,7 +53,7 @@ $primary-color: #388e3c;
 
   &:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
   }
 
   .m-item-card__image {
@@ -65,24 +65,36 @@ $primary-color: #388e3c;
   .m-item-card__bottom-box {
     display: flex;
     flex-direction: row;
-    align-items:center;
-    justify-content:space-between;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .m-item-card__heart {
+    color: $heart-color;
+    cursor: pointer;
+  }
+  .m-item-card__empty-heart {
+    color: black;
+    cursor: pointer;
+
+    &:hover {
+      color: $heart-color;
+    }
   }
 }
 
 .username-box {
-  display:flex;
-  flex-direction:row;
-  align-items:center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
   .username-box__user-avatar {
     border-radius: 50%;
   }
 
   .m-item-card__username {
-    font-weight:bold;
-    padding-top:5px;
-    margin-left:5px;
+    font-weight: bold;
+    padding-top: 5px;
+    margin-left: 5px;
   }
 }
 
@@ -92,7 +104,7 @@ $primary-color: #388e3c;
   .m-skeleton-card__title {
     margin-bottom: 20px;
   }
-  
+
   .m-skeleton-card__used {
     margin-bottom: 5px;
   }
@@ -100,7 +112,6 @@ $primary-color: #388e3c;
   .m-skeleton-card__avatar {
     margin-right: 10px;
   }
-  
 }
 
 .m-listing-container {
@@ -129,7 +140,6 @@ $primary-color: #388e3c;
     margin: 10px;
     padding: 20px;
     justify-content: space-between;
-    
   }
 }
 
@@ -279,5 +289,65 @@ $primary-color: #388e3c;
   .a-category-pill__categoryname {
     color: white;
     font-weight: bold;
+  }
+}
+.m-editprofile-form {
+  @media only screen and (min-width: 500px) {
+    .MuiGrid-item {
+      width: 250px;
+    }
+  }
+  @media only screen and (min-width: 700px) {
+    .MuiGrid-item {
+      width: 350px;
+    }
+  }
+  @media only screen and (min-width: 1000px) {
+    .MuiGrid-item {
+      width: 500px;
+    }
+  }
+  @media only screen and (min-width: 1500px) {
+    .MuiGrid-item {
+      width: 700px;
+    }
+  }
+  .m-editprofile-form__aboutme {
+    .MuiOutlinedInput-multiline {
+      min-height: 150px;
+      align-items: flex-start;
+    }
+  }
+  .m-editprofile-form__profilePicture {
+    min-height: 1000px;
+  }
+}
+
+.m-changepassword-form {
+  @media only screen and (min-width: 500px) {
+    .MuiGrid-item {
+      width: 250px;
+    }
+  }
+  @media only screen and (min-width: 700px) {
+    .MuiGrid-item {
+      width: 350px;
+    }
+  }
+  @media only screen and (min-width: 1000px) {
+    .MuiGrid-item {
+      width: 500px;
+    }
+  }
+  @media only screen and (min-width: 1500px) {
+    .MuiGrid-item {
+      width: 700px;
+    }
+  }
+}
+
+.m-profilemenu {
+  .m-profilemenu__selectedbutton {
+    background-color: rgb(211, 211, 211);
   }
 }
