@@ -6,6 +6,7 @@ import com.swappee.model.wrapper.GridResult;
 import com.swappee.utils.exception.BaseServiceException;
 import org.springframework.data.domain.Pageable;
 
+
 public interface RequestService {
 
 //    RequestDTO findById(Long id) throws BaseServiceException;
