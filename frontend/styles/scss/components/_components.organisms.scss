@@ -9,12 +9,25 @@
 .o-offer-item {
     padding: 20px;
     .o-offer-item__note {
-      margin-top: 20px;
+      margin-top: 10px;
       color:grey;
     }
     .o-offer-item__titlesearch {
       display: flex;
       justify-content: space-between;
+
+      .o-offer-item__titlesearch__container {
+        display: flex;
+        margin-top: 20px;
+        width: 90%;
+        justify-content: space-between;
+      }
+
+      .o-offer-item__titlesearch__container__title {
+        font-size: 25px;
+        margin-bottom: 0px;
+      }
+
       .o-offer-item__titlesearch__close {
         &:hover {
           cursor: pointer;

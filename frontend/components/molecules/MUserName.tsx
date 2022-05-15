@@ -16,7 +16,6 @@ const MUserName: FC<MUserNameProps> = ({ username, avatar, ...other }) => (
       height="30"
       alt="user avatar"
     />
-
     <p className="m-item-card__username">{username}</p>
   </Box>
 );

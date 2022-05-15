@@ -1,6 +1,6 @@
 import { FC, useState, ChangeEvent } from 'react';
-import { Box, Dialog, DialogTitle, TextField, Button } from '@material-ui/core';
-import { Search } from '@material-ui/icons';
+import { Box, Dialog, DialogTitle, TextField, Button, Typography } from '@material-ui/core';
+import { Search, Title } from '@material-ui/icons';
 import Pagination from '@material-ui/lab/Pagination';
 import AFilledButton from 'components/atoms/AFilledButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -28,25 +28,27 @@ const OOpenOfferItemDialog: FC<OOpenOfferItemDialogProps> = ({ isOpen, onClick, 
   return (
     <Dialog fullWidth={true} maxWidth="md" open={isOpen}>
       <Box className="o-offer-item">
-        <CloseIcon className="o-offer-item__titlesearch__close" onClick={onClose} />
         <Box className="o-offer-item__titlesearch">
-          <DialogTitle id="alert-dialog-title">Step 1: Choose which item to offer</DialogTitle>
-          <TextField
-            value={search}
-            variant="outlined"
-            placeholder="Search"
-            size="small"
-            onChange={(e) => setSearch(e.target.value)}
-            InputProps={{
-              endAdornment: (
-                <>
-                  <Button onClick={() => console.log('Search for items')}>
-                    <Search />
-                  </Button>
-                </>
-              ),
-            }}
-          />
+          <Box className="o-offer-item__titlesearch__container">
+            <p className="o-offer-item__titlesearch__container__title">Step 1: Choose which item to offer</p>
+            <TextField
+              value={search}
+              variant="outlined"
+              placeholder="Search"
+              size="small"
+              onChange={(e) => setSearch(e.target.value)}
+              InputProps={{
+                endAdornment: (
+                  <>
+                    <Button onClick={() => console.log('Search for items')}>
+                      <Search />
+                    </Button>
+                  </>
+                ),
+              }}
+            />
+          </Box>
+          <CloseIcon className="o-offer-item__titlesearch__close" onClick={onClose} />
         </Box>
         <p className="o-offer-item__note">
           Note: if the owner sets 'Strict', only items matching the preferred categories will be displayed.

@@ -7,7 +7,7 @@ import Image from 'next/image';
 const MCarousel = () => {
   return (
     <Box className="m-carousel">
-      <Carousel dynamicHeight={true}>
+      <Carousel dynamicHeight={true} showThumbs={false}>
         <div>
           <Image height="700px" src={img} />
           <p className="legend">Legend 1</p>

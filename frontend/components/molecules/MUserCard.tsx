@@ -3,7 +3,7 @@ import { Box, Button } from '@material-ui/core';
 import AFilledButton from 'components/atoms/AFilledButton';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import Rating from '@material-ui/lab/Rating';
-import MUserName from './MUserName';
+import Image from 'next/image';
 
 // Hardcoded value, to be retrieved using API
 const numRatings = 17;
@@ -13,13 +13,27 @@ interface MUserCardProps {
 }
 
 const MUserCard: FC<MUserCardProps> = ({ openOfferItem }) => {
+  const avatar = undefined;
+  const username = 'username';
+
   return (
     <Box className="m-user-card" boxShadow={3}>
-      <MUserName username="username" />
-      {/* https://github.com/voronianski/react-star-rating-component/blob/master/example/index.js */}
-      <Box className="m-user-card__ratings">
-        <Rating name="user-rating" defaultValue={4} size="small" readOnly />
-        <p className="m-user-card__ratings__reviews">{`(${numRatings} Reviews)`}</p>
+      <Box className="m-user-card__row">
+        <Image
+          className="m-user-card__row__avatar"
+          src={avatar || `https://avatars.dicebear.com/api/bottts/${username}.svg`}
+          width="30"
+          height="30"
+          alt="user avatar"
+        />
+        <Box>
+          <p className="m-item-card__username">username</p>
+          {/* https://github.com/voronianski/react-star-rating-component/blob/master/example/index.js */}
+          <Box className="m-user-card__row__ratings">
+            <Rating name="user-rating" defaultValue={4} size="small" readOnly />
+            <p className="m-user-card__row__ratings__reviews">{`(${numRatings} Reviews)`}</p>
+          </Box>
+        </Box>
       </Box>
       <Box className="m-user-card__buttons">
         <Button color="primary" variant="outlined" onClick={() => console.log('Email Swapper')}>

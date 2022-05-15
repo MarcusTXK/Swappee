@@ -11,7 +11,7 @@ const ODetailedItemMiddle: FC<ODetailedItemMiddleProps> = ({ openOfferItem }) =>
   return (
     <Box className="o-detailed-item-middle">
       <MItemNameHistory />
-      <MUserCard openOfferItem={openOfferItem} />
+      <MUserCard openOfferItem={() => openOfferItem()} />
     </Box>
   );
 };

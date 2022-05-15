@@ -19,7 +19,6 @@ const MItemListingContainer: FC<MItemListingContainerProps> = ({ isDataLoaded, o
         {isDataLoaded
           ? elements.map((value, index: Number) => {
               // eslint-disable-next-line no-console
-              console.log(value);
               if (page != null) {
                 if (index < page * numItemCardsInOnePage && index >= (page - 1) * numItemCardsInOnePage) {
                   return (
