@@ -4,7 +4,7 @@ import OChangePasswordForm from 'components/organisms/OChangePasswordForm';
 import OEditProfileForm from 'components/organisms/OEditProfileForm';
 import { useState } from 'react';
 
-const ProfilePage = () => {
+const SettingsPage = () => {
   const [page, setPage] = useState('EditProfile');
 
   const handleClickEditProfile = () => {
@@ -38,4 +38,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default SettingsPage;
