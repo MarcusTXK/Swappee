@@ -25,7 +25,7 @@ const SettingsPage = () => {
   };
 
   return (
-    <Box px={4} py={3} className="p-profile" justifyContent="center">
+    <Box px={4} py={3} className="p-settings" justifyContent="center">
       <Box>
         <MProfileMenu
           handleClickEditProfile={handleClickEditProfile}

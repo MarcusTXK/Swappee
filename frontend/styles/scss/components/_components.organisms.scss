@@ -1,0 +1,18 @@
+.o-profilepage-banner {
+  .o-profilepage-banner-top {
+    background-color: hsl(133, 53%, 43%);
+    height: 120px;
+    border-radius: 0%;
+  }
+  .o-profilepage-banner-image {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    margin-top: 40px;
+  }
+  .o-profilepage-banner-bottom {
+    align-items: center;
+    height: 60px;
+    border-radius: 0%;
+  }
+}
