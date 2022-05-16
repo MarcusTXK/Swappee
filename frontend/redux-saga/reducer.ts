@@ -19,12 +19,7 @@ const initialState: AppState = {
     mobileNumber: '',
   },
 
-  otherUserData: {
-    id: '',
-    username: '',
-    emailOnly: false,
-    score: 0,
-  },
+  otherUsersData: [],
 };
 
 const reducer = (state = initialState, action: Action | { type: typeof HYDRATE; payload: AppState }): AppState => {
@@ -51,7 +46,7 @@ const reducer = (state = initialState, action: Action | { type: typeof HYDRATE; 
       return { ...state, error: action.error };
 
     case actionTypes.GET_OTHER_USERS_SUCCESS:
-      return { ...state, otherUserData: action.data.data };
+      return { ...state, otherUsersData: action.data.data };
 
     case actionTypes.GET_OTHER_USERS_FAILED:
       return { ...state, error: action.error };

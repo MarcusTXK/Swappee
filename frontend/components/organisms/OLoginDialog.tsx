@@ -70,8 +70,6 @@ const OLoginDialog: FC<OLoginDialogProps> = ({ isOpen, onClose, handleForgotPass
             <MPasswordField
               password={password}
               handlePassword={handlePassword}
-              isVisible={isShowPassword}
-              handleVisible={() => setShowPassword(!isShowPassword)}
               error={isLoginFailed}
               helperText={isLoginFailed ? 'Invalid email or password' : ''}
             />

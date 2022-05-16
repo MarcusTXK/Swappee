@@ -239,6 +239,9 @@ $heart-color: rgb(250, 70, 70);
       align-items: flex-start;
     }
   }
+  .m-editprofile-form__profilePicture {
+    min-height: 1000px;
+  }
 }
 
 .m-changepassword-form {
@@ -261,5 +264,11 @@ $heart-color: rgb(250, 70, 70);
     .MuiGrid-item {
       width: 700px;
     }
+  }
+}
+
+.m-profilemenu {
+  .m-profilemenu__selectedbutton {
+    background-color: rgb(211, 211, 211);
   }
 }
