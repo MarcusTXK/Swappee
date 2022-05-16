@@ -11,9 +11,9 @@ export enum actionTypes {
   GET_ITEM_LIST_SUCCESS = 'GET_ITEM_LIST_SUCCESS',
   GET_ITEM_LIST_FAILED = 'GET_ITEM_LIST_FAILED',
 
-  GET_OTHER_USERS = 'GET_OTHER_USERS',
-  GET_OTHER_USERS_SUCCESS = 'GET_OTHER_USERS_SUCCESS',
-  GET_OTHER_USERS_FAILED = 'GET_OTHER_USERS_FAILED',
+  GET_OTHER_USER = 'GET_OTHER_USER',
+  GET_OTHER_USER_SUCCESS = 'GET_OTHER_USER_SUCCESS',
+  GET_OTHER_USER_FAILED = 'GET_OTHER_USER_FAILED',
 
   GET_USER = 'GET_USER_DATA',
   GET_USER_SUCCESS = 'GET_USER_SUCCESS',
@@ -49,18 +49,18 @@ export interface GetItemListFailed {
   error: data.Error;
 }
 
-export interface GetOtherUsers {
-  type: actionTypes.GET_OTHER_USERS;
+export interface GetOtherUser {
+  type: actionTypes.GET_OTHER_USER;
   payload: payloads.GetOtherUserPayload;
 }
 
-export interface GetOtherUsersSuccess {
-  type: actionTypes.GET_OTHER_USERS_SUCCESS;
-  data: data.GetOtherUsersData;
+export interface GetOtherUserSuccess {
+  type: actionTypes.GET_OTHER_USER_SUCCESS;
+  data: data.GetOtherUserData;
 }
 
-export interface GetOtherUsersFailed {
-  type: actionTypes.GET_OTHER_USERS_FAILED;
+export interface GetOtherUserFailed {
+  type: actionTypes.GET_OTHER_USER_FAILED;
   error: data.Error;
 }
 
@@ -86,9 +86,9 @@ export type Action =
   | GetItemList
   | GetItemListSuccess
   | GetItemListFailed
-  | GetOtherUsers
-  | GetOtherUsersSuccess
-  | GetOtherUsersFailed
+  | GetOtherUser
+  | GetOtherUserSuccess
+  | GetOtherUserFailed
   | GetUser
   | GetUserSuccess
   | GetUserFailed;

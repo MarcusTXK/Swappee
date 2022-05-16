@@ -19,6 +19,13 @@ const initialState: AppState = {
     mobileNumber: '',
   },
 
+  otherUserData: {
+    id: '',
+    username: '',
+    emailOnly: false,
+    score: 0,
+  },
+
   otherUsersData: [],
 };
 
@@ -45,16 +52,18 @@ const reducer = (state = initialState, action: Action | { type: typeof HYDRATE; 
     case actionTypes.GET_ITEM_LIST_FAILED:
       return { ...state, error: action.error };
 
-    case actionTypes.GET_OTHER_USERS_SUCCESS:
-      return { ...state, otherUsersData: action.data.data };
+    case actionTypes.GET_OTHER_USER_SUCCESS:
+      return { ...state, otherUserData: action.data.data };
 
-    case actionTypes.GET_OTHER_USERS_FAILED:
+    case actionTypes.GET_OTHER_USER_FAILED:
       return { ...state, error: action.error };
 
     case actionTypes.GET_USER_SUCCESS:
+      console.log('OK');
       return { ...state, userData: action.data.data };
 
     case actionTypes.GET_USER_FAILED:
+      console.log('NOT OK');
       return { ...state, error: action.error };
 
     default:

@@ -5,6 +5,7 @@ import * as actions from './interfaces/actions.interfaces';
 const { actionTypes } = actions;
 
 export function login(payload: payloads.LoginPayload): actions.Login {
+  console.log('Logging in');
   return {
     type: actionTypes.LOGIN,
     payload,
@@ -12,6 +13,7 @@ export function login(payload: payloads.LoginPayload): actions.Login {
 }
 
 export function loginSuccess(loginData: data.LoginData): actions.LoginSuccess {
+  console.log('success!');
   return {
     type: actionTypes.LOGIN_SUCCESS,
     data: loginData,
@@ -19,6 +21,7 @@ export function loginSuccess(loginData: data.LoginData): actions.LoginSuccess {
 }
 
 export function loginFailed(error: data.Error): actions.LoginFailed {
+  console.log('failed!');
   return {
     type: actionTypes.LOGIN_FAILED,
     error,
@@ -45,25 +48,26 @@ export function getItemListFailed(error: data.Error): actions.GetItemListFailed 
   };
 }
 
-export function getOtherUser(payload: payloads.GetOtherUserPayload): actions.GetOtherUsers {
+export function getOtherUser(payload: payloads.GetOtherUserPayload): actions.GetOtherUser {
+  console.log('Fetching other user');
   return {
-    type: actionTypes.GET_OTHER_USERS,
+    type: actionTypes.GET_OTHER_USER,
     payload,
   };
 }
 
-export function getOtherUserSuccess(otherUsersData: data.GetOtherUsersData): actions.GetOtherUsersSuccess {
-  console.log('success');
+export function getOtherUserSuccess(otherUserData: data.GetOtherUserData): actions.GetOtherUserSuccess {
+  console.log('Fetch user success');
   return {
-    type: actionTypes.GET_OTHER_USERS_SUCCESS,
-    data: otherUsersData,
+    type: actionTypes.GET_OTHER_USER_SUCCESS,
+    data: otherUserData,
   };
 }
 
-export function getOtherUserFailed(error: data.Error): actions.GetOtherUsersFailed {
-  console.log('failed');
+export function getOtherUserFailed(error: data.Error): actions.GetOtherUserFailed {
+  console.log('Fetch user failed');
   return {
-    type: actionTypes.GET_OTHER_USERS_FAILED,
+    type: actionTypes.GET_OTHER_USER_FAILED,
     error,
   };
 }

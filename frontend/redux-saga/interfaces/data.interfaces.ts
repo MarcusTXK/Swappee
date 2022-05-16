@@ -32,7 +32,7 @@ export interface OtherUserData {
   score: number;
 }
 
-export interface GetOtherUsersData {
+export interface GetOtherUserData {
   message: string;
   isSuccess: boolean;
   data: OtherUserData;
@@ -65,6 +65,7 @@ export interface AppState {
   user: LoginData;
   items: ItemData[];
   isLoginLoading: boolean;
-  otherUsersData: OtherUserData;
+  otherUserData: OtherUserData;
+  otherUsersData: OtherUserData[];
   userData: UserData;
 }

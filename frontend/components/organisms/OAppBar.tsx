@@ -47,19 +47,19 @@ const OAppBar = () => {
     setLogin(false);
   };
 
-  const { otherUserData } = useSelector((state: AppState) => state);
+  const otherUserData = useSelector((state: AppState) => state.otherUserData);
+  const otherUsersData = useSelector((state: AppState) => state.otherUsersData);
   const dispatch = useDispatch();
 
-  let username = 'tayyantay';
-  const fetchAPI = () => {
-    dispatch(getOtherUser({ username }));
+  const handleClick = () => {
+    dispatch(getOtherUser({ username: 'tayyantay', otherUsersData: otherUsersData }));
   };
 
   return (
     <Box>
-      <Button onClick={fetchAPI}>Fetch Me</Button>
-      <Box>{otherUserData.username}</Box>
+      <Button onClick={handleClick}>Click me</Button>
       <Box>{otherUserData.id}</Box>
+      <Box>{otherUserData.username}</Box>
       <AppBar color="default" position="static" className="o-appbar">
         <Toolbar>
           <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap" spacing={2}>
