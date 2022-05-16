@@ -1,4 +1,6 @@
 $heart-color: rgb(250, 70, 70);
+$star-color: #ffb400;
+$primary-color: #388e3c;
 
 .m-searchbar {
   .m-searchbar__searchbutton {
@@ -117,7 +119,6 @@ $heart-color: rgb(250, 70, 70);
   display: flex;
   margin-top: 20px;
   flex-direction: column;
-  border: 1px solid black;
   border-radius: 10px;
   align-items: center;
 
@@ -131,7 +132,6 @@ $heart-color: rgb(250, 70, 70);
 }
 
 .m-categories-section {
-  border: 1px solid black;
   border-radius: 10px;
   padding: 10px;
 
@@ -174,6 +174,123 @@ $heart-color: rgb(250, 70, 70);
   }
 }
 
+.a-heart {
+  color:$heart-color;
+  cursor: pointer;
+}
+.a-empty-heart {
+  color: black;
+  cursor: pointer;
+
+  &:hover{
+    color: $heart-color;
+  }
+}
+
+.m-item-name-history {
+  width: 150px;
+ .m-item-name-history__item-name {
+   font-size: 25px;
+ } 
+
+ .m-item-name-history__last-modified {
+   font-size: 12px;
+   color:grey;
+ }
+
+ .m-item-name-history__button-heart {
+   margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 17px;
+
+    .m-item-name-history__button-heart__heart {
+      width: 30%;
+      display: flex;
+      justify-content: space-between;
+    }
+ }
+}
+
+.a-star {
+  color: $star-color;
+}
+
+.m-user-card {
+  width: 300px;
+  border-radius: 10px;
+  padding: 20px 40px 20px 20px;
+  
+  .m-user-card__row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    .m-user-card__row__avatar {
+      border-radius: 50%;
+    }
+
+    .m-user-card__row__ratings {
+      display: flex;
+      align-items: center;
+      margin: 0px 0px 10px 0px;
+      .m-user-card__row__ratings__reviews {
+        margin-left: 5px;
+      }
+    }
+  }
+  .m-user-card__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .m-user-card__buttons__mail {
+      margin: 5px;
+    }
+  }
+}
+
+.m-item-details {
+  display: flex;
+  flex-direction: column;
+  .m-item-details__description {
+    padding-top: 20px;
+    .m-item-details__description__title {
+      font-size: 25px;
+    }
+    .m-item-details__description__description {
+      font-size: 15px;
+    }
+  }
+
+  .m-item-details__details {
+    padding-top: 20px;
+    .m-item-details__details__title {
+      font-size: 25px;
+    }
+    .m-item-details__details__description {
+      font-size: 15px;
+    }
+  }
+
+  .m-item-details__categories {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.a-category-pill {
+  background-color: $primary-color;
+  padding: 5px 10px 5px 10px;
+  border-radius: 20px;
+  margin: 5px;
+  .a-category-pill__categoryname {
+    color: white;
+    font-weight: bold;
+  }
+}
 .m-editprofile-form {
   @media only screen and (min-width: 500px) {
     .MuiGrid-item {
