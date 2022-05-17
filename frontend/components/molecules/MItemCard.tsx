@@ -3,8 +3,7 @@ import { Box, Typography } from '@material-ui/core';
 import img from 'public/passportphoto.jpg';
 import Image from 'next/image';
 import MUserName from 'components/molecules/MUserName';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import AHeart from 'components/atoms/AHeart';
 
 interface MItemCardProps {
   hasAvatar: boolean;
@@ -14,6 +13,7 @@ interface MItemCardProps {
   username: string;
   title: string;
   avatar?: string;
+  onClick: React.MouseEventHandler<HTMLDivElement>;
 }
 
 const MItemCard: FC<MItemCardProps> = ({
@@ -24,6 +24,7 @@ const MItemCard: FC<MItemCardProps> = ({
   username,
   title,
   avatar,
+  onClick,
   ...other
 }) => {
   const [isRed, setIsRed] = useState(false);
@@ -33,7 +34,7 @@ const MItemCard: FC<MItemCardProps> = ({
     // Other code to change liked status in database.
   };
   return (
-    <div className="m-item-card">
+    <div className="m-item-card" onClick={onClick}>
       <Image className="m-item-card__image" src={img} width="200px" height="200px" alt="item image" />
       <Box padding="10px">
         <Box className="m-item-card__top-box">
@@ -42,11 +43,7 @@ const MItemCard: FC<MItemCardProps> = ({
         {isUsed ? <Typography variant="caption">Used</Typography> : <Typography variant="caption">New</Typography>}
         <Box className="m-item-card__bottom-box">
           <MUserName username={username} />
-          {isRed ? (
-            <FavoriteIcon onClick={toggleLike} className="m-item-card__heart" />
-          ) : (
-            <FavoriteBorder onClick={toggleLike} className="m-item-card__empty-heart" />
-          )}
+          <AHeart />
         </Box>
       </Box>
     </div>
