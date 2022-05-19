@@ -2,8 +2,10 @@ package com.swappee.service.request;
 
 import com.google.common.base.Preconditions;
 import com.swappee.dao.request.RequestDao;
+import com.swappee.domain.like.Like;
 import com.swappee.domain.request.Request;
 import com.swappee.mapper.request.RequestDTOMapper;
+import com.swappee.model.item.ItemDTO;
 import com.swappee.model.request.RequestDTO;
 import com.swappee.model.wrapper.GridResult;
 import com.swappee.utils.exception.BaseDaoException;
@@ -234,6 +236,21 @@ public class RequestServiceImpl implements RequestService {
             throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
         } finally {
             logger.info("End findById");
+        }
+    }
+
+    @Override
+    public RequestDTO delete(RequestDTO toDelete) throws BaseServiceException {
+        try {
+            logger.info("Start delete - toDelete: {}", toDelete);
+            Preconditions.checkNotNull(toDelete);
+            return requestDTOMapper.mapEntity(requestDao.delete(requestDTOMapper.mapDto(toDelete)));
+        } catch (BaseDaoException bde) {
+            throw new BaseServiceException(ErrorMessage.ITEM_ERROR_DELETE_FAILED, bde);
+        } catch (Exception ex) {
+            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End delete");
         }
     }
 }

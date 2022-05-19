@@ -23,4 +23,6 @@ public interface RequestService {
     RequestDTO hide(Long requestId, Long userId) throws BaseServiceException;
 
     RequestDTO findById(Long requestId) throws BaseServiceException;
+
+    RequestDTO delete(RequestDTO toDelete) throws BaseServiceException;
 }

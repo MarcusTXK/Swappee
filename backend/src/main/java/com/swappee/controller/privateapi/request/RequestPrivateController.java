@@ -2,6 +2,7 @@ package com.swappee.controller.privateapi.request;
 
 import com.google.common.base.Preconditions;
 import com.swappee.domain.request.Request;
+import com.swappee.model.item.ItemDTO;
 import com.swappee.model.request.RequestDTO;
 import com.swappee.model.wrapper.ContentResult;
 import com.swappee.model.wrapper.GridResult;
@@ -135,7 +136,7 @@ public class RequestPrivateController {
      */
 
     @PostMapping
-    public ResponseEntity<ContentResult> createRequest(@Valid @RequestParam RequestDTO requestDTO) {
+    public ResponseEntity<ContentResult> createRequest(@Valid @RequestBody RequestDTO requestDTO) {
         logger.info("Start createRequest - requestDTO: {}", requestDTO);
         ContentResult contentResult = new ContentResult();
         HttpStatus httpStatus = HttpStatus.OK;
@@ -163,47 +164,7 @@ public class RequestPrivateController {
         return new ResponseEntity<>(contentResult, httpStatus);
     }
 
-    /**
-     * Api to mark a request as removed.
-     *
-     * @param id id of the request to be updated.
-     * @return Response to send to client.
-     */
-    @PutMapping("/{id}/delete")
-    public ResponseEntity<ContentResult> removeRequest(@PathVariable Long id) {
-        String status = "REMOVED";
-        logger.info("Start removeRequest - id: {}", id);
-        ContentResult contentResult = new ContentResult();
-        HttpStatus httpStatus = HttpStatus.OK;
-        try {
-            Preconditions.checkNotNull(id);
-            Preconditions.checkNotNull(status);
-            RequestDTO requestDTO = requestService.findById(id);
-            Long userId = securityUtil.getAuthenticatedUserId();
 
-            // Ensure user logged in is same user who is updating the request to trade item
-            Preconditions.checkArgument(requestDTO.getTraderId().equals(userId));
-
-            /* Update status of requestDTO */
-            requestDTO.setStatus(status);
-            RequestDTO updated  = this.requestService.update(requestDTO);
-            contentResult.setIsSuccess(true);
-            contentResult.setData(updated);
-            contentResult.setMessage(UserFriendlyMessage.REQUEST_REMOVE_SUCCEED);
-        } catch (BaseServiceException bse) {
-            logger.error("Error in removeRequest():", bse);
-            contentResult.setIsSuccess(false);
-            contentResult.setMessage(UserFriendlyMessage.REQUEST_REMOVE_FAILED);
-            httpStatus = HttpStatus.NOT_FOUND;
-        } catch (Exception e) {
-            logger.error("Error in removeRequest():", e);
-            contentResult.setIsSuccess(false);
-            contentResult.setMessage(UserFriendlyMessage.REQUEST_REMOVE_FAILED);
-            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-        logger.info("End removeRequest");
-        return new ResponseEntity<>(contentResult, httpStatus);
-    }
     /**
      * Api to update a request to trade items
      *
@@ -256,7 +217,6 @@ public class RequestPrivateController {
         try {
             Preconditions.checkNotNull(id);
             Preconditions.checkNotNull(status);
-            Preconditions.checkState(!status.equals(Request.Status.REMOVED.toString()));
             RequestDTO requestDTO = requestService.findById(id);
             Long userId = securityUtil.getAuthenticatedUserId();
 
@@ -274,11 +234,6 @@ public class RequestPrivateController {
             contentResult.setIsSuccess(false);
             contentResult.setMessage(UserFriendlyMessage.REQUEST_UPDATE_FAILED);
             httpStatus = HttpStatus.NOT_FOUND;
-        } catch (IllegalStateException ise) {
-            /* Thrown when user tries to set status as removed, to prevent accidental delete */
-            logger.error("Error in updateRequestStatus():", ise);
-            contentResult.setMessage(UserFriendlyMessage.REQUEST_UPDATE_FAILED);
-            httpStatus = HttpStatus.BAD_REQUEST;
         } catch (Exception e) {
             logger.error("Error in updateRequestStatus():", e);
             contentResult.setIsSuccess(false);
@@ -288,6 +243,44 @@ public class RequestPrivateController {
         logger.info("End updateRequestStatus");
         return new ResponseEntity<>(contentResult, httpStatus);
     }
+
+    /**
+     * Api to delete a request
+     *
+     * @param id id of the request to be deleted.
+     * @return Response to send to client.
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ContentResult> deleteRequest(@PathVariable Long id) {
+        logger.info("Start deleteRequest - id: {}", id);
+        ContentResult contentResult = new ContentResult();
+        HttpStatus httpStatus = HttpStatus.OK;
+        try {
+            Preconditions.checkNotNull(id);
+            RequestDTO toDelete = requestService.findById(id);
+            Long userId = securityUtil.getAuthenticatedUserId();
+            //Ensure use logged in is same user who is deleting the request to trade item
+            Preconditions.checkArgument(toDelete.getTraderId().equals(userId));
+
+            RequestDTO requestDTO = this.requestService.delete(toDelete);
+            contentResult.setIsSuccess(true);
+            contentResult.setData(requestDTO);
+            contentResult.setMessage(UserFriendlyMessage.REQUEST_DELETE_SUCCEED);
+        } catch (BaseServiceException bse) {
+            logger.error("Error in deleteRequest():", bse);
+            contentResult.setIsSuccess(false);
+            contentResult.setMessage(UserFriendlyMessage.REQUEST_DELETE_FAILED);
+            httpStatus = HttpStatus.NOT_FOUND;
+        } catch (Exception e) {
+            logger.error("Error in deleteRequest():", e);
+            contentResult.setIsSuccess(false);
+            contentResult.setMessage(UserFriendlyMessage.REQUEST_DELETE_FAILED);
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        logger.info("End deleteRequest");
+        return new ResponseEntity<>(contentResult, httpStatus);
+    }
+
 
 
 }
