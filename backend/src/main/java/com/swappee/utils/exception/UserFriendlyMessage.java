@@ -46,6 +46,7 @@ public class UserFriendlyMessage {
     public static final String REQUEST_CREATE_SUCCEED = "Successfully created Request";
     public static final String REQUEST_UPDATE_SUCCEED = "Successfully updated Request";
     public static final String REQUEST_DELETE_SUCCEED = "Successfully deleted Request";
+    public static final String REQUEST_REMOVE_SUCCEED = "Successfully removed Request";
     public static final String REQUEST_GET_ONE_SUCCEED = "Successfully retrieved Request";
     public static final String REQUEST_GET_LIST_SUCCEED = "Successfully retrieved Requests";
     public static final String REQUEST_LIKE_SUCCEED = "Successfully liked Request";
@@ -53,8 +54,10 @@ public class UserFriendlyMessage {
     //Request Error Message
     public static final String REQUEST_CREATE_FAILED = "Error in creating Request";
     public static final String REQUEST_UPDATE_FAILED = "Error in updating Request";
+    public static final String REQUEST_REMOVE_FAILED = "Error in removing Request";
     public static final String REQUEST_DELETE_FAILED = "Error in deleting Request";
     public static final String REQUEST_GET_ONE_FAILED = "Error in retrieving Request";
+
     public static final String REQUEST_GET_LIST_FAILED = "Error in retrieving Requests";
     public static final String REQUEST_LIKE_FAILED = "Error in liking Request";
 

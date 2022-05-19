@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import java.util.List;
  * Service implementation class for managing requests.
  * TODO Note: May need to set default date for last modified date
  */
+@Service
 public class RequestServiceImpl implements RequestService {
     private static final Logger logger = LoggerFactory.getLogger(RequestServiceImpl.class);
 
@@ -171,7 +173,7 @@ public class RequestServiceImpl implements RequestService {
             logger.info("Start update - toUpdate: {}", toUpdate);
             Preconditions.checkNotNull(toUpdate);
 
-            RequestDTO requestDTO = requestDTOMapper.mapEntity(requestDao.create(requestDTOMapper.mapDto(toUpdate)));
+            RequestDTO requestDTO = requestDTOMapper.mapEntity(requestDao.update(requestDTOMapper.mapDto(toUpdate)));
             Preconditions.checkNotNull(requestDTO);
             return requestDTO;
         } catch (BaseDaoException bde) {
@@ -214,6 +216,24 @@ public class RequestServiceImpl implements RequestService {
             throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
         } finally {
             logger.info("End hide");
+        }
+    }
+
+    @Override
+    public RequestDTO findById(Long requestId) throws BaseServiceException {
+        try {
+            logger.info("Start findById - requestId: {}", requestId);
+            Preconditions.checkNotNull(requestId);
+
+            RequestDTO requestDTO = requestDTOMapper.mapEntity(requestDao.findById(requestId));
+            Preconditions.checkNotNull(requestDTO);
+            return requestDTO;
+        } catch (BaseDaoException bde) {
+            throw new BaseServiceException(ErrorMessage.REQUEST_ERROR_GET_ONE_FAILED, bde);
+        } catch (Exception ex) {
+            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End findById");
         }
     }
 }

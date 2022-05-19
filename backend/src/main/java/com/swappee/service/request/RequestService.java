@@ -21,4 +21,6 @@ public interface RequestService {
     RequestDTO update(RequestDTO toUpdate) throws BaseServiceException;
 
     RequestDTO hide(Long requestId, Long userId) throws BaseServiceException;
+
+    RequestDTO findById(Long requestId) throws BaseServiceException;
 }
