@@ -76,4 +76,9 @@ public class UserFriendlyMessage {
 
     //Authentication Error Message
 
+
+    // Mail Message
+    public static final String EMAIL_SEND_SUCCEED = "Successfully sent email";
+    public static final String EMAIL_SEND_FAILED = "Error in sending email";
+
 }

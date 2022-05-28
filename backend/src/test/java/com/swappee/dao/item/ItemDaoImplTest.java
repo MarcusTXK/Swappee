@@ -1,5 +1,6 @@
 package com.swappee.dao.item;
 
+import com.swappee.dao.like.item.ItemDaoImpl;
 import com.swappee.domain.item.Item;
 import com.swappee.repository.item.ItemRepository;
 import com.swappee.utils.exception.BaseDaoException;
@@ -13,7 +14,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
