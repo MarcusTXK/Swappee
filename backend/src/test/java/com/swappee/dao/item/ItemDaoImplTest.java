@@ -1,6 +1,5 @@
 package com.swappee.dao.item;
 
-import com.swappee.dao.like.item.ItemDaoImpl;
 import com.swappee.domain.item.Item;
 import com.swappee.repository.item.ItemRepository;
 import com.swappee.utils.exception.BaseDaoException;

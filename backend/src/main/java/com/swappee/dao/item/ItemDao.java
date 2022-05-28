@@ -1,4 +1,4 @@
-package com.swappee.dao.like.item;
+package com.swappee.dao.item;
 
 import com.swappee.domain.item.Item;
 import com.swappee.utils.exception.BaseDaoException;

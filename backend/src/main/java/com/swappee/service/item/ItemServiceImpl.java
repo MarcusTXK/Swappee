@@ -1,7 +1,7 @@
 package com.swappee.service.item;
 
 import com.google.common.base.Preconditions;
-import com.swappee.dao.like.item.ItemDao;
+import com.swappee.dao.item.ItemDao;
 import com.swappee.dao.like.LikeDao;
 import com.swappee.dao.picture.PictureDao;
 import com.swappee.dao.request.RequestDao;
