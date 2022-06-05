@@ -5,6 +5,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import AFilledButton from 'components/atoms/AFilledButton';
 import CloseIcon from '@material-ui/icons/Close';
 import MItemListingContainer from '../molecules/MItemListingContainer';
+import { ItemData } from 'redux-saga/interfaces';
 
 interface OOpenOfferItemDialogProps {
   isOpen: boolean;
@@ -17,6 +18,51 @@ const OOpenOfferItemDialog: FC<OOpenOfferItemDialogProps> = ({ isOpen, onClick, 
   const [search, setSearch] = useState<String>('');
   const [page, setPage] = useState<number>(1);
   const [isDataLoaded, setIsDataLoaded] = useState(true);
+
+  const [data, setData] = useState<ItemData[]>([
+    {
+      id: 1,
+      imagePath: 3,
+      name: 'Apple For Sale',
+      status: '',
+      brand: '',
+      description: '',
+      likes: 3,
+      liked: false,
+      userId: 3,
+      userName: 'yanhanapple<3',
+      createdDate: '',
+      lastModifiedDate: '',
+    },
+    {
+      id: 2,
+      imagePath: 3,
+      name: 'Bananas',
+      status: '',
+      brand: '',
+      description: '',
+      likes: 2,
+      liked: false,
+      userId: 1,
+      userName: 'tauple',
+      createdDate: '',
+      lastModifiedDate: '',
+    },
+    {
+      id: 3,
+      imagePath: 3,
+      name: 'Oranges',
+      status: '',
+      brand: '',
+      description: '',
+      likes: 2,
+      liked: false,
+      userId: 1,
+      userName: 'yanhanapple<3',
+      createdDate: '',
+      lastModifiedDate: '',
+    },
+  ]);
 
   const handleChangePage = (_event: ChangeEvent<unknown>, value: number) => {
     setPage(value);
@@ -53,7 +99,13 @@ const OOpenOfferItemDialog: FC<OOpenOfferItemDialogProps> = ({ isOpen, onClick, 
         <p className="o-offer-item__note">
           Note: if the owner sets 'Strict', only items matching the preferred categories will be displayed.
         </p>
-        <MItemListingContainer page={page} onClick={onClick} isDataLoaded={isDataLoaded} />
+        <MItemListingContainer
+          page={page}
+          onClick={onClick}
+          isDataLoaded={isDataLoaded}
+          data={data}
+          numItemCardsInOnePage={9}
+        />
         <Box className="o-offer-item__pagination">
           <Pagination count={10} page={page} onChange={handleChangePage} />
           <AFilledButton buttonText="Next" onClick={onNextButtonClick} />

@@ -16,7 +16,7 @@ export interface ItemData {
   avatarPath?: number;
   createdDate: string;
   lastModifiedDate: string;
-  new: true;
+  new?: true;
 }
 
 export interface GetItemListData {
