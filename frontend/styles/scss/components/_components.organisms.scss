@@ -1,4 +1,7 @@
 .o-profilepage-banner {
+  display: block;
+  padding-left: 20px;
+  padding-right: 20px;
   .o-profilepage-banner-top {
     background-color: hsl(133, 53%, 43%);
     height: 120px;
@@ -16,6 +19,36 @@
     border-radius: 0%;
   }
 }
+
+.o-profilepage-listing {
+  display: flex;
+  margin: 30px;
+
+  .o-profilepage-listing-search {
+    padding-top: 20px;
+    padding-right: 15px;
+    justify-content: flex-end;
+    display: flex;
+  }
+
+  .o-profilepage-listing-pagination {
+    padding-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    display: flex;
+  }
+}
+
+.o-profilepage-listing-menu {
+  display: flex;
+  margin: 30px;
+  padding: 30px;
+  .MuiSelect-selectMenu {
+    width: 200px;
+  }
+}
+
 .o-detailed-item-middle {
   display: flex;
   flex-direction: row;

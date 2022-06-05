@@ -124,7 +124,6 @@ $primary-color: #388e3c;
 
   .m-listing-container__items {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
     padding: 20px;
     margin: 10px;
@@ -175,31 +174,31 @@ $primary-color: #388e3c;
 }
 
 .a-heart {
-  color:$heart-color;
+  color: $heart-color;
   cursor: pointer;
 }
 .a-empty-heart {
   color: black;
   cursor: pointer;
 
-  &:hover{
+  &:hover {
     color: $heart-color;
   }
 }
 
 .m-item-name-history {
   width: 150px;
- .m-item-name-history__item-name {
-   font-size: 25px;
- } 
+  .m-item-name-history__item-name {
+    font-size: 25px;
+  }
 
- .m-item-name-history__last-modified {
-   font-size: 12px;
-   color:grey;
- }
+  .m-item-name-history__last-modified {
+    font-size: 12px;
+    color: grey;
+  }
 
- .m-item-name-history__button-heart {
-   margin-top: 10px;
+  .m-item-name-history__button-heart {
+    margin-top: 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -211,7 +210,7 @@ $primary-color: #388e3c;
       display: flex;
       justify-content: space-between;
     }
- }
+  }
 }
 
 .a-star {
@@ -222,7 +221,7 @@ $primary-color: #388e3c;
   width: 300px;
   border-radius: 10px;
   padding: 20px 40px 20px 20px;
-  
+
   .m-user-card__row {
     display: flex;
     flex-direction: row;

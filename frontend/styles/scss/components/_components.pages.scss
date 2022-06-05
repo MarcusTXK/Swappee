@@ -8,6 +8,12 @@
   }
 }
 
-.p-profile {
+.p-settings {
   display: flex;
+}
+
+.p-profile {
+  .p-profile-content {
+    display: flex;
+  }
 }
