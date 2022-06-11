@@ -1,5 +1,6 @@
 import { Box, Grid, Button } from '@material-ui/core';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
+
 import Image from 'next/image';
 import errorImage from '../public/error_page.svg';
 
