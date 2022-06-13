@@ -25,7 +25,7 @@ public class JpaAuditingConfig {
         @Override
         public Optional<String> getCurrentAuditor() {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            return Optional.of(auth != null ? auth.getName() : "UknownUser");
+            return Optional.of(auth != null ? auth.getName() : "UnknownUser");
         }
     }
 }

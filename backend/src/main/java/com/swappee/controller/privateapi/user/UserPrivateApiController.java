@@ -3,7 +3,6 @@ package com.swappee.controller.privateapi.user;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Preconditions;
-import com.swappee.model.item.ItemDTO;
 import com.swappee.model.user.UserDTO;
 import com.swappee.model.wrapper.ContentResult;
 import com.swappee.service.user.UserService;

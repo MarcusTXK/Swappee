@@ -18,6 +18,17 @@ spring:
   jackson:
     date-format: com.fasterxml.jackson.databind.util.StdDateFormat
     default-property-inclusion: non-null
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${SWAPPEE_EMAIL_FROM}
+    password: ${SWAPPEE_EMAIL_APP_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 server:
   servlet:
@@ -47,3 +58,4 @@ logging:
     org.springframework.cloud.openfeign: INFO
     org.hibernate: INFO
     com.swappee: DEBUG
+

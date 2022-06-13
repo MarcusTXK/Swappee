@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "4614ace9-62a7-4359-8375-1efb42aa8aed",
+		"_postman_id": "af01e8d4-2ded-4c87-9231-36fbfbddd809",
 		"name": "Swappee",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17174728"
 	},
 	"item": [
 		{
@@ -120,6 +121,47 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"username\": \"NewGuy\",\r\n    \"password\": \"testing123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/login/authenticate",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"login",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createAuthenticationToken Tauple",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();\r",
+									"console.log(data.token);\r",
+									"pm.globals.set(\"token\", data.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"tauple\",\r\n    \"password\": \"apple\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -323,7 +365,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{SwappeeUrl}}/api/public/user/MarcusTXK",
+							"raw": "{{SwappeeUrl}}/api/public/user/lyuzher",
 							"host": [
 								"{{SwappeeUrl}}"
 							],
@@ -331,7 +373,7 @@
 								"api",
 								"public",
 								"user",
-								"MarcusTXK"
+								"lyuzher"
 							]
 						}
 					},
@@ -498,13 +540,13 @@
 							"formdata": [
 								{
 									"key": "itemDTO",
-									"value": "{\n\t\"id\": \"null\",\n\t\"userId\": \"1\",\n\t\"status\": \"OPEN\",\n\t\"name\": \"Samsung Galaxy Note 10+\",\n\t\"description\": \"Its big\",\n\t\"brand\": \"Samsung\",\n\t\"new\": \"false\",\n\t\"category\": \"Phones\",\n\t\"strict\": \"true\",\n\t\"likes\": \"2\",\n\t\"preferredCats\": [\"Phone\", \"Game\", \"Car\"],\n\t\"preferredItems\": [{\n\t\t\"name\": \"1\",\n\t\t\"category\": \"1\",\n\t\t\"brand\": \"1\",\n\t\t\"new\": \"true\"\n\t}, {\n\t\t\"name\": \"2\",\n\t\t\"category\": \"2\",\n\t\t\"brand\": \"2\",\n\t\t\"new\": \"true\"\n\t}],\n\t\"itemHistory\": []\n}",
+									"value": "{\n\t\"id\": \"14\",\n\t\"userId\": \"4\",\n\t\"status\": \"OPEN\",\n\t\"name\": \"Samsung Galaxy Note 10+\",\n\t\"description\": \"Its big\",\n\t\"brand\": \"Samsung\",\n\t\"new\": \"false\",\n\t\"category\": \"Phones\",\n\t\"strict\": \"true\",\n\t\"likes\": \"2\",\n\t\"preferredCats\": [\"Phone\", \"Game\", \"Car\"],\n\t\"preferredItems\": [{\n\t\t\"name\": \"1\",\n\t\t\"category\": \"1\",\n\t\t\"brand\": \"1\",\n\t\t\"new\": \"true\"\n\t}, {\n\t\t\"name\": \"2\",\n\t\t\"category\": \"2\",\n\t\t\"brand\": \"2\",\n\t\t\"new\": \"true\"\n\t}],\n\t\"itemHistory\": []\n}",
 									"type": "text"
 								},
 								{
 									"key": "photos",
 									"type": "file",
-									"src": "/C:/Users/Marcus Tang/Pictures/ProfilePics/Charmander original.png"
+									"src": "/C:/Users/User/Pictures/index.jpg"
 								},
 								{
 									"key": "descriptions",
@@ -514,7 +556,7 @@
 								{
 									"key": "photos",
 									"type": "file",
-									"src": "/C:/Users/Marcus Tang/Pictures/ProfilePics/Charmander.jpg"
+									"src": "/C:/Users/User/Pictures/index.jpg"
 								}
 							]
 						},
@@ -626,7 +668,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{SwappeeUrl}}/api/private/user/5",
+							"raw": "{{SwappeeUrl}}/api/private/user/4",
 							"host": [
 								"{{SwappeeUrl}}"
 							],
@@ -634,7 +676,7 @@
 								"api",
 								"private",
 								"user",
-								"5"
+								"4"
 							]
 						}
 					},
@@ -707,6 +749,202 @@
 								"private",
 								"user",
 								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RequestPrivateApiController",
+			"item": [
+				{
+					"name": "getRequestsToUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/private/request/owner",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"private",
+								"request",
+								"owner"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRequestsFromUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/private/request/trader",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"private",
+								"request",
+								"trader"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createRequest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": \"10\",\r\n        \"ownerId\": \"3\",\r\n        \"traderId\": \"4\",\r\n        \"ownerItemId\": \"6\",\r\n        \"traderItemId\": \"5\",\r\n        \"status\": \"PENDING\",\r\n        \"remarks\": \"cool shoe\",\r\n        \"ownerReviewed\": \"false\",\r\n        \"traderReviewed\": \"false\",\r\n        \"ownerHidden\": \"false\",\r\n        \"traderHidden\": \"false\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/private/request",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"private",
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateRequest",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": \"5\",\r\n        \"ownerId\": \"3\",\r\n        \"traderId\": \"4\",\r\n        \"ownerItemId\": \"6\",\r\n        \"traderItemId\": \"5\",\r\n        \"status\": \"PENDING\",\r\n        \"remarks\": \"awesome shoe\",\r\n        \"ownerReviewed\": \"false\",\r\n        \"traderReviewed\": \"false\",\r\n        \"ownerHidden\": \"false\",\r\n        \"traderHidden\": \"false\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/private/request/5",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"private",
+								"request",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateRequestStatus",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/private/request/5/ACCEPTED",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"private",
+								"request",
+								"5",
+								"ACCEPTED"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteRequest",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": \"1\",\r\n        \"ownerId\": \"3\",\r\n        \"traderId\": \"4\",\r\n        \"ownerItemId\": \"6\",\r\n        \"traderItemId\": \"5\",\r\n        \"status\": \"PENDING\",\r\n        \"remarks\": \"nice shoe\",\r\n        \"ownerReviewed\": \"false\",\r\n        \"traderReviewed\": \"false\",\r\n        \"ownerHidden\": \"false\",\r\n        \"traderHidden\": \"false\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/private/request/5",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"private",
+								"request",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mail",
+			"item": [
+				{
+					"name": "createEmailRequest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "to",
+									"value": "taufiq.b.ar@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/public/mail/reset-password",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"public",
+								"mail",
+								"reset-password"
 							]
 						}
 					},
