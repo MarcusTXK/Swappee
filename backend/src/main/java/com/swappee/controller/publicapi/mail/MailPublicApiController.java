@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.mail.SendFailedException;
 
 /**
- * Public REST controller for sending emails.
+ * Public REST controller for sending emails. Kept here as an example.
  *
  */
 

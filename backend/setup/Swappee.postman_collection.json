@@ -416,13 +416,13 @@
 							"formdata": [
 								{
 									"key": "userDTO",
-									"value": "{\n\t\"id\": \"\",\n\t\"firstName\": \"New Guy\",\n\t\"lastName\": \"Tang\",\n\t\"username\": \"NewGuy\",\n\t\"password\": \"test\",\n\t\"email\": \"Guy@gmail\",\n\t\"avatar\": null,\n\t\"phone\": 98787397,\n\t\"emailOnly\": false,\n\t\"score\": 0,\n\t\"totalTraded\": 0\n}",
+									"value": "{\n\t\"id\": \"\",\n\t\"firstName\": \"Taufiq\",\n\t\"lastName\": \"Abdul Rahman\",\n\t\"username\": \"taubar\",\n\t\"password\": \"password\",\n\t\"email\": \"taufiq.b.ar@gmail.com\",\n\t\"avatar\": null,\n\t\"phone\": 91919191,\n\t\"emailOnly\": false,\n\t\"score\": 0,\n\t\"totalTraded\": 0\n\n}",
 									"type": "text"
 								},
 								{
 									"key": "avatar",
 									"type": "file",
-									"src": "/C:/Users/Marcus Tang/Pictures/ProfilePics/Charmander.jpg"
+									"src": "/C:/Users/User/Pictures/index.jpg"
 								}
 							]
 						},
@@ -945,6 +945,76 @@
 								"public",
 								"mail",
 								"reset-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Password Reset",
+			"item": [
+				{
+					"name": "sendPasswordResetRequest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "tau.bar.coding@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/public/password/reset",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"public",
+								"password",
+								"reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "resetPassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "password",
+									"value": "apple",
+									"type": "text"
+								},
+								{
+									"key": "token",
+									"value": "30fb03e8-23c7-4fac-915c-796d390daca9",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SwappeeUrl}}/api/public/password/reset_password",
+							"host": [
+								"{{SwappeeUrl}}"
+							],
+							"path": [
+								"api",
+								"public",
+								"password",
+								"reset_password"
 							]
 						}
 					},
