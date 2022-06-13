@@ -292,7 +292,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = {BaseServiceException.class})
     public UserDTO update(UserDTO toUpdate) throws BaseServiceException {
         try {
-            logger.info("Start update - toUpdate: {}", toUpdate);
+            logger.info("Start update service- toUpdate: {}", toUpdate);
             Preconditions.checkNotNull(toUpdate);
             //check if a new password was set, and encode it
             if(!toUpdate.getPassword().isEmpty()) {
@@ -306,7 +306,7 @@ public class UserServiceImpl implements UserService {
         } catch (Exception ex) {
             throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
         } finally {
-            logger.info("End update");
+            logger.info("End update service");
         }
     }
 
@@ -339,6 +339,48 @@ public class UserServiceImpl implements UserService {
             throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
         } finally {
             logger.info("End delete");
+        }
+    }
+
+    /**
+     * Find user by email address
+     * For password reset
+     *
+     * @param emailAddress
+     * @return UserDTO
+     * @throws BaseServiceException
+     */
+    @Override
+    public UserDTO findByEmail(String emailAddress) throws BaseServiceException {
+        try {
+            logger.info("Start findByEmail - email: {}", emailAddress);
+            Preconditions.checkNotNull(emailAddress);
+            UserDTO userDTO = userDTOMapper.mapEntity(userDao.findByEmail(emailAddress));
+            Preconditions.checkNotNull(userDTO);
+            return userDTO;
+        } catch (BaseDaoException bde) {
+            throw new BaseServiceException(ErrorMessage.USER_ERROR_GET_ONE_FAILED, bde);
+        } catch (Exception ex) {
+            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End findByEmail");
+        }
+    }
+
+    @Override
+    public UserDTO findByResetToken(String token) throws BaseServiceException {
+        try {
+            logger.info("Start findByResetToken - token: {}", token);
+            Preconditions.checkNotNull(token);
+            UserDTO userDTO = userDTOMapper.mapEntity(userDao.findByResetToken(token));
+            Preconditions.checkNotNull(userDTO);
+            return userDTO;
+        } catch (BaseDaoException bde) {
+            throw new BaseServiceException(ErrorMessage.USER_ERROR_GET_ONE_FAILED, bde);
+        } catch (Exception ex) {
+            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End findByResetToken");
         }
     }
 
