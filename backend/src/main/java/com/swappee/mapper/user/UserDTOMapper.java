@@ -3,13 +3,18 @@ package com.swappee.mapper.user;
 import com.swappee.domain.user.User;
 import com.swappee.mapper.DTOMapper;
 import com.swappee.model.user.UserDTO;
+import com.swappee.service.user.UserServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserDTOMapper implements DTOMapper<UserDTO, User> {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     @Override
     public UserDTO mapEntity(User entity) {
+        logger.info("Start mapping - mapEntity: {}", entity);
         if (entity == null) {
             return null;
         }
@@ -33,7 +38,8 @@ public class UserDTOMapper implements DTOMapper<UserDTO, User> {
         dto.setRole(entity.getRole().toString());
         dto.setScore(entity.getScore());
         dto.setTotalTraded(entity.getTotalTraded());
-
+        dto.setResetToken(entity.getResetToken());
+        logger.info("End mapping - mapEntity: {}", entity);
         return dto;
     }
 
@@ -61,6 +67,7 @@ public class UserDTOMapper implements DTOMapper<UserDTO, User> {
         entity.setRole(User.Role.valueOf(dto.getRole()));
         entity.setScore(dto.getScore());
         entity.setTotalTraded(dto.getTotalTraded());
+        entity.setResetToken((dto.getResetToken()));
 
         return entity;
     }

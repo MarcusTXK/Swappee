@@ -24,4 +24,10 @@ public interface UserDao {
     User update(User toUpdate) throws BaseDaoException;
 
     User delete(User toDelete) throws BaseDaoException;
+
+    User findUserByResetToken(String resetToken) throws BaseDaoException;
+
+    User findByEmail(String email) throws BaseDaoException;
+
+    User findByResetToken(String token) throws BaseDaoException;
 }

@@ -32,4 +32,8 @@ public interface UserService {
     UserDTO update(UserDTO toUpdate) throws BaseServiceException;
 
     UserDTO delete(UserDTO toDelete) throws BaseServiceException;
+
+    UserDTO findByEmail(String emailAddress) throws BaseServiceException;
+
+    UserDTO findByResetToken(String token) throws BaseServiceException;
 }

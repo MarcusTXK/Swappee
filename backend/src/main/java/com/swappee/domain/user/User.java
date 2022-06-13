@@ -73,6 +73,9 @@ public class User implements Serializable {
     @Column(name = "deleted", nullable = false)
     private boolean deleted;
 
+    @Column(name = "reset_token", length = 200, nullable = true)
+    private String resetToken;
+
     public Long getId() {
         return id;
     }
@@ -201,6 +204,15 @@ public class User implements Serializable {
         this.deleted = deleted;
     }
 
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
+
+
     @Override
     public String toString() {
         return "User{" +
@@ -218,6 +230,7 @@ public class User implements Serializable {
                 ", lastModifiedDate=" + lastModifiedDate +
                 ", version=" + version +
                 ", deleted=" + deleted +
+                ", resetToken=" + resetToken +
                 '}';
     }
 

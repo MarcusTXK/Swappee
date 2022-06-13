@@ -46,6 +46,8 @@ public class UserDTO implements UserDetails {
 
     private Long totalTraded;
 
+    private String resetToken;
+
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy HH:mm:ss")
@@ -221,6 +223,14 @@ public class UserDTO implements UserDetails {
         return true;
     }
 
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
+
     @Override
     public String toString() {
         return "UserDTO{" +
@@ -236,6 +246,7 @@ public class UserDTO implements UserDetails {
                 ", totalTraded=" + totalTraded +
                 ", createdDate=" + createdDate +
                 ", lastModifiedDate=" + lastModifiedDate +
+                ", resetToken=" + resetToken +
                 '}';
     }
 }

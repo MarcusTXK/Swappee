@@ -33,7 +33,7 @@ public class MailPublicApiController {
     @Autowired
     EmailService emailService;
 
-    @PostMapping("/reset-password")
+    @PostMapping("/send")
     public ResponseEntity<ContentResult> createEmailRequest(@RequestParam("to") String to) {
         logger.info("Start createEmailRequest - to: {}", to);
         ContentResult contentResult = new ContentResult();

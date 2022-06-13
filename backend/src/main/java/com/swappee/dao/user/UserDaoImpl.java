@@ -131,6 +131,7 @@ public class UserDaoImpl implements UserDao {
             originalEntity.setRole(toUpdate.getRole());
             originalEntity.setScore(toUpdate.getScore());
             originalEntity.setTotalTraded(toUpdate.getTotalTraded());
+            originalEntity.setResetToken(toUpdate.getResetToken());
 
             return this.userRepository.save(originalEntity);
         } catch (DataAccessException dae) {
@@ -160,6 +161,51 @@ public class UserDaoImpl implements UserDao {
             throw new BaseDaoException(ErrorCode.DB_ERROR_GENERIC, ex);
         } finally {
             logger.info("End delete");
+        }
+    }
+
+    @Override
+    public User findUserByResetToken(String resetToken) throws BaseDaoException {
+        logger.info("Start findUserByResetToken - resetToken: {}", resetToken);
+        try {
+            Preconditions.checkNotNull(resetToken);
+            return userRepository.findByResetToken(resetToken).orElse(null);
+        } catch (DataAccessException dae) {
+            throw new BaseDaoException(ErrorCode.DB_ERROR_GET_ONE_FAILED, dae);
+        } catch (Exception ex) {
+            throw new BaseDaoException(ErrorCode.DB_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End findUserByResetToken");
+        }
+    }
+
+    @Override
+    public User findByEmail(String email) throws BaseDaoException {
+        logger.info("Start findByEmail - email: {}", email);
+        try {
+            Preconditions.checkNotNull(email);
+            return userRepository.findByEmail(email).orElse(null);
+        } catch (DataAccessException dae) {
+            throw new BaseDaoException(ErrorCode.DB_ERROR_GET_ONE_FAILED, dae);
+        } catch (Exception ex) {
+            throw new BaseDaoException(ErrorCode.DB_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End findByEmail");
+        }
+    }
+
+    @Override
+    public User findByResetToken(String token) throws BaseDaoException {
+        logger.info("Start findByResetToken - token: {}", token);
+        try {
+            Preconditions.checkNotNull(token);
+            return userRepository.findByResetToken(token).orElse(null);
+        } catch (DataAccessException dae) {
+            throw new BaseDaoException(ErrorCode.DB_ERROR_GET_ONE_FAILED, dae);
+        } catch (Exception ex) {
+            throw new BaseDaoException(ErrorCode.DB_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End findByResetToken");
         }
     }
 }

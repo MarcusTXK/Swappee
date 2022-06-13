@@ -24,4 +24,9 @@ public class EmailServiceImpl implements EmailService {
         message.setText(text);
         emailSender.send(message);
     }
+
+    @Override
+    public void sendEmail(SimpleMailMessage email) throws SendFailedException {
+        emailSender.send(email);
+    }
 }
