@@ -211,7 +211,7 @@ public class RequestPrivateController {
      */
     @PutMapping("/{id}/{status}")
     public ResponseEntity<ContentResult> updateRequestStatus(@PathVariable Long id, @PathVariable String status) {
-        logger.info("Start updateRequestStatus - id: {}, status: {}", id, status);
+        logger.info("Start updateRequestStatus - id: {}, newStatus: {}", id, status);
         ContentResult contentResult = new ContentResult();
         HttpStatus httpStatus = HttpStatus.OK;
         try {
@@ -219,13 +219,10 @@ public class RequestPrivateController {
             Preconditions.checkNotNull(status);
             RequestDTO requestDTO = requestService.findById(id);
             Long userId = securityUtil.getAuthenticatedUserId();
-
             // Ensure user logged in is same user who is updating the request to trade item
             Preconditions.checkArgument(requestDTO.getTraderId().equals(userId));
-
             /* Update status of requestDTO */
-            requestDTO.setStatus(status);
-            RequestDTO updated  = this.requestService.update(requestDTO);
+            RequestDTO updated  = this.requestService.update(requestDTO, status);
             contentResult.setIsSuccess(true);
             contentResult.setData(updated);
             contentResult.setMessage(UserFriendlyMessage.REQUEST_UPDATE_SUCCEED);

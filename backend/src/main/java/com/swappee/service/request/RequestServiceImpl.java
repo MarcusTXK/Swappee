@@ -132,36 +132,6 @@ public class RequestServiceImpl implements RequestService {
     }
 
     /**
-     * Update status of RequestDTO
-     *
-     * @param requestId
-     * @param status
-     * @return
-     */
-    @Override
-    @Transactional(rollbackFor = {BaseServiceException.class})
-    public RequestDTO updateStatus(Long requestId, Request.Status status) throws BaseServiceException {
-        try {
-            logger.info("Start updateStatus - requestId: {}, status: {}", requestId, status);
-            Preconditions.checkNotNull(requestId);
-            Preconditions.checkNotNull(status);
-
-            Request toUpdate = requestDao.findById(requestId);
-            Preconditions.checkNotNull(toUpdate);
-            toUpdate.setStatus(status);
-            RequestDTO requestDTO = requestDTOMapper.mapEntity(requestDao.update(toUpdate));
-            Preconditions.checkNotNull(requestDTO);
-            return requestDTO;
-        } catch (BaseDaoException bde) {
-            throw new BaseServiceException(ErrorMessage.REQUEST_ERROR_UPDATE_FAILED, bde);
-        } catch (Exception ex) {
-            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
-        } finally {
-            logger.info("End updateStatus");
-        }
-    }
-
-    /**
      * Update RequestDTO
      *
      * @param toUpdate
@@ -174,7 +144,10 @@ public class RequestServiceImpl implements RequestService {
         try {
             logger.info("Start update - toUpdate: {}", toUpdate);
             Preconditions.checkNotNull(toUpdate);
-
+            Request oldRequest = requestDao.findById(toUpdate.getId());
+            if (!checkAllowedStatusUpdate(oldRequest.getStatus().toString(), toUpdate.getStatus())) {
+                throw new BaseServiceException(ErrorMessage.REQUEST_ERROR_UPDATE_FAILED);
+            }
             RequestDTO requestDTO = requestDTOMapper.mapEntity(requestDao.update(requestDTOMapper.mapDto(toUpdate)));
             Preconditions.checkNotNull(requestDTO);
             return requestDTO;
@@ -186,6 +159,36 @@ public class RequestServiceImpl implements RequestService {
             logger.info("End update");
         }
     }
+
+    /**
+     * Update RequestDTO with the new status
+     *
+     * @param toUpdate
+     * @return
+     * @throws BaseServiceException
+     */
+    @Override
+    @Transactional(rollbackFor = {BaseServiceException.class})
+    public RequestDTO update(RequestDTO toUpdate, String newStatus) throws BaseServiceException {
+        try {
+            logger.info("Start update - toUpdate: {}, status: {}", toUpdate, newStatus);
+            Preconditions.checkNotNull(toUpdate);
+            if (!checkAllowedStatusUpdate(toUpdate.getStatus(), newStatus)) {
+                throw new BaseServiceException(ErrorMessage.REQUEST_ERROR_UPDATE_FAILED);
+            }
+            toUpdate.setStatus(newStatus);
+            RequestDTO requestDTO = requestDTOMapper.mapEntity(requestDao.update(requestDTOMapper.mapDto(toUpdate)));
+            Preconditions.checkNotNull(requestDTO);
+            return requestDTO;
+        } catch (BaseDaoException bde) {
+            throw new BaseServiceException(ErrorMessage.REQUEST_ERROR_UPDATE_FAILED, bde);
+        } catch (Exception ex) {
+            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End update");
+        }
+    }
+
 
     /**
      * Hide request
@@ -253,4 +256,22 @@ public class RequestServiceImpl implements RequestService {
             logger.info("End delete");
         }
     }
+
+    private boolean checkAllowedStatusUpdate(String oldStatus, String newStatus) {
+        // All states can go to removed.
+        if (newStatus.equals(Request.Status.REMOVED.toString())) return true;
+
+        if (oldStatus.equals(Request.Status.PENDING.toString())) {
+            // From Pending, either Accepted, Rejected or Removed.
+            return newStatus.equals(Request.Status.ACCEPTED.toString())
+                    || newStatus.equals(Request.Status.REJECTED.toString());
+        } else if (oldStatus.equals(Request.Status.ACCEPTED.toString())) {
+            // From Accepted, either Traded, Cancelled or Removed.
+            return newStatus.equals(Request.Status.TRADED.toString())
+                    || newStatus.equals(Request.Status.CANCELLED.toString());
+        } else {
+            return false;
+        }
+    }
 }
+

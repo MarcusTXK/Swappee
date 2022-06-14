@@ -16,9 +16,9 @@ public interface RequestService {
 
     RequestDTO create(RequestDTO toCreate) throws BaseServiceException;
 
-    RequestDTO updateStatus(Long requestId, Request.Status status) throws BaseServiceException;
-
     RequestDTO update(RequestDTO toUpdate) throws BaseServiceException;
+
+    public RequestDTO update(RequestDTO toUpdate, String newStatus) throws BaseServiceException;
 
     RequestDTO hide(Long requestId, Long userId) throws BaseServiceException;
 

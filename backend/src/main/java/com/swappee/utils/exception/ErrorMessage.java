@@ -1,5 +1,7 @@
 package com.swappee.utils.exception;
 
+import liquibase.pro.packaged.S;
+
 /**
  * Error Messages for Service layer
  */
@@ -27,7 +29,6 @@ public class ErrorMessage {
     public static final String REQUEST_ERROR_UPDATE_FAILED = "Error in update request service";
     public static final String REQUEST_ERROR_HIDE_FAILED = "Error in hide request service";
     public static final String REQUEST_ERROR_GET_PAGE_FAILED = "Error in get page request service";
-
     public static final String REQUEST_ERROR_GET_ONE_FAILED = "Error in get request service";
 
     //Picture Error Message
