@@ -277,7 +277,4 @@ public class RequestPrivateController {
         logger.info("End deleteRequest");
         return new ResponseEntity<>(contentResult, httpStatus);
     }
-
-
-
 }
