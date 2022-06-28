@@ -35,7 +35,6 @@ const Home = () => {
         <MCategoriesSection />
         <Box className="home-page-items" boxShadow={3}>
           <p>Recent Items</p>
-          <MItemListingContainer isDataLoaded={true} onClick={() => console.log('Load detailed item')} />
           <Box className="home-page-items__button">
             <AFilledButton buttonText="View More!" onClick={() => console.log('Load more items')} />
           </Box>

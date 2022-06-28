@@ -1,6 +1,7 @@
 import { Box, Paper } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import MItemListingContainer from 'components/molecules/MItemListingContainer';
+import MProfileListingMenu from 'components/molecules/MProfileListingMenu';
 import MSearchBar from 'components/molecules/MSearchBar';
 import { ChangeEvent, SetStateAction, useState } from 'react';
 import { ItemData } from 'redux-saga/interfaces';
@@ -167,6 +168,26 @@ const OProfileListing = () => {
   const numItemCardsInOnePage = 9;
 
   const [data, setData] = useState<ItemData[]>(dummyData);
+  const [sortBy, setSortBy] = useState('newest');
+  const [category, setCategory] = useState('');
+  const [condition, setCondition] = useState('new');
+  const [tradeType, setTradeType] = useState('strict');
+
+  const handleSelectSortBy = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setSortBy(event.target.value as SetStateAction<string>);
+  };
+
+  const handleSelectCateogry = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setCategory(event.target.value as SetStateAction<string>);
+  };
+
+  const handleCondition = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setCondition(event.target.value as SetStateAction<string>);
+  };
+
+  const handleTradeType = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setTradeType(event.target.value as SetStateAction<string>);
+  };
 
   const handleChange = (event: ChangeEvent<unknown>, page: number) => {
     setPage(page);
@@ -181,30 +202,41 @@ const OProfileListing = () => {
       return item.name.toLowerCase().includes(input.toLowerCase());
     });
     setData(filteredData);
-    console.log(filteredData);
   };
 
   return (
-    <Paper variant="outlined" className="o-profilepage-listing">
-      <Box dir="row">
-        <Box className="o-profilepage-listing-search">
-          <MSearchBar variant="profile_page" input={input} handleInput={handleInput} handleSearch={handleSearch} />
+    <Box className="o-profilepage-listing">
+      <MProfileListingMenu
+        sortBy={sortBy}
+        handleSelectSortBy={handleSelectSortBy}
+        category={category}
+        handleSelectCateogry={handleSelectCateogry}
+        condition={condition}
+        handleCondition={handleCondition}
+        tradeType={tradeType}
+        handleTradeType={handleTradeType}
+      />
+      <Paper variant="outlined">
+        <Box dir="row">
+          <Box className="o-profilepage-listing-search">
+            <MSearchBar variant="profile_page" input={input} handleInput={handleInput} handleSearch={handleSearch} />
+          </Box>
+          <MItemListingContainer
+            isDataLoaded={true}
+            data={data}
+            onClick={() => console.log('Load detailed item')}
+            page={page}
+            numItemCardsInOnePage={numItemCardsInOnePage}
+          />
+          <Pagination
+            count={Math.ceil(data.length / numItemCardsInOnePage)}
+            page={page}
+            onChange={handleChange}
+            className="o-profilepage-listing-pagination"
+          />
         </Box>
-        <MItemListingContainer
-          isDataLoaded={true}
-          data={data}
-          onClick={() => console.log('Load detailed item')}
-          page={page}
-          numItemCardsInOnePage={numItemCardsInOnePage}
-        />
-        <Pagination
-          count={Math.ceil(data.length / numItemCardsInOnePage)}
-          page={page}
-          onChange={handleChange}
-          className="o-profilepage-listing-pagination"
-        />
-      </Box>
-    </Paper>
+      </Paper>
+    </Box>
   );
 };
 

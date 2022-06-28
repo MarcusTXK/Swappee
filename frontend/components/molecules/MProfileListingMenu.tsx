@@ -1,28 +1,51 @@
 import { Box, Paper, Divider, MenuItem, Radio, FormControlLabel, RadioGroup, Select } from '@material-ui/core';
-import { useState, ChangeEvent, SetStateAction } from 'react';
+import { ChangeEvent, FC, ReactNode } from 'react';
 
-const OProfileListingMenu = () => {
-  const [sortBy, setSortBy] = useState('newest');
-  const [category, setCategory] = useState('');
-  const [condition, setCondition] = useState('new');
-  const [tradeType, setTradeType] = useState('strict');
-
-  const handleSelectSortBy = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setSortBy(event.target.value as SetStateAction<string>);
-  };
-
-  const handleSelectCateogry = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setCategory(event.target.value as SetStateAction<string>);
-  };
-
-  const handleCondition = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCondition(event.target.value);
-  };
-
-  const handleTradeType = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTradeType(event.target.value);
-  };
-
+interface MProfileListingMenuProps {
+  sortBy: string;
+  handleSelectSortBy: (
+    event: ChangeEvent<{
+      name?: string | undefined;
+      value: unknown;
+    }>,
+    child: ReactNode,
+  ) => void;
+  category: string;
+  handleSelectCateogry: (
+    event: ChangeEvent<{
+      name?: string | undefined;
+      value: unknown;
+    }>,
+    child: ReactNode,
+  ) => void;
+  condition: string;
+  handleCondition: (
+    event: ChangeEvent<{
+      name?: string | undefined;
+      value: unknown;
+    }>,
+    child: ReactNode,
+  ) => void;
+  tradeType: string;
+  handleTradeType: (
+    event: ChangeEvent<{
+      name?: string | undefined;
+      value: unknown;
+    }>,
+    child: ReactNode,
+  ) => void;
+}
+const MProfileListingMenu: FC<MProfileListingMenuProps> = ({
+  sortBy,
+  handleSelectSortBy,
+  category,
+  handleSelectCateogry,
+  condition,
+  handleCondition,
+  tradeType,
+  handleTradeType,
+  ...others
+}) => {
   return (
     <Paper variant="outlined" className="o-profilepage-listing-menu">
       <Box dir="row">
@@ -59,4 +82,4 @@ const OProfileListingMenu = () => {
   );
 };
 
-export default OProfileListingMenu;
+export default MProfileListingMenu;
