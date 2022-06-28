@@ -4,9 +4,9 @@ import { Search, ArrowDropDown } from '@material-ui/icons';
 
 interface MSearchBarProps {
   variant?: string;
-  input: string;
-  handleInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSearch: (event: MouseEvent<HTMLButtonElement>) => void;
+  input?: string;
+  handleInput?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSearch?: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const MSearchBar: FC<MSearchBarProps> = ({ variant = '', input, handleInput, handleSearch, ...other }) => {
