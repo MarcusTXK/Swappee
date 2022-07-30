@@ -34,9 +34,6 @@ const Home = () => {
       <AContainer1440>
         <MCarousel />
         <MCategoriesSection />
-        <div className="home-container">
-          <MItemListingContainer isDataLoaded={true} />
-        </div>
         <Box display="flex" alignItems="center" flexDirection="column" width="100%" pt={4}>
           <h1>
             Welcome to{' '}

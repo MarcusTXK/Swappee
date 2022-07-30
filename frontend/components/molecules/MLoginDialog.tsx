@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { ChangeEventHandler, FC } from 'react';
 import {
   Box,
   Button,
@@ -11,11 +11,14 @@ import {
   FormControlLabel,
   Link,
 } from '@material-ui/core';
-import { useState, ChangeEvent } from 'react';
 import { Close } from '@material-ui/icons';
 
 interface MLoginDialogProps {
   showLoginModal?: boolean;
+  user: string;
+  pass: string;
+  handleUserChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  handlePassChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   handleCloseLoginModal: Function;
   handleOpenRegisterModal: Function;
   handleOpenForgotPasswordModal: Function;
@@ -24,19 +27,15 @@ interface MLoginDialogProps {
 
 const MLoginDialog: FC<MLoginDialogProps> = ({
   showLoginModal = false,
+  user,
+  pass,
+  handleUserChange,
+  handlePassChange,
   handleCloseLoginModal = () => {},
   handleOpenRegisterModal = () => {},
   handleOpenForgotPasswordModal = () => {},
   handleLogin = () => {},
 }) => {
-  const [user, setUser] = useState<String>('');
-  const [pass, setPass] = useState<String>('');
-  const handleUserChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setUser(event.target.value);
-  };
-  const handlePassChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPass(event.target.value);
-  };
   const handleClickSignUp = () => {
     handleCloseLoginModal();
     handleOpenRegisterModal();

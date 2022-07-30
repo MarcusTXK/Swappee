@@ -3,17 +3,19 @@ import MSearchBar from '../molecules/MSearchBar';
 import logo from './logo.svg';
 import Image from 'next/image';
 import MAppBarButtons from 'components/molecules/MAppBarButtons';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from 'redux-saga/interfaces';
-import { getOtherUser } from 'redux-saga/actions';
+import { getOtherUser, login } from 'redux-saga/actions';
 
 const OAppBar = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
   const [isLoggedIn, setLogin] = useState(false);
+  const [user, setUser] = useState('');
+  const [pass, setPass] = useState('');
 
   const handleOpenLoginModal = () => {
     setShowLoginModal(true);
@@ -40,11 +42,19 @@ const OAppBar = () => {
   };
 
   const handleLogin = () => {
+    dispatch(login({ username: user, password: pass }));
     setLogin(true);
   };
 
   const handleLogout = () => {
     setLogin(false);
+  };
+
+  const handleUserChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setUser(event.target.value);
+  };
+  const handlePassChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setPass(event.target.value);
   };
 
   const otherUserData = useSelector((state: AppState) => state.otherUserData);
@@ -73,6 +83,10 @@ const OAppBar = () => {
             </Grid>
             <Grid item>
               <MAppBarButtons
+                user={user}
+                pass={pass}
+                handleUserChange={handleUserChange}
+                handlePassChange={handlePassChange}
                 handleOpenLoginModal={handleOpenLoginModal}
                 handleCloseLoginModal={handleCloseLoginModal}
                 handleOpenRegisterModal={handleOpenRegisterModal}

@@ -1,11 +1,15 @@
 import { Button, Grid } from '@material-ui/core';
 import MMenuList from './MMenuList';
-import React, { FC } from 'react';
+import React, { ChangeEventHandler, FC } from 'react';
 import MLoginDialog from './MLoginDialog';
 import MRegisterDialog from './MRegisterDialog';
 import MForgotPasswordDialog from './MForgotPasswordDialog';
 
 interface MAppBarButtonProps {
+  user: string;
+  pass: string;
+  handleUserChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  handlePassChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   handleOpenLoginModal?: Function;
   handleCloseLoginModal?: Function;
   handleOpenRegisterModal?: Function;
@@ -21,6 +25,10 @@ interface MAppBarButtonProps {
 }
 
 const MAppBarButtons: FC<MAppBarButtonProps> = ({
+  user = '',
+  pass = '',
+  handleUserChange = () => {},
+  handlePassChange = () => {},
   handleOpenLoginModal = () => {},
   handleCloseLoginModal = () => {},
   handleOpenRegisterModal = () => {},
@@ -57,6 +65,10 @@ const MAppBarButtons: FC<MAppBarButtonProps> = ({
           Login
         </Button>
         <MLoginDialog
+          user={user}
+          pass={pass}
+          handleUserChange={handleUserChange}
+          handlePassChange={handlePassChange}
           showLoginModal={showLoginModal}
           handleCloseLoginModal={handleCloseLoginModal}
           handleOpenRegisterModal={handleOpenRegisterModal}
