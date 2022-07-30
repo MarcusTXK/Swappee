@@ -7,6 +7,8 @@ export enum actionTypes {
   LOGIN_SUCCESS = 'LOGIN_SUCCESS',
   LOGIN_FAILED = 'LOGIN_FAILED',
 
+  LOGOUT = 'LOGOUT',
+
   GET_ITEM_LIST = 'GET_ITEM_LIST',
   GET_ITEM_LIST_SUCCESS = 'GET_ITEM_LIST_SUCCESS',
   GET_ITEM_LIST_FAILED = 'GET_ITEM_LIST_FAILED',
@@ -33,6 +35,10 @@ export interface LoginSuccess {
 export interface LoginFailed {
   type: actionTypes.LOGIN_FAILED;
   error: data.Error;
+}
+
+export interface Logout {
+  type: actionTypes.LOGOUT;
 }
 
 export interface GetItemList {

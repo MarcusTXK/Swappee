@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+
 import * as data from './interfaces/data.interfaces';
 import * as payloads from './interfaces/payloads.interfaces';
 import * as actions from './interfaces/actions.interfaces';
@@ -25,6 +27,14 @@ export function loginFailed(error: data.Error): actions.LoginFailed {
   return {
     type: actionTypes.LOGIN_FAILED,
     error,
+  };
+}
+
+export function logout(): actions.Logout {
+  const Router = useRouter();
+  Router.push('/');
+  return {
+    type: actionTypes.LOGOUT,
   };
 }
 

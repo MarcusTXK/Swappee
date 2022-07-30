@@ -4,5 +4,8 @@
   "useTabs": false,
   "semi": true,
   "singleQuote": true,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "[typescriptreact]": {
+    "editor.formatOnSave": true
+}
 }

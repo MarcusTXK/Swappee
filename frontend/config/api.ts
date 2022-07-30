@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { create } from 'apisauce';
+import { AxiosRequestConfig } from 'axios';
 import ApiUrlConfig from './envConfig';
+import { getAccessToken } from './cookie';
 
 let token = 1;
 
@@ -20,6 +22,22 @@ export const ROUTES = {
   GET_USER: `api/private/user/`,
   GET_OTHER_USERS: `/api/public/user/`,
 };
+
+const AxiosRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
+  try {
+    const token = getAccessToken();
+    if (token != null) {
+      // eslint-disable-next-line no-param-reassign
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+    // eslint-disable-next-line
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
+API.axiosInstance.interceptors.request.use(AxiosRequest, (error) => Promise.reject(error));
 
 API.axiosInstance.interceptors.response.use(
   (response) => response,
