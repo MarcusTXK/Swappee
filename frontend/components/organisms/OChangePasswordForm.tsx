@@ -8,7 +8,7 @@ const OChangePasswordForm = () => {
   const [confirmPass, setConfirmPass] = useState('');
   const [isSubmitted, setSubmitted] = useState(false);
 
-  const isPasswordSame = newPass != confirmPass && isSubmitted;
+  const isPasswordSame = newPass !== confirmPass && isSubmitted;
 
   const handleCurrPassChange = (event: ChangeEvent<HTMLInputElement>) => {
     setCurrPass(event.target.value);

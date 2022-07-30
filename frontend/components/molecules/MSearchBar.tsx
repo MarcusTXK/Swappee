@@ -24,7 +24,7 @@ const MSearchBar: FC<MSearchBarProps> = ({ variant = '', input, handleInput, han
   };
 
   const options = ['Item', 'User'];
-  return variant == 'profile_page' ? (
+  return variant === 'profile_page' ? (
     <TextField
       value={input}
       className="m-searchbar"

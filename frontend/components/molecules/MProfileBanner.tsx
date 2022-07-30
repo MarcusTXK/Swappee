@@ -10,7 +10,7 @@ const MProfileBanner = () => {
         </Avatar>
       </Box>
       <Box>
-        <Paper className="o-profilepage-banner-top"></Paper>
+        <Paper className="o-profilepage-banner-top" />
         <Paper className="o-profilepage-banner-bottom">
           <Grid container justifyContent="flex-end">
             <Grid item>

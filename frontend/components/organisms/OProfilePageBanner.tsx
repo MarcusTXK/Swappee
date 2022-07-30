@@ -1,8 +1,6 @@
-import { Box, Paper, Button, Grid, Card, Avatar } from '@material-ui/core';
-import { Rating } from '@material-ui/lab';
+import { Box } from '@material-ui/core';
 import MProfileBanner from 'components/molecules/MProfileBanner';
 import MUserDetails from 'components/molecules/MUserDetails';
-import Image from 'next/image';
 
 const OProfilePageBanner = () => {
   return (
