@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { Box } from '@material-ui/core';
+import { ItemData } from 'redux-saga/interfaces';
 import MItemCard from './MItemCard';
 import MItemCardSkeleton from './MItemCardSkeleton';
-import { ItemData } from 'redux-saga/interfaces';
 
 interface MItemListingContainerProps {
   isDataLoaded: boolean;
@@ -24,7 +24,7 @@ const MItemListingContainer: FC<MItemListingContainerProps> = ({
     <Box className="m-listing-container">
       <Box className="m-listing-container__items">
         {isDataLoaded
-          ? data.length == 0
+          ? data.length === 0
             ? 'No results found'
             : data.map((value, index: Number) => {
                 // eslint-disable-next-line no-console

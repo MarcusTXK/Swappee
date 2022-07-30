@@ -4,8 +4,8 @@ import { Search, Title } from '@material-ui/icons';
 import Pagination from '@material-ui/lab/Pagination';
 import AFilledButton from 'components/atoms/AFilledButton';
 import CloseIcon from '@material-ui/icons/Close';
-import MItemListingContainer from '../molecules/MItemListingContainer';
 import { ItemData } from 'redux-saga/interfaces';
+import MItemListingContainer from '../molecules/MItemListingContainer';
 
 interface OOpenOfferItemDialogProps {
   isOpen: boolean;

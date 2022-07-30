@@ -189,8 +189,8 @@ const OProfileListing = () => {
     setTradeType(event.target.value as SetStateAction<string>);
   };
 
-  const handleChange = (event: ChangeEvent<unknown>, page: number) => {
-    setPage(page);
+  const handleChange = (event: ChangeEvent<unknown>, pageToSet: number) => {
+    setPage(pageToSet);
   };
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -198,7 +198,7 @@ const OProfileListing = () => {
   };
 
   const handleSearch = () => {
-    let filteredData = dummyData.filter((item) => {
+    const filteredData = dummyData.filter((item) => {
       return item.name.toLowerCase().includes(input.toLowerCase());
     });
     setData(filteredData);

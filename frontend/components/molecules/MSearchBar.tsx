@@ -29,7 +29,7 @@ const MSearchBar: FC<MSearchBarProps> = ({ variant = '', input, handleInput, han
       value={input}
       className="m-searchbar"
       variant="outlined"
-      placeholder={'Search'}
+      placeholder="Search"
       size="small"
       onChange={handleInput}
       InputProps={{

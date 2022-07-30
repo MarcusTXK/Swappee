@@ -6,7 +6,7 @@ const MProfileBanner = () => {
     <Box>
       <Box pl={5}>
         <Avatar className="o-profilepage-banner-image">
-          <Image src={`https://avatars.dicebear.com/api/bottts/1.svg`} alt="profile picture" height="100" width="100" />
+          <Image src="https://avatars.dicebear.com/api/bottts/1.svg" alt="profile picture" height="100" width="100" />
         </Avatar>
       </Box>
       <Box>
