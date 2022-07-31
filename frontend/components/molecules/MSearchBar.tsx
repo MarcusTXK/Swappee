@@ -34,6 +34,7 @@ const MSearchBar = () => {
       variant="outlined"
       placeholder={`Search by ${options[selectedIndex]}`}
       size="small"
+      fullWidth
       onChange={handleChange}
       InputProps={{
         endAdornment: (
