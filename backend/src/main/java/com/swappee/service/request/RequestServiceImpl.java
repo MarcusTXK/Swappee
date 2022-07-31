@@ -2,8 +2,10 @@ package com.swappee.service.request;
 
 import com.google.common.base.Preconditions;
 import com.swappee.dao.request.RequestDao;
+import com.swappee.domain.like.Like;
 import com.swappee.domain.request.Request;
 import com.swappee.mapper.request.RequestDTOMapper;
+import com.swappee.model.item.ItemDTO;
 import com.swappee.model.request.RequestDTO;
 import com.swappee.model.wrapper.GridResult;
 import com.swappee.utils.exception.BaseDaoException;
@@ -14,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -23,6 +26,7 @@ import java.util.List;
  * Service implementation class for managing requests.
  * TODO Note: May need to set default date for last modified date
  */
+@Service
 public class RequestServiceImpl implements RequestService {
     private static final Logger logger = LoggerFactory.getLogger(RequestServiceImpl.class);
 
@@ -128,36 +132,6 @@ public class RequestServiceImpl implements RequestService {
     }
 
     /**
-     * Update status of RequestDTO
-     *
-     * @param requestId
-     * @param status
-     * @return
-     */
-    @Override
-    @Transactional(rollbackFor = {BaseServiceException.class})
-    public RequestDTO updateStatus(Long requestId, Request.Status status) throws BaseServiceException {
-        try {
-            logger.info("Start updateStatus - requestId: {}, status: {}", requestId, status);
-            Preconditions.checkNotNull(requestId);
-            Preconditions.checkNotNull(status);
-
-            Request toUpdate = requestDao.findById(requestId);
-            Preconditions.checkNotNull(toUpdate);
-            toUpdate.setStatus(status);
-            RequestDTO requestDTO = requestDTOMapper.mapEntity(requestDao.update(toUpdate));
-            Preconditions.checkNotNull(requestDTO);
-            return requestDTO;
-        } catch (BaseDaoException bde) {
-            throw new BaseServiceException(ErrorMessage.REQUEST_ERROR_UPDATE_FAILED, bde);
-        } catch (Exception ex) {
-            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
-        } finally {
-            logger.info("End updateStatus");
-        }
-    }
-
-    /**
      * Update RequestDTO
      *
      * @param toUpdate
@@ -170,8 +144,11 @@ public class RequestServiceImpl implements RequestService {
         try {
             logger.info("Start update - toUpdate: {}", toUpdate);
             Preconditions.checkNotNull(toUpdate);
-
-            RequestDTO requestDTO = requestDTOMapper.mapEntity(requestDao.create(requestDTOMapper.mapDto(toUpdate)));
+            Request oldRequest = requestDao.findById(toUpdate.getId());
+            if (!checkAllowedStatusUpdate(oldRequest.getStatus().toString(), toUpdate.getStatus())) {
+                throw new BaseServiceException(ErrorMessage.REQUEST_ERROR_UPDATE_FAILED);
+            }
+            RequestDTO requestDTO = requestDTOMapper.mapEntity(requestDao.update(requestDTOMapper.mapDto(toUpdate)));
             Preconditions.checkNotNull(requestDTO);
             return requestDTO;
         } catch (BaseDaoException bde) {
@@ -182,6 +159,36 @@ public class RequestServiceImpl implements RequestService {
             logger.info("End update");
         }
     }
+
+    /**
+     * Update RequestDTO with the new status
+     *
+     * @param toUpdate
+     * @return
+     * @throws BaseServiceException
+     */
+    @Override
+    @Transactional(rollbackFor = {BaseServiceException.class})
+    public RequestDTO update(RequestDTO toUpdate, String newStatus) throws BaseServiceException {
+        try {
+            logger.info("Start update - toUpdate: {}, status: {}", toUpdate, newStatus);
+            Preconditions.checkNotNull(toUpdate);
+            if (!checkAllowedStatusUpdate(toUpdate.getStatus(), newStatus)) {
+                throw new BaseServiceException(ErrorMessage.REQUEST_ERROR_UPDATE_FAILED);
+            }
+            toUpdate.setStatus(newStatus);
+            RequestDTO requestDTO = requestDTOMapper.mapEntity(requestDao.update(requestDTOMapper.mapDto(toUpdate)));
+            Preconditions.checkNotNull(requestDTO);
+            return requestDTO;
+        } catch (BaseDaoException bde) {
+            throw new BaseServiceException(ErrorMessage.REQUEST_ERROR_UPDATE_FAILED, bde);
+        } catch (Exception ex) {
+            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End update");
+        }
+    }
+
 
     /**
      * Hide request
@@ -214,6 +221,56 @@ public class RequestServiceImpl implements RequestService {
             throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
         } finally {
             logger.info("End hide");
+        }
+    }
+
+    @Override
+    public RequestDTO findById(Long requestId) throws BaseServiceException {
+        try {
+            logger.info("Start findById - requestId: {}", requestId);
+            Preconditions.checkNotNull(requestId);
+
+            RequestDTO requestDTO = requestDTOMapper.mapEntity(requestDao.findById(requestId));
+            Preconditions.checkNotNull(requestDTO);
+            return requestDTO;
+        } catch (BaseDaoException bde) {
+            throw new BaseServiceException(ErrorMessage.REQUEST_ERROR_GET_ONE_FAILED, bde);
+        } catch (Exception ex) {
+            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End findById");
+        }
+    }
+
+    @Override
+    public RequestDTO delete(RequestDTO toDelete) throws BaseServiceException {
+        try {
+            logger.info("Start delete - toDelete: {}", toDelete);
+            Preconditions.checkNotNull(toDelete);
+            return requestDTOMapper.mapEntity(requestDao.delete(requestDTOMapper.mapDto(toDelete)));
+        } catch (BaseDaoException bde) {
+            throw new BaseServiceException(ErrorMessage.ITEM_ERROR_DELETE_FAILED, bde);
+        } catch (Exception ex) {
+            throw new BaseServiceException(ErrorMessage.SVC_ERROR_GENERIC, ex);
+        } finally {
+            logger.info("End delete");
+        }
+    }
+
+    private boolean checkAllowedStatusUpdate(String oldStatus, String newStatus) {
+        // All states can go to removed.
+        if (newStatus.equals(Request.Status.REMOVED.toString())) return true;
+
+        if (oldStatus.equals(Request.Status.PENDING.toString())) {
+            // From Pending, either Accepted, Rejected or Removed.
+            return newStatus.equals(Request.Status.ACCEPTED.toString())
+                    || newStatus.equals(Request.Status.REJECTED.toString());
+        } else if (oldStatus.equals(Request.Status.ACCEPTED.toString())) {
+            // From Accepted, either Traded, Cancelled or Removed.
+            return newStatus.equals(Request.Status.TRADED.toString())
+                    || newStatus.equals(Request.Status.CANCELLED.toString());
+        } else {
+            return false;
         }
     }
 }
