@@ -1,5 +1,9 @@
 import { Box, TextField, Paper, Grid, Divider, Button, Input } from '@material-ui/core';
-import { useState, ChangeEvent } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect, ChangeEvent } from 'react';
+import { getUser, login } from 'redux-saga/actions';
+import { AppState } from 'redux-saga/interfaces';
+
 import MInputField from '../molecules/MInputField';
 import MProfilePhoto from '../molecules/MProfilePhoto';
 
@@ -11,6 +15,21 @@ const OEditProfileForm = () => {
   const [email, setEmail] = useState('');
   const [mobile, setMobile] = useState('');
   const [uploadedPhoto, setUploadedPhoto] = useState('');
+
+  const {
+    user: { token },
+    userData: { username },
+  } = useSelector((state: AppState) => state);
+
+  useEffect(() => {
+    dispatch(login({ username: 'tayyantay', password: 'test123' }));
+  }, []);
+
+  const dispatch = useDispatch();
+  let userId = '5';
+  useEffect(() => {
+    dispatch(getUser({ username: userId }));
+  }, [token]);
 
   const handleUserChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUser(event.target.value);
@@ -65,7 +84,7 @@ const OEditProfileForm = () => {
             </Box>
           </Grid>
           <Grid item>
-            <MInputField label="Username" value={user} handleChange={handleUserChange} />
+            <MInputField label="Username" value={username} handleChange={handleUserChange} />
           </Grid>
           <Grid item>
             <MInputField label="First Name" value={firstName} handleChange={handleFirstNameChange} />

@@ -1,5 +1,6 @@
 import { Box, Grid, Button } from '@material-ui/core';
-import { useRouter } from 'next/router';
+import OAppBar from 'components/organisms/OAppBar';
+import { useRouter } from 'next/dist/client/router';
 
 import Image from 'next/image';
 import errorImage from '../public/error_page.svg';
@@ -9,6 +10,7 @@ const ErrorPage = () => {
 
   return (
     <Box component="body" paddingTop={7} px={3}>
+      <OAppBar />
       <Grid container justifyContent="center" alignItems="center">
         <Grid item>
           <Image src={errorImage} alt="ERROR" width="600%" height="300%" />

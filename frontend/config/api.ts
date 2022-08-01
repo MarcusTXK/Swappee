@@ -4,6 +4,8 @@ import { AxiosRequestConfig } from 'axios';
 import ApiUrlConfig from './envConfig';
 import { getAccessToken } from './cookie';
 
+let token = 1;
+
 enum StatusCode {
   Unauthorized = 401,
   InternalServerError = 500,
@@ -11,11 +13,14 @@ enum StatusCode {
 
 export const API = create({
   baseURL: ApiUrlConfig.API_URL,
+  headers: { Authentication: `Bearer ${token}` },
 });
 
 export const ROUTES = {
   LOGIN: `/api/login/authenticate/`,
   GET_ITEM_LIST: `/api/public/item/list`,
+  GET_USER: `api/private/user/`,
+  GET_OTHER_USERS: `/api/public/user/`,
 };
 
 const AxiosRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {

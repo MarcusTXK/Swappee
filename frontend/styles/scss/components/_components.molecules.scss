@@ -20,7 +20,31 @@ $primary-color: #388e3c;
     border-right: none;
   }
   .MuiInputBase-input {
-    width: 350px;
+    min-width: 100px;
+    @media only screen and (min-width: 600px) {
+      width: 200px;
+    }
+    @media only screen and (min-width: 700px) {
+      width: 260px;
+    }
+    @media only screen and (min-width: 800px) {
+      width: 300px;
+    }
+    @media only screen and (min-width: 1000px) {
+      width: 460px;
+    }
+    @media only screen and (min-width: 1200px) {
+      width: 560px;
+    }
+    @media only screen and (min-width: 1200px) {
+      width: 660px;
+    }
+    @media only screen and (min-width: 1400px) {
+      width: 800px;
+    }
+    @media only screen and (min-width: 1600px) {
+      width: 1000px;
+    }
   }
   .MuiButtonGroup-grouped {
     min-width: 0px;
@@ -37,6 +61,20 @@ $primary-color: #388e3c;
 .m-login-dialog {
   .MuiOutlinedInput-adornedEnd {
     padding-right: 0px;
+  }
+}
+
+.m-forgotpassword-dialog {
+  .MuiDialog-paperFullWidth {
+    padding-bottom: 25px;
+    padding-left: 5px;
+    padding-left: 5px;
+  }
+  .m-forgotpassword-dialog__content {
+    overflow: hidden;
+  }
+  .m-forgotpassword-dialog__textfield {
+    margin-bottom: 25px;
   }
 }
 

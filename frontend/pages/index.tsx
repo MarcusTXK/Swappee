@@ -8,9 +8,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from 'redux-saga/interfaces';
 import { getItemList } from 'redux-saga/actions';
 import AContainer1440 from 'components/atoms/AContainer1440';
+import OAppBar from 'components/organisms/OAppBar';
 import MCategoriesSection from 'components/molecules/MCategoriesSection';
 import MItemListingContainer from 'components/molecules/MItemListingContainer';
-import MSearchBar from 'components/molecules/MSearchBar';
 import MLoginDialog from 'components/organisms/OLoginDialog';
 import AFilledButton from 'components/atoms/AFilledButton';
 
@@ -30,13 +30,40 @@ const Home = () => {
       <Head>
         <title>Swappee</title>
       </Head>
+      <OAppBar />
       <AContainer1440>
         <MCarousel />
         <MCategoriesSection />
-        <Box className="home-page-items" boxShadow={3}>
-          <p>Recent Items</p>
-          <Box className="home-page-items__button">
-            <AFilledButton buttonText="View More!" onClick={() => console.log('Load more items')} />
+        <Box display="flex" alignItems="center" flexDirection="column" width="100%" pt={4}>
+          <h1>
+            Welcome to{' '}
+            <Link href="https://github.com/MarcusTXK/Swappee">
+              <a>Swappee!</a>
+            </Link>
+          </h1>
+          <Box component="p" my={4}>
+            A platform allowing users in a community to list items online and trade.
+          </Box>
+          <Box mb={4}>
+            <OAppBar />
+          </Box>
+          <Box display="flex">
+            <Box mr={2}>
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={() => (token ? console.log('Trade') : setLogin(true))}
+              >
+                {token ? 'Trade' : 'Login'}
+              </Button>
+            </Box>
+            <Button
+              color="primary"
+              variant="outlined"
+              onClick={() => (token ? console.log('Menu') : console.log('Register'))}
+            >
+              {token ? 'Menu' : 'Register'}
+            </Button>
           </Box>
         </Box>
       </AContainer1440>

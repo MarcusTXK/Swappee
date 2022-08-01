@@ -50,6 +50,12 @@
   }
 }
 
+.o-appbar {
+  .o-appbar__logo {
+    min-width: 135px;
+    background-color: transparent;
+  }
+}
 .o-detailed-item-middle {
   display: flex;
   flex-direction: row;
