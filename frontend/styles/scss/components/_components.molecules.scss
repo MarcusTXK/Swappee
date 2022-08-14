@@ -44,8 +44,8 @@ $primary-color: #388e3c;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 200;
-  height: 320;
+  width: 200px;
+  height: 320px;
   margin: 10px;
   border: 1px solid lightgrey;
   border-radius: 10px;
@@ -82,6 +82,18 @@ $primary-color: #388e3c;
   }
 }
 
+@media only screen and (max-width: 500px) {
+    .m-item-card {
+      width: 140px;
+      height: 270px;
+      margin: 5px;
+
+      .m-item-card__top-box {
+        font-size: 12px;
+      }
+    }
+  }
+
 .username-box {
   display: flex;
   flex-direction: row;
@@ -98,7 +110,16 @@ $primary-color: #388e3c;
   }
 }
 
+@media only screen and (max-width: 700px) {
+    .username-box {
+      .m-item-card__username {
+        font-size: 10px;
+      }
+    }
+  }
+
 .m-skeleton-card {
+  margin: 10px;
   margin-bottom: 25px;
 
   .m-skeleton-card__title {
@@ -131,6 +152,18 @@ $primary-color: #388e3c;
   }
 }
 
+
+@media only screen and (max-width: 700px) {
+    .m-listing-container {
+      padding: 0px;
+      .m-listing-container__items {
+        padding: 0px;
+        margin: 0px;
+      }
+    }
+  }
+
+
 .m-categories-section {
   border-radius: 10px;
   padding: 10px;
@@ -143,9 +176,20 @@ $primary-color: #388e3c;
   }
 }
 
+@media only screen and (max-width: 700px) {
+  .m-categories-section {
+  .m-categories-section__categories {
+    padding: 5px;
+    margin: 0;
+  }
+}
+}
+
 .a-category {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 50px;
 
   .a-category__image {
     border-radius: 100%;
@@ -177,10 +221,7 @@ $primary-color: #388e3c;
 .a-heart {
   color:$heart-color;
   cursor: pointer;
-}
-.a-empty-heart {
-  color: black;
-  cursor: pointer;
+  z-index: 1000;
 
   &:hover{
     color: $heart-color;
@@ -188,7 +229,7 @@ $primary-color: #388e3c;
 }
 
 .m-item-name-history {
-  width: 150px;
+  width: 70%;
  .m-item-name-history__item-name {
    font-size: 25px;
  } 
@@ -203,13 +244,14 @@ $primary-color: #388e3c;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     font-size: 17px;
 
     .m-item-name-history__button-heart__heart {
-      width: 30%;
+      width: 50px;
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
+      margin-left: 20px;
     }
  }
 }

@@ -1,20 +1,21 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
-const AHeart = () => {
-  const [isRed, setIsRed] = useState(false);
+interface AHeartProps {
+  onClick: React.MouseEventHandler<SVGSVGElement>;
+  isLiked: boolean;
+}
 
-  const toggleLike = () => {
-    setIsRed(!isRed);
-    // Other code to change liked status in database.
-  };
+
+const AHeart: FC<AHeartProps> = ({ onClick, isLiked, ...other }) => {
+
   return (
     <div>
-      {isRed ? (
-        <FavoriteIcon onClick={toggleLike} className="a-heart" />
+      {isLiked ? (
+        <FavoriteIcon onClick={onClick} className="a-heart" />
       ) : (
-        <FavoriteBorder onClick={toggleLike} className="a-heart" />
+        <FavoriteBorder onClick={onClick} className="a-heart" />
       )}
     </div>
   );

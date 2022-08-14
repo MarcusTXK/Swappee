@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Button, Box } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import MCarousel from 'components/molecules/MCarousel';
-import Link from 'next/link';
 import Head from 'next/head';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -10,12 +9,20 @@ import { getItemList } from 'redux-saga/actions';
 import AContainer1440 from 'components/atoms/AContainer1440';
 import MCategoriesSection from 'components/molecules/MCategoriesSection';
 import MItemListingContainer from 'components/molecules/MItemListingContainer';
-import MSearchBar from 'components/molecules/MSearchBar';
 import MLoginDialog from 'components/organisms/OLoginDialog';
 import AFilledButton from 'components/atoms/AFilledButton';
+import { numItemCardsInOnePage } from 'config/constants';
+
+import books from '../public/categories/books.jpg';
+import coll from '../public/categories/collectables.jpg';
+import electronics from '../public/categories/electronics.jpg';
+import fashion from '../public/categories/fashion.jpg';
+import games from '../public/categories/games.jpg';
+import others from '../public/categories/others.jpg';
 
 const Home = () => {
-  const [isLogin, setLogin] = useState(false);
+  const [isLogin, setLogin] = useState(true);
+  const [pagesShown, setPagesShown] = useState(1);
   const {
     user: { token },
     items,
@@ -25,6 +32,33 @@ const Home = () => {
     dispatch(getItemList());
   }, []);
 
+  const categories = [
+    {
+      categoryName: 'books',
+      image: books,
+    },
+    {
+      categoryName: 'collectibles',
+      image: coll,
+    },
+    {
+      categoryName: 'electronics',
+      image: electronics,
+    },
+    {
+      categoryName: 'fashion',
+      image: fashion,
+    },
+    {
+      categoryName: 'games',
+      image: games,
+    },
+    {
+      categoryName: 'others',
+      image: others,
+    },
+  ];
+
   return (
     <>
       <Head>
@@ -32,12 +66,14 @@ const Home = () => {
       </Head>
       <AContainer1440>
         <MCarousel />
-        <MCategoriesSection />
+        <MCategoriesSection categories={categories} />
         <Box className="home-page-items" boxShadow={3}>
-          <p>Recent Items</p>
-          <MItemListingContainer isDataLoaded={true} onClick={() => console.log('Load detailed item')} />
+          <p>Recent</p>
+          <MItemListingContainer page={pagesShown} data={items} />
           <Box className="home-page-items__button">
-            <AFilledButton buttonText="View More!" onClick={() => console.log('Load more items')} />
+            {pagesShown * numItemCardsInOnePage < items.length && (
+              <AFilledButton buttonText="View More!" onClick={() => setPagesShown(pagesShown + 1)} />
+            )}
           </Box>
         </Box>
       </AContainer1440>
@@ -47,7 +83,6 @@ const Home = () => {
         handleForgotPassword={() => console.log('Forgot Password')}
         handleSignup={() => console.log('Sign Up')}
       />
-      {console.log(items)}
     </>
   );
 };

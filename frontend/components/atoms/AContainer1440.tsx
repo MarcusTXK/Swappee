@@ -6,7 +6,7 @@ interface AContainer1440Props {
 }
 
 const AContainer1440: FC<AContainer1440Props & BoxProps> = ({ children, ...other }) => (
-  <Box width="100%" mx="auto" maxWidth={1440} px={{ xs: 5, md: 20 }} {...other}>
+  <Box width="100%" mx="auto" maxWidth={1440} px={{ xs: 1, md: 20 }} {...other}>
     {children}
   </Box>
 );

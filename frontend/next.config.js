@@ -1,6 +1,6 @@
 module.exports = {
   images: {
-    domains: ['avatars.dicebear.com'],
+    domains: ['avatars.dicebear.com', 'localhost'],
   },
   parserOptions: {
     project: 'frontend/tsconfig.json',

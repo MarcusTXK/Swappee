@@ -4,6 +4,9 @@ import AFilledButton from 'components/atoms/AFilledButton';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import Rating from '@material-ui/lab/Rating';
 import Image from 'next/image';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/dist/client/router';
+import { AppState } from 'redux-saga/interfaces';
 
 // Hardcoded value, to be retrieved using API
 const numRatings = 17;
@@ -13,21 +16,24 @@ interface MUserCardProps {
 }
 
 const MUserCard: FC<MUserCardProps> = ({ openOfferItem }) => {
+  const router = useRouter();
+  const { itemId } = router.query;
+  const item = useSelector((state: AppState) => state.items.find((item) => item.id == parseInt(itemId as string)));
+
   const avatar = undefined;
-  const username = 'username';
 
   return (
     <Box className="m-user-card" boxShadow={3}>
       <Box className="m-user-card__row">
         <Image
           className="m-user-card__row__avatar"
-          src={avatar || `https://avatars.dicebear.com/api/bottts/${username}.svg`}
+          src={avatar || `https://avatars.dicebear.com/api/bottts/${item?.userName}.svg`}
           width="30"
           height="30"
           alt="user avatar"
         />
         <Box>
-          <p className="m-item-card__username">username</p>
+          <p className="m-item-card__username">{item?.userName}</p>
           {/* https://github.com/voronianski/react-star-rating-component/blob/master/example/index.js */}
           <Box className="m-user-card__row__ratings">
             <Rating name="user-rating" defaultValue={4} size="small" readOnly />

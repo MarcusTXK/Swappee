@@ -1,36 +1,48 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Box } from '@material-ui/core';
 import MItemCard from './MItemCard';
 import MItemCardSkeleton from './MItemCardSkeleton';
+import { ItemData } from 'redux-saga/interfaces';
+import { useSelector, useStore } from 'react-redux';
+import { numItemCardsInOnePage } from 'config/constants';
+import { useRouter } from 'next/dist/client/router';
+import { API, ROUTES } from 'config/api';
 
 interface MItemListingContainerProps {
-  isDataLoaded: boolean;
-  onClick: React.MouseEventHandler<HTMLDivElement>;
   page?: number;
+  data: ItemData[];
 }
 
-const numItemCardsInOnePage = 9;
-
-const MItemListingContainer: FC<MItemListingContainerProps> = ({ isDataLoaded, onClick, page, ...other }) => {
+const MItemListingContainer: FC<MItemListingContainerProps> = ({ page, data, ...other }) => {
   const elements = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+
+  const router = useRouter();
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setIsDataLoaded(true), 500);
+  }, [data]);
+
   return (
     <Box className="m-listing-container">
       <Box className="m-listing-container__items">
         {isDataLoaded
-          ? elements.map((value, index: Number) => {
-              // eslint-disable-next-line no-console
+          ? data.map((value, index: number) => {
+              const { id, name, liked, avatarPath, userName, status, imagePath } = value;
               if (page != null) {
-                if (index < page * numItemCardsInOnePage && index >= (page - 1) * numItemCardsInOnePage) {
+                if (index < page * numItemCardsInOnePage) {
                   return (
                     <MItemCard
-                      key={`item-card-${value}`}
-                      hasAvatar={false}
-                      isLiked={false}
-                      isUsed={true}
-                      isListing={true}
-                      username="yanhanapple<3"
-                      title="Apple For Sale"
-                      onClick={onClick}
+                      id={id}
+                      key={`item-card-${id}`}
+                      avatarPath={avatarPath}
+                      isLiked={liked}
+                      isUsed={!value.new}
+                      isListing={status === 'OPEN'}
+                      username={userName}
+                      title={name}
+                      onClick={() => router.push(`/item/${id}`)}
+                      imagePath={imagePath}
                     />
                   );
                 }
@@ -38,14 +50,14 @@ const MItemListingContainer: FC<MItemListingContainerProps> = ({ isDataLoaded, o
               }
               return (
                 <MItemCard
-                  key={`item-card-${value}`}
-                  hasAvatar={false}
+                  id={12}
+                  key={`item-card-${index}`}
                   isLiked={false}
                   isUsed={true}
                   isListing={true}
                   username="yanhanapple<3"
                   title="Apple For Sale"
-                  onClick={onClick}
+                  onClick={() => {}}
                 />
               );
             })

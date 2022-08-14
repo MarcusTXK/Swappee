@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { ROUTES, API } from '../config/api';
 import { loginSuccess, loginFailed, getItemListSuccess, getItemListFailed } from './actions';
 import { actionTypes, Login } from './interfaces';
