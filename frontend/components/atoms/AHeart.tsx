@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
@@ -7,9 +7,7 @@ interface AHeartProps {
   isLiked: boolean;
 }
 
-
 const AHeart: FC<AHeartProps> = ({ onClick, isLiked, ...other }) => {
-
   return (
     <div>
       {isLiked ? (

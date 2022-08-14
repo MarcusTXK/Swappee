@@ -9,7 +9,7 @@ const categories = ['Video games', 'Books'];
 const MItemDetails = () => {
   const router = useRouter();
   const { itemId } = router.query;
-  const item = useSelector((state: AppState) => state.items.find((item) => item.id == parseInt(itemId as string)));
+  const item = useSelector((state: AppState) => state.items.find((item) => item.id === parseInt(itemId as string)));
 
   return (
     <Box className="m-item-details">

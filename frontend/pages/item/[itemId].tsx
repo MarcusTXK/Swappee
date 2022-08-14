@@ -4,11 +4,11 @@ import MItemDetails from 'components/molecules/MItemDetails';
 import ODetailedItemMiddle from 'components/organisms/ODetailedItemMiddle';
 import OOpenOfferItemDialog from 'components/organisms/OOpenOfferItemDialog';
 import OLeaveMessageDialog from 'components/organisms/OLeaveMessageDialog';
-import MCarousel from '../../components/molecules/MCarousel';
 import { useRouter } from 'next/dist/client/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from 'redux-saga/interfaces';
 import { getItemList } from 'redux-saga/actions';
+import MCarousel from '../../components/molecules/MCarousel';
 
 const DetailedItem = () => {
   const router = useRouter();

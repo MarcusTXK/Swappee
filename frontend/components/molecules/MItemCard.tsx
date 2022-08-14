@@ -1,4 +1,4 @@
-import React, { FC, MouseEventHandler, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Box, Typography } from '@material-ui/core';
 import img from 'public/placeholder.jpg';
 import Image from 'next/image';
@@ -6,7 +6,6 @@ import MUserName from 'components/molecules/MUserName';
 import AHeart from 'components/atoms/AHeart';
 import { useSelector } from 'react-redux';
 import { AppState } from 'redux-saga/interfaces';
-import { API, ROUTES } from 'config/api';
 
 interface MItemCardProps {
   id: number;

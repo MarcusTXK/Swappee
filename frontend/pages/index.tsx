@@ -23,10 +23,7 @@ import others from '../public/categories/others.jpg';
 const Home = () => {
   const [isLogin, setLogin] = useState(true);
   const [pagesShown, setPagesShown] = useState(1);
-  const {
-    user: { token },
-    items,
-  } = useSelector((state: AppState) => state);
+  const { items } = useSelector((state: AppState) => state);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getItemList());
