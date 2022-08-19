@@ -16,13 +16,13 @@ const MProfileMenu: FC<MProfileMenuProps> = ({
     <ButtonGroup orientation="vertical" className="m-profilemenu">
       <Button
         onClick={() => handleClickEditProfile()}
-        className={page == 'edit_profile' ? 'm-profilemenu__selectedbutton' : ''}
+        className={page === 'edit_profile' ? 'm-profilemenu__selectedbutton' : ''}
       >
         Edit Profile
       </Button>
       <Button
         onClick={() => handleClickChangePassword()}
-        className={page == 'change_password' ? 'm-profilemenu__selectedbutton' : ''}
+        className={page === 'change_password' ? 'm-profilemenu__selectedbutton' : ''}
       >
         Change Password
       </Button>

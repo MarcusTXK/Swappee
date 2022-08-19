@@ -61,15 +61,8 @@ const OAppBar = () => {
   const otherUsersData = useSelector((state: AppState) => state.otherUsersData);
   const dispatch = useDispatch();
 
-  const handleClick = () => {
-    dispatch(getOtherUser({ username: 'tayyantay', otherUsersData: otherUsersData }));
-  };
-
   return (
     <Box>
-      <Button onClick={handleClick}>Click me</Button>
-      <Box>{otherUserData.id}</Box>
-      <Box>{otherUserData.username}</Box>
       <AppBar color="default" position="static" className="o-appbar">
         <Toolbar>
           <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap" spacing={2}>

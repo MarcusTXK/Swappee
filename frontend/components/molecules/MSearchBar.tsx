@@ -1,9 +1,15 @@
-import { useRef, useState, MouseEvent, ChangeEvent } from 'react';
+import { useRef, useState, MouseEvent, FC } from 'react';
 import { Button, TextField, MenuList, MenuItem, Divider, ButtonGroup, Popper, Paper } from '@material-ui/core';
 import { Search, ArrowDropDown } from '@material-ui/icons';
 
-const MSearchBar = () => {
-  const [search, setSearch] = useState<String>('');
+interface MSearchBarProps {
+  variant?: string;
+  input?: string;
+  handleInput?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSearch?: (event: MouseEvent<HTMLButtonElement>) => void;
+}
+
+const MSearchBar: FC<MSearchBarProps> = ({ variant = '', input, handleInput, handleSearch, ...other }) => {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -17,25 +23,34 @@ const MSearchBar = () => {
     setOpen(false);
   };
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value);
-  };
-
-  const handleSearch = (event: MouseEvent<HTMLElement>) => {
-    alert('<3');
-  };
-
   const options = ['Item', 'User'];
-
-  return (
+  return variant === 'profile_page' ? (
     <TextField
-      value={search}
+      value={input}
+      className="m-searchbar"
+      variant="outlined"
+      placeholder="Search"
+      size="small"
+      onChange={handleInput}
+      InputProps={{
+        endAdornment: (
+          <>
+            <Divider orientation="vertical" />
+            <Button className="m-searchbar__searchbutton" onClick={handleSearch}>
+              <Search />
+            </Button>
+          </>
+        ),
+      }}
+    />
+  ) : (
+    <TextField
+      value={input}
       className="m-searchbar"
       variant="outlined"
       placeholder={`Search by ${options[selectedIndex]}`}
       size="small"
-      fullWidth
-      onChange={handleChange}
+      onChange={handleInput}
       InputProps={{
         endAdornment: (
           <>
